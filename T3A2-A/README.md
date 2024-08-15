@@ -2,7 +2,7 @@
 
 Documentation by Michael Sheppard and Tom Tutone
 
-## R1 Description of your website, including:
+## R1 Description of your website, including
 
 - Purpose
 - Functionality / features
@@ -46,19 +46,27 @@ This diagram describes the different entities recorded in the database:
 
 A User account has a one to many relationship with Pets and Appointments. Both Pets and Vets have a one to many relationship with Appointments. This database structure allows for easy querying and populating.
 
+The database is configured with an API which serves data according to the following endpoints:
+
+![A diagram descibing the different endpoints of the back end's server](/T3A2-A/docs/pawfect-care-api-diagram.drawio.png)
+
+These endpoints allow for complete CRUD functionality for the database's different entities.
+
 In regards to dataflow, the central exchange of the application is a user's ability to book appointments. This diagram describes the dataflow for this process:
 
+**Appointment Booking Dataflow**
 ![A dataflow diagram describing the appointment booking process](/T3A2-A/docs/pawfect-care-v2-appointment-booking-df-diagram.drawio.png)
 
 First, the user makes a request for the available appointment data which is retrieved from the database. The available appointments are presented to the user based on which appointments are booked in the database and the user chooses an appointment from these options. Because a user can engage the booking process with or without being logged in, the data transferred between steps can vary, but ultimately, the user must be logged in so that they can link one of their registered pets (or yet to be registered pets) to the appointment. Once the appointment object is completely filled in with the user's ID, a vet ID, a pet ID and the date and time, it is sent to the database to be recorded. Confirmation from the database is forwarded to the user.
 
 Updating an appointment is a similar process to creating a new appointment only, because the user must inherently be logged in, their appointment data and ID are carried through the steps:
 
+**Database Update Dataflow**
 ![A dataflow diagram describing the appointment update process](/T3A2-A/docs/pawfect-care-v2-appointment-update-df-diagram.drawio.png)
 
 Essentially, updating an appointment is very similar to scheduling one, however, at the final step, the new appointment is saved and the old appointment is deleted at the same time.
 
-### More dataflow diagrams to come!
+### More dataflow diagrams to come
 
 ## R3 Application Architecture Diagram /6
 
@@ -68,11 +76,6 @@ The website can be broken down into the front end, back end and data layers whic
 
 ## R4 User Stories /6
 
-
-
 ## R5 Wireframes for multiple standard screen sizes, created using industry standard software /6
 
-
-
 ## R6 Screenshots of your Trello (or similar kanban system) board throughout the duration of the project /6
-
