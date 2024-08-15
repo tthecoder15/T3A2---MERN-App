@@ -72,7 +72,7 @@ Essentially, updating an appointment is very similar to scheduling one, however,
 
 The website can be broken down into the front end, back end and data layers which will be created using the MERN stack (MongoDB, Express, React and Node.js). The front end will utilise a React framework using Vite for bundling. The back end will utilise an Express framework and Mongoose schemas for handling requests to the data layer and to deliver retrieved data to the front end. The back end will be executed within a Node.js environment.  Centrally, the database will be NoSQL and hosted using MongoDB's cloud service.
 
-![A diagram explaining out tech stack containing React for the frontend, Node.js and Express for the back end and MongoDB for the database layer](/T3A2-A/docs/Application%20Architecture%20Diagram.drawio%20(1).drawio.png)
+![A diagram explaining out tech stack containing React for the frontend, Node.js and Express for the back end and MongoDB for the database layer](/T3A2-A/docs/pawfect-care-aa--diagram.drawio.png)
 
 ## R4 User Stories /6
 
