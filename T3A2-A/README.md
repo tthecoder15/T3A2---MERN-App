@@ -15,7 +15,7 @@ A hypothetical Melbourne veterinary clinic, _Pawfect Care_.
 
 **Purpose:**
 
-_Pawfect Care_ is a family-run business that wants to create a website to advertise its services and allow customers to book appointments online. The website will allow users to create an account, register their pet and select bookings from available appointment slots. With their account, users can access an update future appointments and view their history of appointments. The clinic's admin users can user the account data to adjust appointments for clients over the phone and search patient history as well.
+_Pawfect Care_ is a family-run business that wants to create a website to advertise its services and allow booking appointments online. The website will allow users to create an account, register their pet and select bookings from available appointment slots. With their account, users can access an update future appointments and view their history of appointments. The clinic's admin users can user the account data to adjust appointments for clients over the phone and search patient history as well.
 
 **Functionality/Features:**
 
@@ -103,40 +103,6 @@ The website can be broken down into the front end, back end and data layers whic
 ![A diagram explaining out tech stack containing React for the frontend, Node.js and Express for the back end and MongoDB for the database layer](/T3A2-MERN-App/T3A2-A/docs/pawfect-care-aa--diagram.drawio.png)
 
 ## R4 User Stories /6
-
-When designing the _Pawfect Care_ website, it is important to cater to the business' varying user demographics. Notably, because a veterinary clinic has clients from diverse backgrounds, it is important to account for different levels of technology literacy.
-
-The following are imagined users and scenarios that impact how they interact with the website.
-
-1. Mary is a dog owner who has been a client of Pawfect Care for 8 years. She has typically booked her appointments by phoning the clinic but finds it difficult to conceptualise the free appointment slots described to her over the phone. She wants to use the clinic’s website to see available appointment times clearly and register her pet for check-ups without phoning in.
-
-    _As a loyal Pawfect Care customer, I want to be able to book appointments online with my choices clearly displayed so that I do not have to call in and deal with miscommunication._
-
-2. Dave is a cat owner who has just moved to Melbourne and is looking for a vet. He sees the _Pawfect Care_ clinic on his drive to work and wants to find out about the clinic’s services to gauge if he should book in his cat for an appointment.
-
-    _As a potential customer, I want to read about Pawfect Care's services and vets online so that I can decide if I should book an appointment._
-
-3. Kyle is dogsitting for his friend. He returned home to find the dog he is looking after distressed, with a rash on its paw and he wants to get it checked at the local vet as soon as possible.
-
-    _As a user with no patient history, I want to be able to easily book a check-up for my pet as soon as possible._
-
-4. Miriam is a cat owner who has recently begun using Pawfect Care’s services. She wants to record the clinic’s contact information and wants to keep track of her upcoming and past appointments.
-
-    _As a user, I want to be able to be able to see my upcoming and past appointment data so that I can track my pet's check-up history easily._
-
-5. Bruce is _Pawfect Care's_ "tech guy". He wants to be able to monitor the site's bookings and lookup a user's appointment history as well.
-
-    _As an admin user, I want to be able to query the appointment database easily so that I can answer client booking questions and track the day-to-day schedule of the clinic._
-
-6. Janette is a lizard owner who wants to change vets to a closer clinic. She wants to contact multiple clinics to see if they have experts to cater for her beloved pet.
-
-    _As a potential client, I want to be able to contact the clinic via a message service so that I can ask questions without speaking on the phone._
-
-7. Noel is a client of _Pawfect Care_ who is worried that the transition to online booking will be frustrating. He want assurance he can update appointments and login credentials easily.
-
-    _As a Pawfect Care client, I want to be able to update appointments and change account details easily so that the online service is no worse than speaking on the phone._
-
-These scenarios describe a lot of common use cases for the _Pawfect Care_ website and help guide the design process to ensure that the website has all neccessary features.
 
 ## R5 Wireframes for multiple standard screen sizes, created using industry standard software /6
 
