@@ -140,4 +140,10 @@ These scenarios describe a lot of common use cases for the _Pawfect Care_ websit
 
 ## R5 Wireframes for multiple standard screen sizes, created using industry standard software /6
 
+### 1. Navbar and Footer
+
+![A wireframe diagram of the header and footer elements of the website](/T3A2-MERN-App/T3A2-A/)
+
+1. 
+
 ## R6 Screenshots of your Trello (or similar kanban system) board throughout the duration of the project /6
