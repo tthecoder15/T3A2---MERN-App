@@ -140,6 +140,12 @@ These scenarios describe a lot of common use cases for the _Pawfect Care_ websit
 
 ## R5 Wireframes for multiple standard screen sizes, created using industry standard software /6
 
+The website's various front end routes are described by this diagram:
+
+![A diagram depicting the different front end routes for the website](./docs/pawfect-care-endpoints-diagram.drawio.png)
+
+Routes represent the different pages that the user will be able to access and their features.
+
 ### Menus
 
 ![Navbar, footer, and mobile/tablet hamburger menus wireframe diagrams](./docs/wf-extras.JPG)
