@@ -252,4 +252,13 @@ Routes represent the different pages that the user will be able to access and th
 
 ## R6 Screenshots of your Trello (or similar kanban system) board throughout the duration of the project /6
 
-[Kanban Board](https://trello.com/b/dlt2E3Mm/full-stack-app)
+### [Pawfect Care Trello Board](https://trello.com/b/dlt2E3Mm/full-stack-app)
+
+### 11/08/2024 First Trello Screenshot
+![11/08/2024](./docs/Trello-11-08-2024.JPG)
+
+### 14/08/2024 Second Trello Screenshot
+![14/08/2024](./docs/Trello-14-08-2024.JPG)
+
+### 17/08/2024 Final Trello Screenshot for Part A
+![17/08/2024](./docs/Trello-17-08-2024.JPG)
