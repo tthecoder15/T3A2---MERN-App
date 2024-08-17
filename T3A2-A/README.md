@@ -141,15 +141,24 @@ These scenarios describe a lot of common use cases for the _Pawfect Care_ websit
 
 ## R5 Wireframes for multiple standard screen sizes, created using industry standard software /6
 
-### 1. Header and Footer
-
-![The wireframe diagram for the website header and footer](/T3A2-MERN-App/T3A2-A/docs/)
-
-1. 
-
-### 2. Home Page
-
-![The wireframe diagram for the home page for desktop, tablet and mobile dimensions](/T3A2-MERN-App/T3A2-A/docs/)
+### Menus
+![Nav bar, footer, and mobile/tablet hamburger menus](./docs/wf-extras.JPG)
+### Home
+![Desktop, tablet and mobile home page](./docs/wf-home.JPG)
+### Our Vets
+![Desktop, tablet and mobile our vets page](./docs/wf-vets.JPG)
+### Contact Us
+![Desktop, tablet and mobile contact us page](./docs/wf-contact-us.JPG)
+### Forgot Password
+![Desktop, tablet and mobile forgotten password page](./docs/wf-forgot-pass.JPG)
+### Login/Register
+![Desktop, tablet and mobile login/register page](./docs/wf-login-register.JPG)
+### User Account
+![Desktop, tablet and mobile my account page](./docs/wf-user-account.JPG)
+### Booking
+![Desktop, tablet and mobile booking page](./docs/wf-booking.JPG)
+### Admin Controls
+![Desktop, tablet and mobile admin controls page](./docs/wf-admin-controls.JPG)
 
 1. 
 
