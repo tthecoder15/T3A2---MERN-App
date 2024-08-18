@@ -1,15 +1,15 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import NavBar from './NavBar'
-import Home from './Home'
-import Team from './Team'
-import Contact from './Contact'
-import ForgotPass from './ForgotPass'
-import Login from './Login'
-import MyAcc from './MyAcc'
-import Booking from './Booking'
-import Admin from './Admin'
-import Footer from './Footer'
+import NavBar from './components/NavBar'
+import Home from './routes/Home'
+import Team from './routes/Team'
+import Contact from './routes/Contact'
+import ForgotPass from './routes/ForgotPass'
+import Login from './routes/Login'
+import MyAcc from './routes/MyAcc'
+import Booking from './routes/Booking'
+import Admin from './routes/Admin'
+import Footer from './components/Footer'
 
 const App = () => {
   return (
@@ -23,10 +23,10 @@ const App = () => {
           <Route path="forgotpassword" element={<ForgotPass />} />
           <Route path="login" element={<Login />} />
           <Route path="myaccount" element={<MyAcc />} />
+          <Route path="admin" element={<Admin />} />
         </Route>
         <Route path="/booking" element={<Booking />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path='*' element={<h3>Page not found..</h3>} />
+        <Route path='*' element={<h3 className="contentFrame">Page not found..</h3>} />
       </Routes>
       <Footer />
     </>
