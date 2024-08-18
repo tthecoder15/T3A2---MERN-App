@@ -1,17 +1,15 @@
 import React from 'react'
+import Carousel from '../components/Home/Carousel'
 
 const Home = () => {
-
-  const Carousel = ({ slider }) => {
-    
-  }
-
     return (
         <>
         <div className="contentFrame">
           <h2>Pawfect Care</h2>
+            <div className="slide-content">
+              <Carousel />
+            </div>
           <ul>
-            <li>News Scrolling Nav</li>
             <li>Service buttons</li>
             <li>Service content</li>
           </ul>
