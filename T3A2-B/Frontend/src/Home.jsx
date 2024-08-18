@@ -1,6 +1,11 @@
 import React from 'react'
 
 const Home = () => {
+
+  const Carousel = ({ slider }) => {
+    
+  }
+
     return (
         <>
         <div className="contentFrame">
