@@ -56,7 +56,7 @@ These endpoints allow for complete CRUD functionality for the database's differe
 
 There are a variety of processes that require data to be passed between website users, their session state and the website's database.
 
-The following dataflow diagrams adhere to Yourdon & Demarco's dataflow diagram notation conventions:
+The following dataflow diagrams adhere to Yourdon & Demarco's dataflow diagram notation conventions (Woodman, 1988):
 
 ![An image explaining Yourdon & Demarco's dataflow diagram conventions](./docs/df-diagram-key.drawio.png)
 
@@ -95,6 +95,10 @@ Essentially, updating an appointment is very similar to scheduling one, however,
 Within the app, admin accounts can access an endpoint to search for different instance data including Users, Pets and Appointments. The dataflow for this process is simply described as such:
 
 ![A dataflow diagram describing the appointment update process](./docs/pawfect-care-search-df.drawio.png)
+
+#### References
+
+Woodman, M. (1988) ‘Yourdon dataflow diagrams: A tool for disciplined requirements analysis’, _Information and Software Technology_, 30(9), pp. 515-533. 10.1016/0950-5849(88)90131-0.
 
 ## R3 Application Architecture Diagram /6
 
@@ -184,7 +188,7 @@ The routes listed explain the different functionality of each page and the diffe
 2. Webpage links - links that direct the user to the website's various endpoints
 3. Copyright information - additional legal information
 
-#### Desktop Menu Overlay
+#### Tablet Menu Overlay
 
 1. Login/Register button - redirects the user to the Login/Register page
 2. Menu buttons - buttons to direct the user around the website clearly
