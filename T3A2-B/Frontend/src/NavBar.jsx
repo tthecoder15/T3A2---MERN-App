@@ -23,6 +23,9 @@ const NavBar = () => {
                         <Link className="navbar-item" to="/booking" >Book Now</Link>
                         <Link className="navbar-item" to="/contact" >Contact Us</Link>
                     </div>
+                    <div className="navbar-start">
+                        <Link className="navbar-item" to="/user/login" >Login/Register</Link>
+                    </div>
                 </div>
             </nav>
         </>

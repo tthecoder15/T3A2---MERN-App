@@ -23,10 +23,10 @@ const App = () => {
           <Route path="forgotpassword" element={<ForgotPass />} />
           <Route path="login" element={<Login />} />
           <Route path="myaccount" element={<MyAcc />} />
+          <Route path="admin" element={<Admin />} />
         </Route>
         <Route path="/booking" element={<Booking />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path='*' element={<h3>Page not found..</h3>} />
+        <Route path='*' element={<h3 className="contentFrame">Page not found..</h3>} />
       </Routes>
       <Footer />
     </>
