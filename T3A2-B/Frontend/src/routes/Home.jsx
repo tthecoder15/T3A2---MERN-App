@@ -1,5 +1,6 @@
 import React from 'react'
 import Carousel from '../components/Home/Carousel'
+import ServicesButtons from '../components/Home/Services'
 
 const Home = () => {
     return (
@@ -10,8 +11,7 @@ const Home = () => {
               <Carousel />
             </div>
           <ul>
-            <li>Service buttons</li>
-            <li>Service content</li>
+            <ServicesButtons />
           </ul>
         </div>
         </>
