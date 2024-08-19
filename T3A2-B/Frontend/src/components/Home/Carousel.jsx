@@ -1,29 +1,47 @@
 import React from 'react';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
+import Carousel from 'react-bootstrap/Carousel';
 
-const Carousel = () => {
-
+function DarkVariantExample() {
   return (
-    <CarouselProvider 
-     naturalSlideWidth={100}
-     naturalSlideHeight={120}
-     totalSlides={3}
-    >
-
-    <Slider className="carousel-card-outline">
-      <Slide index={0}>
-        <div className>
-            There will be an image here:  After that I want to include a bunch of news text to describe the image and say whats happening in the industry.
+    <Carousel data-bs-theme="dark">
+      <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://placehold.co/600x400"
+            alt="First slide"
+          />
+        <Carousel.Caption>
+          <h5>First slide label</h5>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item interval={10000}>
+        <div className="d-flex">
+          <img
+            className="d-block w-50"
+            src="https://placehold.co/600x400"
+            alt="Second slide"
+          />
+          
+        <Carousel.Caption>
+          <h5>Second slide label</h5>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
         </div>
-      </Slide>
-      <Slide index={1}>Slide 2</Slide>
-      <Slide index={2}>Slide 3</Slide>
-    </Slider>
-
-    <ButtonBack>Back</ButtonBack>
-    <ButtonNext>Next</ButtonNext>
-   </CarouselProvider>
+      </Carousel.Item>
+      <Carousel.Item >
+          <img
+            className="d-block w-100"
+            src="https://placehold.co/600x400"
+            alt="Third slide"
+          />
+        <Carousel.Caption>
+          <h5>Third slide label</h5>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
   );
-};
-export default Carousel;
+}
+
+export default DarkVariantExample;

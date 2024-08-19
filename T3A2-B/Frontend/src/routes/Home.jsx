@@ -6,7 +6,7 @@ const Home = () => {
         <>
         <div className="contentFrame">
           <h2>Pawfect Care</h2>
-            <div className="slide-content">
+            <div>
               <Carousel />
             </div>
           <ul>
