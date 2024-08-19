@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <>
         <div className="contentFrame">
-          <h2>Pawfect Care</h2>
+          <h1>Pawfect Care</h1>
             <div>
               <Carousel />
             </div>
