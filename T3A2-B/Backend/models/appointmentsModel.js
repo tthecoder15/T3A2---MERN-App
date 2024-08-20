@@ -5,7 +5,7 @@ const appointmentSchema = new Schema({
     vetId: {type: mongoose.Types.ObjectId, required: true, ref: 'Vet'},
     petId: {type: mongoose.Types.ObjectId, required: true, ref: 'Pet'},
     date: {type: Date, required: true},
-    appointmentType: {type: String, required: true, enum: ['check-up', 'dental', 'vaccination', 'surgery', 'other']} 
+    appointmentType: {type: String, required: true, enum: {values: ['check-up', 'dental', 'vaccination', 'surgery', 'other'], message: "Appointment type must be one of 'check-up', 'dental', 'vaccination', 'surgery' or 'other'."}} 
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema)

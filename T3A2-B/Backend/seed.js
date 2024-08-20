@@ -10,10 +10,10 @@ async function seedDatabase() {
         await dbConnect();
 
         const seedUsers = [
-            { email: "johnseesstars@gmail.com", password: "starrynight", firstName: "John", lastName: "Starsson", isAdmin: false},
-            { email: "marylou@gmail.com", password: "marymare", firstName: "Mary", lastName: "Knights", isAdmin: false},
-            { email: "jerry-d@gmail.com", password: "jerryDon", firstName: "Jerry", lastName: "Donald", isAdmin: false},
-            { email: "pawfectcare@gmail.com", password: "admin123", firstName: "Admin", lastName: "Adminson", isAdmin: true}
+            { email: "johnseesstars@gmail.com", password: "starrynight", firstName: "John", lastName: "Starsson", isAdmin: false, phNumber: '0411222333'},
+            { email: "marylou@gmail.com", password: "marymare", firstName: "Mary", lastName: "Knights", isAdmin: false, phNumber: '0422333444'},
+            { email: "jerry-d@gmail.com", password: "jerryDon", firstName: "Jerry", lastName: "Donald", isAdmin: false, phNumber: '0433444555'},
+            { email: "pawfectcare@gmail.com", password: "admin123", firstName: "Admin", lastName: "Adminson", isAdmin: true, phNumber: '0444444444'}
         ];
 
         await User.deleteMany();
@@ -22,10 +22,10 @@ async function seedDatabase() {
         console.log("Users seeded");
        
         const seedPets = [
-            { userId: savedUsers[0]._id, name: "Captain Wiggles", birthYear: 2015, breed: "Labrador", animalType: "dog"},
-            { userId: savedUsers[1]._id, name: "Senorita Awesome", birthYear: 2023, breed: "Blue Russian", animalType: "cat"},
-            { userId: savedUsers[2]._id, name: "Mr Nibbles", birthYear: 2023, breed: "Rat", animalType: "other"},
-            { userId: savedUsers[2]._id, name: "Ms Bites-a-lot", birthYear: 2023, breed: "Rat", animalType: "other"}
+            { userId: savedUsers[0]._id, petName: "Captain Wiggles", birthYear: 2015, breed: "Labrador", animalType: "dog"},
+            { userId: savedUsers[1]._id, petName: "Senorita Awesome", birthYear: 2023, breed: "Blue Russian", animalType: "cat"},
+            { userId: savedUsers[2]._id, petName: "Mr Nibbles", birthYear: 2023, breed: "Rat", animalType: "other"},
+            { userId: savedUsers[2]._id, petName: "Ms Bites-a-lot", birthYear: 2023, breed: "Rat", animalType: "other"}
         ];
         
         await Pet.deleteMany();
@@ -34,9 +34,9 @@ async function seedDatabase() {
         console.log("Pets seeded");
 
         const seedVets = [
-            { vetName: "Dr Joan Rosenthaal"},
-            { vetName: "Dr Emily Broomthrup"},
-            { vetName: "Dr Nic Lyles"}
+            { vetName: "Dr Riley Kim"},
+            { vetName: "Dr Ethan Walker"},
+            { vetName: "Dr Jess Taylor"}
         ];
         
         await Vet.deleteMany();
@@ -45,15 +45,16 @@ async function seedDatabase() {
         console.log("Vets seeded");
 
         const seedAppointments = [
-            { userId: savedUsers[0]._id, vetId: savedVets[0]._id, petId: savedPets[0]._id, date: new Date(2024, 12, 1, 10, 30), appointmentType: "check-up" },
-            { userId: savedUsers[1]._id, vetId: savedVets[0]._id, petId: savedPets[1]._id, date: new Date(2024, 12, 1, 10, 0), appointmentType: "vaccination" },
+            { userId: savedUsers[0]._id, vetId: savedVets[0]._id, petId: savedPets[0]._id, date: new Date("2024-12-01T10:30"), appointmentType: "check-up" },
+            { userId: savedUsers[1]._id, vetId: savedVets[0]._id, petId: savedPets[1]._id, date: new Date(2024, 12, 1, 10, 0, 0), appointmentType: "vaccination" },
             { userId: savedUsers[2]._id, vetId: savedVets[1]._id, petId: savedPets[2]._id, date: new Date(2024, 12, 1, 9, 0), appointmentType: "check-up" },
             { userId: savedUsers[2]._id, vetId: savedVets[1]._id, petId: savedPets[3]._id, date: new Date(2024, 12, 1, 9, 15), appointmentType: "check-up" }
         ];
 
         console.log('YAR THIS BE THE SEED APPOINTMENTS!', seedAppointments)
-        
-                let savedAppointments= await Appointment.insertMany(seedAppointments);
+        await Appointment.deleteMany();
+        console.log("Previously recorded Appointments dropped");
+        let savedAppointments= await Appointment.insertMany(seedAppointments);
         console.log("Appointments seeded");
 
         // Add appointments to pets

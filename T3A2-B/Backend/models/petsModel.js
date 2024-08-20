@@ -2,10 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 const petSchema = new Schema({
     userId: {type: mongoose.Types.ObjectId, required: true, ref: 'User'},
-    name: {type: String, required: true},
+    petName: {type: String, required: true},
     birthYear: {type: Number, required: true},
     breed: {type: String, required: true},
-    animalType: {type: String, required: true, enum: ['dog', 'cat', 'other']},
+    animalType: {type: String, required: true, enum: {values: ['dog', 'cat', 'other'], message: "animalType must be one of 'dog', 'cat' or 'other'."}},
     appointments: [{type: mongoose.Types.ObjectId, ref: 'Appointment'}],
 });
 
