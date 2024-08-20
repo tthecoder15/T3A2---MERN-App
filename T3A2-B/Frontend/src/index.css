@@ -8,10 +8,12 @@ body {
   margin-left: 20rem;
   margin-right: 15rem;
   margin-top:0;
+  padding-bottom:2rem;
   padding-top:5rem;
   padding-left:20rem;
   padding-right:15rem;
 }
+
 
 /* Prefill Navbar.  Change later */
 
@@ -87,11 +89,6 @@ footer div p:first-child {
   flex: 1;
 }
 
-footer div li {
-  flex-direction: row;
-  margin: 5px;
-  list-style: none;
-}
 
 footer div p:last-child {
   flex: 1; /* Takes up available space */

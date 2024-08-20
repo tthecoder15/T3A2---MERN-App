@@ -19,6 +19,7 @@ const NavBar = () => {
                         <Link to="/ourteam" >Our Team</Link>
                         <Link to="/booking" >Book Now</Link>
                         <Link to="/contact" >Contact Us</Link>
+                        <Link to="/user/myaccount" >TEMP BUTTON TO ACCOUNT</Link>
                     </div>
                     <div>
                         <Link className="login" to="/user/login" >Login/Register</Link>
