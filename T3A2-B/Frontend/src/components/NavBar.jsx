@@ -6,8 +6,11 @@ const NavBar = () => {
         <>
             <nav>
                 <div>
-                    <Link to="/">
-                        <h1>---Insert PAWFECT CARE Icon---</h1>
+                    <Link className="navLogo" to="/">
+                        <img
+                            src="../docs/logo-and-art/PC-logo-ellipsis.png"
+                            alt="Navbar Logo"
+                        />
                     </Link>
                 </div>
                 <div>

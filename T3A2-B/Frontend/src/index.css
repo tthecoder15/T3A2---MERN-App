@@ -13,26 +13,32 @@ body {
   padding-right:15rem;
 }
 
+/* Prefill Navbar.  Change later */
+
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #f0f8ff; /* Light blue background */
+  background-color: #9CDBFF; 
 }
 
-nav div:first-child {
+.navLogo {
   display: flex;
   align-items: center;
 }
 
 .login {
   display: flex;
-  gap: 20px;
+  background-color: #C2EDF6;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 nav a {
-  color: #336699; /* Light blue text color */
+  color: #000000; /* Light blue text color */
   text-decoration: none;
   padding: 10px;
   border-radius: 5px;
@@ -42,10 +48,68 @@ nav a:hover {
   background-color: #e0f2ff; /* Lighter blue on hover */
 }
 
-nav a:last-child {
-  background-color: #336699;
-  color: white;
-  padding: 10px 20px;
+nav img {
+  margin-top: -2rem;
+  margin-bottom: -2rem;
+  width: 10rem;
+  height: 6rem;
+}
+
+/* Prefill footer.  Change later */
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Adjust for vertical alignment if needed */
+  padding: 1rem;
+  background-color: #676767;  /* Light blue background (optional) */
+  color: #ffffff;
+}
+
+footer a {
+  color: #ffffff; /* White text color */
+  text-decoration: underline;
+  padding: 10px;
   border-radius: 5px;
-  cursor: pointer;
+}
+
+footer a:hover {
+  color: #44961d; /* White text color on hover */
+}
+
+footer div {
+  display: flex;
+  flex-wrap: wrap; /* Allows content to wrap if needed */
+  width: 60%; /* Adjust width as needed */
+}
+
+footer div p:first-child {
+  flex: 1;
+}
+
+footer div li {
+  flex-direction: row;
+  margin: 5px;
+  list-style: none;
+}
+
+footer div p:last-child {
+  flex: 1; /* Takes up available space */
+  text-align: right;
+}
+
+footer a:last-child {  /* Logo link */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer p:last-child {
+  text-align: center; /* Copyright text centered */
+}
+
+footer img {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 10rem;
+  height: 6rem;
 }

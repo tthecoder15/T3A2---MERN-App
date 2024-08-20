@@ -7,23 +7,31 @@ const Footer = () => {
             <footer>
                 <div>
                     <p>
-                        Contact info
+                        <h5>Contact info</h5>
                         Address: 1 First St Melbourne
                         Email: Pawfect@care.com
                         Phone: 0412 345 678
                         After Hours Emergency:
                         0423 456 789
                     </p>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/ourteam">Our Team</Link></li>
-                    <li><Link to="/booking">Book Now</Link></li>
-                    <li><Link to="/contact">Contact Us</Link></li>
                     <p>
-                        Opening Hours:
+                        <h5>Website Links</h5>
+                        <Link to="/">Home</Link>
+                        <Link to="/ourteam">Our Team</Link>
+                        <Link to="/booking">Book Now</Link>
+                        <Link to="/contact">Contact Us</Link>
+                    </p>
+                    <p>
+                        <h5>Opening Hours:</h5>
                         Weekdays: 9am - 5pm
                         Weekends: Closed
                     </p>
-                    <Link to="/">LOGO</Link>
+                    <Link to="/">
+                        <img
+                            src="../docs/logo-and-art/PC-logo-square-text.png"
+                            alt="First slide"
+                        />
+                        </Link>
                     <p>
                         © Copyright Pawfect Care 2024
                     </p>
