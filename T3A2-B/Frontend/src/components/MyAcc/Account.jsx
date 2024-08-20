@@ -1,32 +1,9 @@
 import React, { useState } from 'react'
+import PersonalInformation from './PersonalInfo'
 
 const AccountSettings = () => {
   const [selectedSetting, setSelectedSetting] = useState('')
-  const [email, setEmail] = useState('')
-  const [confirmEmail, setConfirmEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value)
-    setErrorMessage('')
-  }
-
-  const handleConfirmEmailChange = (e) => {
-    setConfirmEmail(e.target.value)
-    setErrorMessage('')
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email !== confirmEmail) {
-        setErrorMessage('New email address does not match.')
-    }
-    if (password !== confirmPassword) {
-        setErrorMessage('New password does not match.')
-    }
-  }
 
   const handleButtonClick = (text) => {
     setSelectedSetting(text)
@@ -35,44 +12,7 @@ const AccountSettings = () => {
   const renderInputSection = () => {
     switch (selectedSetting) {
       case 'Personal Information':
-        return (
-          <div>
-            <h5>Personal Information</h5>
-            <input 
-                type="text" 
-                placeholder="Contact Number" 
-            />
-            <input 
-                type="email" 
-                placeholder="Email" 
-                value={email} 
-                onChange={handleEmailChange}
-            />
-            <input 
-                type="email" 
-                placeholder="Confirm Email" 
-                value={confirmEmail} 
-                onchange={handleConfirmEmailChange}
-            />
-            {errorMessage && <p>{errorMessage}</p>}
-            <input 
-                type="password" 
-                placeholder="Password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <input 
-                type="password" 
-                placeholder="Confirm Password" 
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target,value)}
-            />
-            {errorMessage && <p>{errorMessage}</p>}
-            <button 
-                type="submit"
-            >Update Information</button>
-          </div>
-        )
+        return <PersonalInformation />
       case 'Upcoming Appointments':
         return (
           <div>
@@ -108,7 +48,7 @@ const AccountSettings = () => {
             <h5>Personal Information</h5>
             <p>- Add info from API</p>
             <button onClick={() => handleButtonClick('Personal Information')}>
-                Update
+                Update Personal Information
             </button>
         </div>
         <div>
@@ -134,7 +74,7 @@ const AccountSettings = () => {
             </button>
         </div>
       </div>
-      <div>{selectedSetting && renderInputSection()}</div>
+      <div>{renderInputSection()}</div>
     </div>
   )
 }
