@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
   return (
         <>
-            <footer className="footer">
-                <div className="content has-text-centered">
+            <footer>
+                <div>
                     <p>
                         Contact info
                         Address: 1 First St Melbourne
