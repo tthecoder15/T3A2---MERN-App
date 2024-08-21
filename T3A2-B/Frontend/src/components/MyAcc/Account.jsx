@@ -48,7 +48,6 @@ const AccountSettings = () => {
             <button onClick={() => handleButtonClick('Upcoming Appointments')}>
                 Update
             </button>
-            <p>Add a delete button</p>
         </div>
         <div>
             <h5>Pet Information</h5>

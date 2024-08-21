@@ -19,7 +19,11 @@ const NavBar = () => {
                         <Link to="/ourteam" >Our Team</Link>
                         <Link to="/booking" >Book Now</Link>
                         <Link to="/contact" >Contact Us</Link>
-                        <Link to="/user/myaccount" >TEMP BUTTON TO ACCOUNT</Link>
+                    </div>
+                    <div>
+                    <Link to="/user/myaccount" >TEMP /user/myaccount</Link>
+                    <Link to="/user/forgotpassword" >TEMP /user/forgotpassword</Link>
+                    <Link to="/user/admin" >TEMP /user/admin</Link>
                     </div>
                     <div>
                         <Link className="login" to="/user/login" >Login/Register</Link>
