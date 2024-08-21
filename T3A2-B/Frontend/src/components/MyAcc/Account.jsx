@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import PersonalInformation from './PersonalInfo'
+import UpcomingAppointments from './UpcomingApps'
+import './Account.css'
+import PetInfo from './PetInfo'
 
 const AccountSettings = () => {
   const [selectedSetting, setSelectedSetting] = useState('')
@@ -14,24 +17,12 @@ const AccountSettings = () => {
       case 'Personal Information':
         return <PersonalInformation />
       case 'Upcoming Appointments':
-        return (
-          <div>
-            <h5>Upcoming Appointments</h5>
-            <input type="date" placeholder="Select appointment date" />
-            <input type="text" placeholder="Enter appointment details" />
-          </div>
-        )
+        return <UpcomingAppointments />
       case 'Pet Information':
-        return (
-          <div>
-            <h5>Pet Information</h5>
-            <input type="text" placeholder="Enter pet name" />
-            <input type="text" placeholder="Enter pet species" />
-          </div>
-        )
+        return <PetInfo />
       case 'Appointment History':
         return (
-          <div>
+          <div className="UpdateAccountBox">
             <h5>Appointment History</h5>
             <p>Display here all past appointments</p>
           </div>
@@ -43,11 +34,11 @@ const AccountSettings = () => {
 
   return (
     <div>
-      <div>
+      <div className="UpdateAccount">
         <div>
             <h5>Personal Information</h5>
             <p>- Add info from API</p>
-            <button onClick={() => handleButtonClick('Personal Information')}>
+            <button className="UpdateAccount" onClick={() => handleButtonClick('Personal Information')}>
                 Update Personal Information
             </button>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+
 const PersonalInformation = () => {
     const [email, setEmail] = useState('')
     const [confirmEmail, setConfirmEmail] = useState('')
@@ -59,47 +60,47 @@ const PersonalInformation = () => {
         }
     }
     return (
-        <div>
-        <h5>Personal Information</h5>
-        <p>Contact Number</p>
-        <input 
-            type="text" 
-            placeholder="Contact Number" 
-        />
-        <p>Email</p>
-        <input 
-            type="email" 
-            placeholder="Email" 
-            value={email} 
-            onChange={handleEmailChange}
-        />
-        <p>Confirm Email</p>
-        <input 
-            type="email" 
-            placeholder="Confirm Email" 
-            value={confirmEmail} 
-            onChange={handleConfirmEmailChange}
-        />
-        {emailErrorMessage && <p>{emailErrorMessage}</p>}
-        <p>Password</p>
-        <input 
-            type="password" 
-            placeholder="Password" 
-            value={password}
-            onChange={handlePasswordChange}
-        />
-        <p>Confirm Password</p>
-        <input 
-            type="password" 
-            placeholder="Confirm Password" 
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-        />
-        {passwordErrorMessage && <p>{passwordErrorMessage}</p>}
-        <button 
-            type="submit"
-            onClick={handleSubmit}
-        >Update Information</button>
+        <div className="UpdateAccountBox">
+            <h5>Personal Information</h5>
+            <p>Contact Number</p>
+            <input 
+                type="text" 
+                placeholder="Contact Number" 
+            />
+            <p>Email</p>
+            <input 
+                type="email" 
+                placeholder="Email" 
+                value={email} 
+                onChange={handleEmailChange}
+            />
+            <p>Confirm Email</p>
+            <input 
+                type="email" 
+                placeholder="Confirm Email" 
+                value={confirmEmail} 
+                onChange={handleConfirmEmailChange}
+            />
+            {emailErrorMessage && <p>{emailErrorMessage}</p>}
+            <p>Password</p>
+            <input 
+                type="password" 
+                placeholder="Password" 
+                value={password}
+                onChange={handlePasswordChange}
+            />
+            <p>Confirm Password</p>
+            <input 
+                type="password" 
+                placeholder="Confirm Password" 
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+            />
+            {passwordErrorMessage && <p>{passwordErrorMessage}</p>}
+            <button 
+                type="submit"
+                onClick={handleSubmit}
+            >Update Information</button>
         </div>
     )
 }
