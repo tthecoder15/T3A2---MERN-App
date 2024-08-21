@@ -4,12 +4,38 @@ import { User } from "../models/usersModel.js"
 import { Pet } from "../models/petsModel.js"
 import { Appointment } from "../models/appointmentsModel.js"
 import { Vet } from '../models/vetsModel.js'
+import jwt from 'jsonwebtoken'
+import { dotenv } from "../db.js"
 
 const router = Router()
 const usersPrefix = '/users'
 
+// Login
+// Generate JWT
+router.post(`${usersPrefix}/login`, async (req, res, next) => {
+    // req.body
+    let { email, password } = req.body
+    try {
+        let user = await User.findOne({'email': email, 'password': password})
+        if (user) {
+            let token = jwt.sign({
+                userId: user._id,
+                email: user.email
+            }, process.env.JWT_SECRET_KEY, { expiresIn: '1h'})
+            res.status(200).send({JWT: token})
+        }
+        else {
+            throw {"error/s": ["login-error"], "login-error": "Incorrect email or password provided. Please try again"}
+        }
+    }
+    catch (err) {
+        next(err)
+    }
+})
+
 // Get list of users
 router.get(`${usersPrefix}`, async (req, res, next) => {
+    
     res.send(await User.find({}, ('-password -__v')).populate('pets', '-appointments -__v -userId').populate('appointments', '-userId -vetId -petId -__v'))
 })
 

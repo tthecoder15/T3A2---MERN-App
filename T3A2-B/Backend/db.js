@@ -14,4 +14,4 @@ async function dbConnect(){
     }
 }
 
-export { dbConnect }
+export { dotenv, dbConnect }
