@@ -4,12 +4,13 @@ import { User } from "../models/usersModel.js"
 import { Pet } from "../models/petsModel.js"
 import { Appointment } from "../models/appointmentsModel.js"
 import { Vet } from '../models/vetsModel.js'
+import errorFormatter from "./errorHandler.js"
 
 const router = Router()
 const petsPrefix = '/pets'
 
 // Get list of pets
-router.get(`${petsPrefix}`, async (req, res) => {
+router.get(`${petsPrefix}`, async (req, res, next) => {
     res.send(await Pet.find({}, '-__v').populate({
         path: 'appointments',
         select: '-__v -petId',
@@ -27,7 +28,7 @@ router.get(`${petsPrefix}`, async (req, res) => {
 })
 
 // Get single pet
-router.get(`${petsPrefix}/:id`, async (req, res) => {
+router.get(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
         const pet = await Pet.findById(
             req.params.id
@@ -52,13 +53,12 @@ router.get(`${petsPrefix}/:id`, async (req, res) => {
         }
     }
     catch (err) {
-        res.status(400).send(err)
-        console.log(err)
+        next(err)
     } 
 })
 
 // Create a pet
-router.post(`${petsPrefix}`, async (req, res) => {
+router.post(`${petsPrefix}`, async (req, res, next) => {
     try {
         // Validate the input - validation in schema 
         // Create a new pet object and add it to the DB
@@ -66,13 +66,12 @@ router.post(`${petsPrefix}`, async (req, res) => {
         // Respond to the client with the registered Pet instance
         res.status(201).send(newPet)}
     catch (err) {
-        res.status(400).send(err)
-        console.log(err)
+        next(err)
     }
 })
 
-// Update an book
-router.patch(`${petsPrefix}/:id`, async (req, res) => {
+// Update a Pet
+router.patch(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
         const pet = await Pet.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
@@ -84,12 +83,12 @@ router.patch(`${petsPrefix}/:id`, async (req, res) => {
         }
     }
     catch (err) {
-        res.status(400).send({Error: err.message})
+        next(err)
     }    
 })
 
 // Delete a Pet
-router.delete(`${petsPrefix}/:id`, async (req, res) => {
+router.delete(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
         const pet = await Pet.findByIdAndDelete(
             req.params.id, req.body, {returnDocument: 'after'}
@@ -101,7 +100,7 @@ router.delete(`${petsPrefix}/:id`, async (req, res) => {
         }
     }
     catch (err) {
-        res.status(400).send({ error: err.message })
+        next(err)
     }    
 })
 

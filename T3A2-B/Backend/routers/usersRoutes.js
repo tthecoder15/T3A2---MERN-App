@@ -9,12 +9,12 @@ const router = Router()
 const usersPrefix = '/users'
 
 // Get list of users
-router.get(`${usersPrefix}`, async (req, res) => {
+router.get(`${usersPrefix}`, async (req, res, next) => {
     res.send(await User.find({}, ('-password -__v')).populate('pets', '-appointments -__v -userId').populate('appointments', '-userId -vetId -petId -__v'))
 })
 
 // Get single user
-router.get(`${usersPrefix}/:id`, async (req, res) => {
+router.get(`${usersPrefix}/:id`, async (req, res, next) => {
     try {
         const user = await User.findById(
             req.params.id
@@ -39,13 +39,12 @@ router.get(`${usersPrefix}/:id`, async (req, res) => {
         }
     }
     catch (err) {
-        res.status(400).send(err)
-        console.log(err)
+        next(err)
     } 
 })
 
 // Create a user
-router.post(`${usersPrefix}`, async (req, res) => {
+router.post(`${usersPrefix}`, async (req, res, next) => {
     try {
         // Validate the input - validation in schema 
         // Create a new user object and add it to the DB
@@ -53,13 +52,12 @@ router.post(`${usersPrefix}`, async (req, res) => {
         // Respond to the client with the registered User instance
         res.status(201).send(newUser)}
     catch (err) {
-        res.status(400).send(err)
-        console.log(err)
+        next(err)
     }
 })
 
 // Update an book
-router.patch(`${usersPrefix}/:id`, async (req, res) => {
+router.patch(`${usersPrefix}/:id`, async (req, res, next) => {
     try {
         const user = await User.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
@@ -71,12 +69,12 @@ router.patch(`${usersPrefix}/:id`, async (req, res) => {
         }
     }
     catch (err) {
-        res.status(400).send({Error: err.message})
+        next(err)
     }    
 })
 
 // Delete a User
-router.delete(`${usersPrefix}/:id`, async (req, res) => {
+router.delete(`${usersPrefix}/:id`, async (req, res, next) => {
     try {
         const user = await User.findByIdAndDelete(
             req.params.id, req.body, {returnDocument: 'after'}
@@ -88,7 +86,7 @@ router.delete(`${usersPrefix}/:id`, async (req, res) => {
         }
     }
     catch (err) {
-        res.status(400).send({ error: err.message })
+        next(err)
     }    
 })
 

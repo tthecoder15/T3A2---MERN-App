@@ -52,8 +52,7 @@ router.get(`${vetsPrefix}/:id`, async (req, res) => {
         }
     }
     catch (err) {
-        res.status(400).send(err)
-        console.log(err)
+        res.status(400).send(errorFormatter(err))
     } 
 })
 
@@ -66,8 +65,7 @@ router.post(`${vetsPrefix}`, async (req, res) => {
         // Respond to the client with the registered Vet instance
         res.status(201).send(newVet)}
     catch (err) {
-        res.status(400).send(err)
-        console.log(err)
+        res.status(400).send(errorFormatter(err))
     }
 })
 
@@ -84,7 +82,7 @@ router.patch(`${vetsPrefix}/:id`, async (req, res) => {
         }
     }
     catch (err) {
-        res.status(400).send({Error: err.message})
+        res.status(400).send(errorFormatter(err))
     }    
 })
 
@@ -101,7 +99,7 @@ router.delete(`${vetsPrefix}/:id`, async (req, res) => {
         }
     }
     catch (err) {
-        res.status(400).send({ error: err.message })
+        res.status(400).send(errorFormatter(err))
     }    
 })
 
