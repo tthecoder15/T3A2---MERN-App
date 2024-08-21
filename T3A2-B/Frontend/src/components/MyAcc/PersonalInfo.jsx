@@ -65,38 +65,33 @@ const PersonalInformation = () => {
             <p>Contact Number</p>
             <input 
                 type="text" 
-                placeholder="Contact Number" 
             />
             <p>Email</p>
             <input 
                 type="email" 
-                placeholder="Email" 
                 value={email} 
                 onChange={handleEmailChange}
             />
             <p>Confirm Email</p>
             <input 
                 type="email" 
-                placeholder="Confirm Email" 
                 value={confirmEmail} 
                 onChange={handleConfirmEmailChange}
             />
-            {emailErrorMessage && <p>{emailErrorMessage}</p>}
+            {emailErrorMessage && <p style={{ color: 'red' }}>{emailErrorMessage}</p>}
             <p>Password</p>
             <input 
                 type="password" 
-                placeholder="Password" 
                 value={password}
                 onChange={handlePasswordChange}
             />
             <p>Confirm Password</p>
             <input 
                 type="password" 
-                placeholder="Confirm Password" 
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
             />
-            {passwordErrorMessage && <p>{passwordErrorMessage}</p>}
+            {passwordErrorMessage && <p style={{ color: 'red' }}>{passwordErrorMessage}</p>}
             <button 
                 type="submit"
                 onClick={handleSubmit}
