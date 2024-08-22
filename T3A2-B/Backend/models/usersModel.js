@@ -1,4 +1,6 @@
 import mongoose, { Schema } from "mongoose";
+import { Pet } from "./petsModel.js";
+import { Appointment } from "./appointmentsModel.js";
 
 const userSchema = new Schema({
     email: {type: String, required: true},
@@ -6,8 +8,40 @@ const userSchema = new Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     isAdmin: {type: Boolean, required: true, default: false},
-    pets: [{type: mongoose.Types.ObjectId, ref: 'Pet'}],
-    appointments: [{type: mongoose.Types.ObjectId, ref: 'Appointment'}]
+    phNumber: {type: String, required: true, minLength: 10, maxLength: 10},
+    pets: [{
+        type: mongoose.Types.ObjectId, 
+        required: true, 
+        ref: 'Pet',
+        validate: {
+            validator: async function (id) {
+                let pet = await Pet.findById(id)
+                if (pet) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            },
+            message: props => `${props.value} is not a registered petID`
+        }
+    }],
+    appointments: [{
+        type: mongoose.Types.ObjectId, 
+        ref: 'Appointment',
+        validate: {
+            validator: async function (id) {
+                let appt = await Appointment.findById(id)
+                if (appt) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            },
+            message: props => `${props.value} is not a registered appointmentID`
+        }
+    }]
 });
 
 const User = mongoose.model('User', userSchema)
