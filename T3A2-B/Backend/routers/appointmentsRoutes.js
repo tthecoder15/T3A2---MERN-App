@@ -4,6 +4,7 @@ import { Pet } from "../models/petsModel.js"
 import { Appointment } from "../models/appointmentsModel.js"
 import { Vet } from '../models/vetsModel.js'
 import errorFormatter from "./errorHandler.js"
+import customErrors from "../errorObjs.js"
 // import idValidator from "../models/idValidator.js"
 
 const router = Router()
@@ -66,7 +67,7 @@ router.get(`${appointmentsPrefix}/:id`, async (req, res, next) => {
             res.send(appointment)
         } 
         else {
-            res.status(404).send({error: "Appointment not found"})
+            throw customErrors.noAppt
         }
     }
     catch (err) {
@@ -96,7 +97,7 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
         if (appointment) {
             res.status(200).send(appointment)
         } else {
-            res.status(404).send({error: "Appointment not found"})
+            throw customErrors.noAppt
         }
     }
     catch (err) {
@@ -113,7 +114,7 @@ router.delete(`${appointmentsPrefix}/:id`, async (req, res, next) => {
         if (appointment) {
             res.status(200).send({Success: "Appointment deleted"})
         } else {
-            res.status(404).send({error: "Appointment not found"})
+            throw customErrors.noAppt
         }
     }
     catch (err) {

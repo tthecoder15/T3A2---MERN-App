@@ -1,3 +1,5 @@
+import customErrors from "../errorObjs.js"
+
 function errorHandler (err, req, res, next) {
     let retErrObj
     if ('path' in err) {
@@ -18,9 +20,11 @@ function errorHandler (err, req, res, next) {
         res.status(400).send(retErrObj)
     }
     else {
+        if ('code' in err) {
+            delete err.code
+        }
         res.status(400).send(err)
     }
-    
 }
 
 export default errorHandler
