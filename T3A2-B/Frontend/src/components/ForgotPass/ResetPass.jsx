@@ -16,7 +16,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const res = await fetch(`/api/password/${token}`, {
+      const res = await fetch(`https://t3a2-mern-app.onrender.com/user${token}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

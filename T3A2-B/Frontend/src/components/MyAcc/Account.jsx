@@ -4,9 +4,8 @@ import UpcomingAppointments from './UpcomingApps'
 import './Account.css'
 import PetInfo from './PetInfo'
 
-const AccountSettings = () => {
+const AccountSettings = ({ userInfo, accessToken}) => {
   const [selectedSetting, setSelectedSetting] = useState('')
-
 
   const handleButtonClick = (text) => {
     setSelectedSetting(text)
@@ -37,7 +36,11 @@ const AccountSettings = () => {
       <div className="UpdateAccount">
         <div>
             <h5>Personal Information</h5>
-            <p>- Add info from API</p>
+            <ul>
+              <li>Your phone number: {userInfo.phNumber}</li>
+              <li>Your email address: {userInfo.email}</li>
+            </ul>
+            <p>Use the button below to update the above information and your password.</p>
             <button className="UpdateAccount" onClick={() => handleButtonClick('Personal Information')}>
                 Update Personal Information
             </button>

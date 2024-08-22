@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
-const PersonalInformation = () => {
+const PersonalInformation = ({ userInfo, accessToken }) => {
     const [email, setEmail] = useState('')
     const [confirmEmail, setConfirmEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [phNumber, setPhNumber] = useState('')
     const [errors, setErrors] = useState({})
 
     const isValidEmail = (email) => {
@@ -32,20 +33,27 @@ const PersonalInformation = () => {
         setErrors((prevErrors) => ({ ...prevErrors, confirmPassword: '' })) // Clear confirmPassword error on change
     }
 
+    const handlePhNumberChange = (e) => {
+        setPhNumber(e.target.value)
+        setErrors((prevErrors) => ({...prevErrors, phNumber: '' })) // Clear phNumber error on change
+    }
+
     const validateEmail = () => {
         let isValid = true
-        if (!isValidEmail(email)) {
-            setErrors((prevErrors) => ({
-                ...prevErrors,
-                email: 'Invalid email format.',
-            }))
-            isValid = false
-        } else if (email !== confirmEmail) {
-            setErrors((prevErrors) => ({
-                ...prevErrors,
-                confirmEmail: 'Email addresses do not match.',
-            }))
-            isValid = false
+        if (email || confirmEmail) {
+            if (!isValidEmail(email)) {
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    email: 'Invalid email format.',
+                }))
+                isValid = false
+            } else if (email && email !== confirmEmail) {
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    confirmEmail: 'Email addresses do not match.',
+                }))
+                isValid = false
+            }
         }
         return isValid
     }
@@ -62,7 +70,7 @@ const PersonalInformation = () => {
         return isValid
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         // Clear existing errors
@@ -72,8 +80,32 @@ const PersonalInformation = () => {
         const isPasswordValid = validatePassword()
 
         if (isEmailValid && isPasswordValid) {
-            // Submit form data to API
-            console.log('Form is valid, submitting data...')
+            try {
+                const response = await fetch('https://t3a2-mern-app.onrender.com/user/66c6efe531af28a3d83b60d0', {
+                    method: 'PATCH',
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        phNumber: phNumber,
+                        firstName: userInfo.firstName,
+                        lastName: userInfo.lastName,
+                        isAdmin: userInfo.isAdmin,
+                    }),
+                })
+
+                if (!response.ok) {
+                    throw new Error('Failed to update user information')
+                }
+
+                const updatedUser = await response.json()
+                console.log('User updated successfully:', updatedUser)
+            } catch (error) {
+                console.error('Error: Failed to update user information', error)
+            }
         }
     }
 
@@ -82,7 +114,9 @@ const PersonalInformation = () => {
             <h5>Personal Information</h5>
             <p>Enter new contact Number</p>
             <input 
-                type="text" 
+                type="number" 
+                value={phNumber}
+                onChange={handlePhNumberChange}
             />
             <p>Enter new email</p>
             <input 
