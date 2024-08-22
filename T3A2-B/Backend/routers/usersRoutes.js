@@ -6,9 +6,11 @@ import { Appointment } from "../models/appointmentsModel.js"
 import { Vet } from '../models/vetsModel.js'
 import jwt from 'jsonwebtoken'
 import { dotenv } from "../db.js"
+import bcrypt from 'bcrypt'
 
 const router = Router()
 const usersPrefix = '/users'
+const saltRounds = 10
 
 // Login
 // Generate JWT
@@ -16,8 +18,10 @@ router.post(`${usersPrefix}/login`, async (req, res, next) => {
     // req.body
     let { email, password } = req.body
     try {
-        let user = await User.findOne({'email': email, 'password': password})
-        if (user) {
+        let user = await User.findOne({'email': email})
+        const hashedCheck = await bcrypt.compare(password, user.password)
+        console.log('Hashed check: ', hashedCheck)
+        if (user && hashedCheck) {
             let token = jwt.sign({
                 userId: user._id,
                 email: user.email

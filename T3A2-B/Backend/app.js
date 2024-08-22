@@ -8,15 +8,17 @@ import { expressjwt } from "express-jwt";
 import { dotenv } from "./db.js";
 
 const app = express()
-// const jwt = expressjwt({secret: 'lol', algorithms: ["HS256"]})
+
 
 // Middleware
 app.use(express.json())
+
+// JWT Checking
 app.use(expressjwt({
     secret: process.env.JWT_SECRET_KEY,
     algorithms: ['HS256'],
     credentialsRequired: true
-}).unless({ path: ['/users/login'] }))
+}).unless({ path: ['/users/login', '/appointments-list'] }))
 
 
 

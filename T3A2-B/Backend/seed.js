@@ -4,17 +4,22 @@ import { Pet } from "./models/petsModel.js"
 import { Vet } from "./models/vetsModel.js"
 import { Appointment } from "./models/appointmentsModel.js"
 import { dbConnect } from "./db.js"
+import bcrypt from 'bcrypt'
+
+const saltRounds = 10
 
 async function seedDatabase() {
     try {
         await dbConnect();
 
         const seedUsers = [
-            { email: "johnseesstars@gmail.com", password: "starrynight", firstName: "John", lastName: "Starsson", isAdmin: false, phNumber: '0411222333'},
-            { email: "marylou@gmail.com", password: "marymare", firstName: "Mary", lastName: "Knights", isAdmin: false, phNumber: '0422333444'},
-            { email: "jerry-d@gmail.com", password: "jerryDon", firstName: "Jerry", lastName: "Donald", isAdmin: false, phNumber: '0433444555'},
-            { email: "pawfectcare@gmail.com", password: "admin123", firstName: "Admin", lastName: "Adminson", isAdmin: true, phNumber: '0444444444'}
+            { email: "johnseesstars@gmail.com", password: await bcrypt.hash("starrynight", saltRounds), firstName: "John", lastName: "Starsson", isAdmin: false, phNumber: '0411222333'},
+            { email: "marylou@gmail.com", password: await bcrypt.hash("marymare", saltRounds), firstName: "Mary", lastName: "Knights", isAdmin: false, phNumber: '0422333444'},
+            { email: "jerry-d@gmail.com", password: await bcrypt.hash("jerryDon", saltRounds), firstName: "Jerry", lastName: "Donald", isAdmin: false, phNumber: '0433444555'},
+            { email: "pawfectcare@gmail.com", password: await bcrypt.hash("admin123", saltRounds), firstName: "Admin", lastName: "Adminson", isAdmin: true, phNumber: '0444444444'}
         ];
+
+        console.log(seedUsers)
 
         await User.deleteMany();
         console.log("Previously recorded Users deleted");
@@ -45,10 +50,10 @@ async function seedDatabase() {
         console.log("Vets seeded");
 
         const seedAppointments = [
-            { userId: savedUsers[0]._id, vetId: savedVets[0]._id, petId: savedPets[0]._id, date: new Date("2024-12-01T10:30"), appointmentType: "check-up" },
+            { userId: savedUsers[0]._id, vetId: savedVets[0]._id, petId: savedPets[0]._id, date: new Date("2024-12-01T11:00"), appointmentType: "check-up" },
             { userId: savedUsers[1]._id, vetId: savedVets[0]._id, petId: savedPets[1]._id, date: new Date(2024, 12, 1, 10, 0, 0), appointmentType: "vaccination" },
             { userId: savedUsers[2]._id, vetId: savedVets[1]._id, petId: savedPets[2]._id, date: new Date(2024, 12, 1, 9, 0), appointmentType: "check-up" },
-            { userId: savedUsers[2]._id, vetId: savedVets[1]._id, petId: savedPets[3]._id, date: new Date(2024, 12, 1, 9, 15), appointmentType: "check-up" }
+            { userId: savedUsers[2]._id, vetId: savedVets[1]._id, petId: savedPets[3]._id, date: new Date(2024, 12, 1, 10, 0), appointmentType: "check-up" }
         ];
 
         console.log('YAR THIS BE THE SEED APPOINTMENTS!', seedAppointments)

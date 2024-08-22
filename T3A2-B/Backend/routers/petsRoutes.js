@@ -1,6 +1,5 @@
 import { Router } from "express"
 import { User } from "../models/usersModel.js"
-// Importing objects for other models is neccessary even though they are not used
 import { Pet } from "../models/petsModel.js"
 import { Appointment } from "../models/appointmentsModel.js"
 import { Vet } from '../models/vetsModel.js'

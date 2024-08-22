@@ -55,7 +55,7 @@ const appointmentSchema = new Schema({
             message: props => `${props.value} is not a registered petID`
         }
     },
-    date: {type: String, required: true},
+    date: {type: Date, required: true},
     appointmentType: {type: String, required: true, enum: {values: ['check-up', 'dental', 'vaccination', 'surgery', 'other'], message: "Appointment type must be one of 'check-up', 'dental', 'vaccination', 'surgery' or 'other'."}} 
 });
 

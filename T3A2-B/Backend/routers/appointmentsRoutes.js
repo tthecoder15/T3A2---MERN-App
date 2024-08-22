@@ -1,6 +1,5 @@
 import { Router } from "express"
 import { User } from "../models/usersModel.js"
-// Importing objects for other models is neccessary even though they are not used
 import { Pet } from "../models/petsModel.js"
 import { Appointment } from "../models/appointmentsModel.js"
 import { Vet } from '../models/vetsModel.js'
@@ -10,7 +9,20 @@ import errorFormatter from "./errorHandler.js"
 const router = Router()
 const appointmentsPrefix = '/appointments'
 
-// Get list of appointments
+// Get list of appointments no JWT
+router.get(`${appointmentsPrefix}-list`, async (req, res, next) => {
+    let retAppts = await Appointment.find({}, '-__v -usedId -petId -appointmentType').populate([
+            {
+                path: 'vetId',
+                select: '-appointments -__v'
+            }
+        ]
+    )
+    res.send(retAppts)
+})
+
+
+// Get list of appointments JWT authorised
 router.get(`${appointmentsPrefix}`, async (req, res, next) => {
     let retAppts = await Appointment.find({}, '-__v').populate([
             {
@@ -27,10 +39,7 @@ router.get(`${appointmentsPrefix}`, async (req, res, next) => {
             }
         ]
     )
-    let editedAppts = retAppts.map((appt) => {
-        return {...appt._doc, date: new Date(appt.date).toString()}
-    })
-    res.send(editedAppts)
+    res.send(retAppts)
 })
 
 // Get single appointment
