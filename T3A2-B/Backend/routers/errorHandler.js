@@ -20,6 +20,7 @@ function errorHandler (err, req, res, next) {
         res.status(400).send(retErrObj)
     }
     else {
+        console.log(err)
         if ('code' in err) {
             delete err.code
         }

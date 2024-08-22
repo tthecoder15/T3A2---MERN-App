@@ -30,6 +30,10 @@ router.get(`${petsPrefix}`, async (req, res, next) => {
 // Get single pet
 router.get(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const pet = await Pet.findById(
             req.params.id
         ).populate({
@@ -73,6 +77,10 @@ router.post(`${petsPrefix}`, async (req, res, next) => {
 // Update a Pet
 router.patch(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const pet = await Pet.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
         )
@@ -90,6 +98,10 @@ router.patch(`${petsPrefix}/:id`, async (req, res, next) => {
 // Delete a Pet
 router.delete(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const pet = await Pet.findByIdAndDelete(
             req.params.id, req.body, {returnDocument: 'after'}
         )

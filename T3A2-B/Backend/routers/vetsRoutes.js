@@ -30,6 +30,10 @@ router.get(`${vetsPrefix}`, async (req, res, next) => {
 // Get single vet
 router.get(`${vetsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const vet = await Vet.findById(
             req.params.id
         ).populate({
@@ -74,6 +78,10 @@ router.post(`${vetsPrefix}`, async (req, res, next) => {
 // Update an book
 router.patch(`${vetsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const vet = await Vet.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
         )
@@ -91,6 +99,10 @@ router.patch(`${vetsPrefix}/:id`, async (req, res, next) => {
 // Delete a Vet
 router.delete(`${vetsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const vet = await Vet.findByIdAndDelete(
             req.params.id, req.body, {returnDocument: 'after'}
         )

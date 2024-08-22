@@ -46,6 +46,10 @@ router.get(`${appointmentsPrefix}`, async (req, res, next) => {
 // Get single appointment
 router.get(`${appointmentsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const appointment = await Appointment.findById(
             req.params.id
         ).populate([
@@ -91,6 +95,10 @@ router.post(`${appointmentsPrefix}`, async (req, res, next) => {
 // Update an book
 router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const appointment = await Appointment.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
         )
@@ -108,6 +116,10 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
 // Delete a Appointment
 router.delete(`${appointmentsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const appointment = await Appointment.findByIdAndDelete(
             req.params.id, req.body, {returnDocument: 'after'}
         )

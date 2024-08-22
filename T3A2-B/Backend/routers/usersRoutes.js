@@ -11,6 +11,7 @@ import customErrors from "../errorObjs.js"
 
 const router = Router()
 const usersPrefix = '/users'
+let saltRounds = 10
 
 // Login
 // Generate JWT
@@ -18,9 +19,15 @@ router.post(`${usersPrefix}/login`, async (req, res, next) => {
     let { email, password } = req.body
     try {
         let user = await User.findOne({'email': email})
-        const hashedCheck = await bcrypt.compare(password, user.password)
-        console.log('Hashed check: ', hashedCheck)
-        if (user && hashedCheck) {
+        let hashedCheck
+        if (user) {
+            hashedCheck = await bcrypt.compare(password, user.password)
+        }
+        else {
+            throw customErrors.noUser
+        }
+
+        if (hashedCheck) {
             let token = jwt.sign({
                 userId: user._id,
                 isAdmin: user.isAdmin
@@ -55,6 +62,10 @@ router.get(`${usersPrefix}`, async (req, res, next) => {
 // Get single user
 router.get(`${usersPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         let { userId, isAdmin } = req.auth
         if (userId == req.params.id || isAdmin == true) {
             const user = await User.findById(req.params.id, '-__v -password')
@@ -97,10 +108,11 @@ router.post(`${usersPrefix}`, async (req, res, next) => {
             throw customErrors.userExists
         }
 
+        req.body.password = await bcrypt.hash(req.body.password, saltRounds)
+
+
         // Auto sets submitted "isAdmin" to false
-        if (!isAdmin) {
-            req.body.isAdmin = false
-        }
+        req.body.isAdmin = false
 
         const newUser = await User.create(req.body)
         let token = jwt.sign({
@@ -142,13 +154,31 @@ router.post(`${usersPrefix}/admin`, async (req, res, next) => {
 // Update a user
 router.patch(`${usersPrefix}/:id`, async (req, res, next) => {
     try {
+        let { userId, isAdmin } = req.auth
+        
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
+        if (!isAdmin || req.params.id == userId) {
+            throw customErrors.authError
+        }
+
         const user = await User.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
         )
+
+        console.log(user)
+               
         if (user) {
-            res.status(200).send(user)
+            let token = jwt.sign({
+                userId: user._id,
+                isAdmin: user.isAdmin
+                }, process.env.JWT_SECRET_KEY, { expiresIn: '1h'
+            })
+            res.status(200).send({user, JWT: token})
         } else {
-            res.status(404).send({error: "User not found"})
+            throw customErrors.noUser
         }
     }
     catch (err) {
@@ -159,6 +189,12 @@ router.patch(`${usersPrefix}/:id`, async (req, res, next) => {
 // Delete a User
 router.delete(`${usersPrefix}/:id`, async (req, res, next) => {
     try {
+        let { userId, isAdmin } = req.auth
+        
+        if (!isAdmin || req.params.id == userId) {
+            throw customErrors.authError
+        }
+
         const user = await User.findByIdAndDelete(
             req.params.id, req.body, {returnDocument: 'after'}
         )
