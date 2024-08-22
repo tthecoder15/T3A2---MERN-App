@@ -48,7 +48,7 @@ router.get(`${usersPrefix}/:id`, async (req, res, next) => {
     try {
         const user = await User.findById(
             req.params.id
-        ).populate('pets', '-appointments -__v -userId').populate({
+        ).populate('pets', '-appointments -__v -userId -password').populate({
             path: 'appointments', 
             select: '-userId -__v', 
             populate: [
