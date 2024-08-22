@@ -1,6 +1,6 @@
 import React from 'react'
-import ForgotPassword from '../components/ForgotPass/Forgotpass'
-import ResetPassword from '../components/ForgotPass/Resetpass'
+import ForgotPassword from '../components/ForgotPass/ForgotPass'
+import ResetPassword from '../components/ForgotPass/ResetPass'
 
 const ForgotPass = () => {
   return (
