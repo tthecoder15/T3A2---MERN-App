@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PersonalInformation from './PersonalInfo'
+import UpdateUser from './PersonalInfo'
 import UpcomingAppointments from './UpcomingApps'
 import './Account.css'
 import PetInfo from './PetInfo'
@@ -14,7 +14,7 @@ const AccountSettings = ({ userInfo, accessToken}) => {
   const renderInputSection = () => {
     switch (selectedSetting) {
       case 'Personal Information':
-        return <PersonalInformation />
+        return <UpdateUser />
       case 'Upcoming Appointments':
         return <UpcomingAppointments />
       case 'Pet Information':

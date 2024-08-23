@@ -1,156 +1,148 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import sessionState from '../../routes/store.js';
 
-const PersonalInformation = ({ userInfo, accessToken }) => {
-    const [email, setEmail] = useState('')
-    const [confirmEmail, setConfirmEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [phNumber, setPhNumber] = useState('')
-    const [errors, setErrors] = useState({})
+const UpdateUser = () => {
+    const { user } = sessionState((state) => ({
+        user: state.user,
+    }));
 
-    const isValidEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        return emailRegex.test(email)
-    }
+    const [formData, setFormData] = useState({
+        email: '',
+        confirmEmail: '',
+        password: '',
+        confirmPassword: '',
+        phNumber: '',
+    });
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value)
-        setErrors((prevErrors) => ({ ...prevErrors, email: '' })) // Clear email error on change
-    }
+    const [errors, setErrors] = useState({});
 
-    const handleConfirmEmailChange = (e) => {
-        setConfirmEmail(e.target.value)
-        setErrors((prevErrors) => ({ ...prevErrors, confirmEmail: '' })) // Clear confirmEmail error on change
-    }
+    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isValidPassword = (password) =>
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
+    const isValidPhNumber = (phNumber) => /^04\d{8}$/.test(phNumber);
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value)
-        setErrors((prevErrors) => ({ ...prevErrors, password: '' })) // Clear password error on change
-    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+    };
 
-    const handleConfirmPasswordChange = (e) => {
-        setConfirmPassword(e.target.value)
-        setErrors((prevErrors) => ({ ...prevErrors, confirmPassword: '' })) // Clear confirmPassword error on change
-    }
-
-    const handlePhNumberChange = (e) => {
-        setPhNumber(e.target.value)
-        setErrors((prevErrors) => ({...prevErrors, phNumber: '' })) // Clear phNumber error on change
-    }
-
-    const validateEmail = () => {
-        let isValid = true
-        if (email || confirmEmail) {
-            if (!isValidEmail(email)) {
-                setErrors((prevErrors) => ({
-                    ...prevErrors,
-                    email: 'Invalid email format.',
-                }))
-                isValid = false
-            } else if (email && email !== confirmEmail) {
-                setErrors((prevErrors) => ({
-                    ...prevErrors,
-                    confirmEmail: 'Email addresses do not match.',
-                }))
-                isValid = false
-            }
+    const validateField = (name, value) => {
+        let errorMsg = '';
+        if (name === 'email' && value && !isValidEmail(value)) {
+            errorMsg = 'Invalid email format.';
+        } else if (name === 'confirmEmail' && value && value !== formData.email) {
+            errorMsg = 'Email addresses do not match.';
+        } else if (name === 'password' && value && !isValidPassword(value)) {
+            errorMsg = 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.';
+        } else if (name === 'confirmPassword' && value && value !== formData.password) {
+            errorMsg = 'Passwords do not match.';
+        } else if (name === 'phNumber' && value && !isValidPhNumber(value)) {
+            errorMsg = 'Phone number must start with 04 and be exactly 10 digits long.';
         }
-        return isValid
-    }
+        return errorMsg;
+    };
 
-    const validatePassword = () => {
-        let isValid = true
-        if (password !== confirmPassword) {
-            setErrors((prevErrors) => ({
-                ...prevErrors,
-                confirmPassword: 'Passwords do not match.',
-            }))
-            isValid = false
-        }
-        return isValid
-    }
+    const validateForm = () => {
+        const newErrors = {};
+        Object.keys(formData).forEach((field) => {
+            const error = validateField(field, formData[field]);
+            if (error) newErrors[field] = error;
+        });
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        // Clear existing errors
-        setErrors({})
-
-        const isEmailValid = validateEmail()
-        const isPasswordValid = validatePassword()
-
-        if (isEmailValid && isPasswordValid) {
+        if (validateForm()) {
             try {
-                const response = await fetch('https://t3a2-mern-app.onrender.com/user/66c6efe531af28a3d83b60d0', {
+                const response = await fetch(`https://t3a2-mern-app.onrender.com/user/${user._id}`, {
                     method: 'PATCH',
                     headers: {
-                        Authorization: `Bearer ${accessToken}`,
+                        Authorization: `Bearer ${user.accessToken}`,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        email: email,
-                        password: password,
-                        phNumber: phNumber,
-                        firstName: userInfo.firstName,
-                        lastName: userInfo.lastName,
-                        isAdmin: userInfo.isAdmin,
+                        email: formData.email || user.email,
+                        password: formData.password || user.password,
+                        phNumber: formData.phNumber || user.phNumber,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        isAdmin: user.isAdmin,
                     }),
-                })
+                });
 
                 if (!response.ok) {
-                    throw new Error('Failed to update user information')
+                    throw new Error('Failed to update user information');
                 }
 
-                const updatedUser = await response.json()
-                console.log('User updated successfully:', updatedUser)
+                const updatedUser = await response.json();
+                console.log('User updated successfully:', updatedUser);
             } catch (error) {
-                console.error('Error: Failed to update user information', error)
+                console.error('Error: Failed to update user information', error);
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    submit: error.message,
+                }));
             }
         }
-    }
+    };
+
+    const renderError = (field) => {
+        return errors[field] && <p style={{ color: 'red' }}>{errors[field]}</p>;
+    };
 
     return (
         <div className="UpdateAccountBox">
             <h5>Personal Information</h5>
             <p>Enter new contact Number</p>
-            <input 
-                type="number" 
-                value={phNumber}
-                onChange={handlePhNumberChange}
+            <input
+                type="number"
+                name="phNumber"
+                value={formData.phNumber}
+                onChange={handleChange}
             />
+            {renderError('phNumber')}
             <p>Enter new email</p>
-            <input 
-                type="email" 
-                value={email} 
-                onChange={handleEmailChange}
+            <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
             />
             <p>Confirm Email</p>
-            <input 
-                type="email" 
-                value={confirmEmail} 
-                onChange={handleConfirmEmailChange}
+            <input
+                type="email"
+                name="confirmEmail"
+                value={formData.confirmEmail}
+                onChange={handleChange}
             />
-            {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
-            {errors.confirmEmail && <p style={{ color: 'red' }}>{errors.confirmEmail}</p>}
+            {renderError('email')}
+            {renderError('confirmEmail')}
             <p>Enter new password</p>
-            <input 
-                type="password" 
-                value={password}
-                onChange={handlePasswordChange}
+            <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
             />
             <p>Confirm Password</p>
-            <input 
-                type="password" 
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
+            <input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
             />
-            {errors.confirmPassword && <p style={{ color: 'red' }}>{errors.confirmPassword}</p>}
-            <button 
-                type="submit"
-                onClick={handleSubmit}
-            >Update Information</button>
+            {renderError('password')}
+            {renderError('confirmPassword')}
+            <button type="submit" onClick={handleSubmit}>
+                Update Information
+            </button>
+            {renderError('submit')}
         </div>
-    )
-}
+    );
+};
 
-export default PersonalInformation
+export default UpdateUser;
