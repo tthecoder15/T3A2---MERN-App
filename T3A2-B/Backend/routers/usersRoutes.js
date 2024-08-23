@@ -51,7 +51,7 @@ router.get(`${usersPrefix}`, async (req, res, next) => {
             res.send(await User.find({}, ('-password -__v')).populate('pets', '-appointments -__v -userId').populate('appointments', '-userId -vetId -petId -__v'))
         }
         else {
-            res.send(await User.findById(userId, ('-password -__v')).populate('pets', '-appointments -__v -userId').populate('appointments', '-userId -vetId -petId -__v'))
+            res.send(await User.findById(userId, ('-password -__v -isAdmin')).populate('pets', '-appointments -__v -userId').populate('appointments', '-userId -vetId -petId -__v'))
         }
     }
     catch (err) {
@@ -68,8 +68,8 @@ router.get(`${usersPrefix}/:id`, async (req, res, next) => {
 
         let { userId, isAdmin } = req.auth
         if (userId == req.params.id || isAdmin == true) {
-            const user = await User.findById(req.params.id, '-__v -password')
-                .populate('pets', '-appointments -__v -userId -password').populate({
+            const user = await User.findById(req.params.id).select('-__v -password -isAdmin')
+                .populate('pets', '-appointments -__v -userId').populate({
                 path: 'appointments', 
                 select: '-userId -__v', 
                 populate: [
@@ -160,23 +160,17 @@ router.patch(`${usersPrefix}/:id`, async (req, res, next) => {
             throw customErrors.shortId
         }
 
-        if (!isAdmin || req.params.id == userId) {
+        if (!isAdmin && !(req.params.id == userId)) {
             throw customErrors.authError
         }
 
         const user = await User.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
-        )
-
-        console.log(user)
+        ).select('-password -pets -appointments -isAdmin -__v -_id')
                
         if (user) {
-            let token = jwt.sign({
-                userId: user._id,
-                isAdmin: user.isAdmin
-                }, process.env.JWT_SECRET_KEY, { expiresIn: '1h'
-            })
-            res.status(200).send({user, JWT: token})
+            console.log(user)
+            res.status(200).send(user)
         } else {
             throw customErrors.noUser
         }
