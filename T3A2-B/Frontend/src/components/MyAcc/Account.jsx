@@ -3,8 +3,11 @@ import UpdateUser from './PersonalInfo'
 import UpcomingAppointments from './UpcomingApps'
 import './Account.css'
 import PetInfo from './PetInfo'
+import sessionState from '../../routes/store'
 
-const AccountSettings = ({ userInfo, accessToken}) => {
+const AccountSettings = () => {
+  const userData = sessionState((state) => state.userData)
+  
   const [selectedSetting, setSelectedSetting] = useState('')
 
   const handleButtonClick = (text) => {
@@ -37,8 +40,8 @@ const AccountSettings = ({ userInfo, accessToken}) => {
         <div>
             <h5>Personal Information</h5>
             <ul>
-              <li>Your phone number: {userInfo.phNumber}</li>
-              <li>Your email address: {userInfo.email}</li>
+              <li>Your phone number: {userData.phNumber}</li>
+              <li>Your email address: {userData.email}</li>
             </ul>
             <p>Use the button below to update the above information and your password.</p>
             <button className="UpdateAccount" onClick={() => handleButtonClick('Personal Information')}>

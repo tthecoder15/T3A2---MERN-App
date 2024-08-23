@@ -10,6 +10,7 @@ const sessionState = create((set) => ({
     token: null,
     isAuthenticated: false,
     error: null,
+    apiBase: "https://t3a2-mern-app.onrender.com",
 
     // load: async () => {
     //   const token = get().token
