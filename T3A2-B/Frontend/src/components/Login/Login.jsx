@@ -6,7 +6,7 @@ const LoginField = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { login, user, isAuthenticated, error } = sessionState()
+  const { login, userData, isAuthenticated, error } = sessionState()
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -14,7 +14,7 @@ const LoginField = () => {
     console.log('Attempting to login with:', { email, password })
     try {
       await login(email, password)
-      console.log("Logged in user:", user)
+      console.log("Logged in user:", userData)
     } catch (error) {
       console.error("Login failed:", error.message)
     }
@@ -22,10 +22,10 @@ const LoginField = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log("Logged in user:", user)
+      console.log("Logged in user:", userData)
       navigate('/user/myaccount')
     }
-  }, [isAuthenticated, navigate, user])
+  }, [isAuthenticated, navigate, userData])
 
   return (
     <div>
