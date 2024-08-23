@@ -1,0 +1,8 @@
+img {
+    height: 30rem;
+    margin-bottom: 2rem;
+    border: 0.5rem;
+    border-radius:1%;
+}
+
+/* Change images so they are all the same size.  Put them in divs, resize div */

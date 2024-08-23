@@ -10,9 +10,7 @@ const Home = () => {
             <div>
               <Carousel />
             </div>
-          <ul>
             <ServicesButtons />
-          </ul>
         </div>
         </>
       )
