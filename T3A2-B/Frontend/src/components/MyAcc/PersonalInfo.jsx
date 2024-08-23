@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import sessionState from '../../routes/store.js';
+import sessionState from '../../routes/store';
 
 const UpdateUser = () => {
     const { user } = sessionState((state) => ({
