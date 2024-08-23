@@ -4,6 +4,7 @@ import { Pet } from "../models/petsModel.js"
 import { Appointment } from "../models/appointmentsModel.js"
 import { Vet } from '../models/vetsModel.js'
 import errorFormatter from "./errorHandler.js"
+import customErrors from "../errorObjs.js"
 // import idValidator from "../models/idValidator.js"
 
 const router = Router()
@@ -45,6 +46,10 @@ router.get(`${appointmentsPrefix}`, async (req, res, next) => {
 // Get single appointment
 router.get(`${appointmentsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const appointment = await Appointment.findById(
             req.params.id
         ).populate([
@@ -66,7 +71,7 @@ router.get(`${appointmentsPrefix}/:id`, async (req, res, next) => {
             res.send(appointment)
         } 
         else {
-            res.status(404).send({error: "Appointment not found"})
+            throw customErrors.noAppt
         }
     }
     catch (err) {
@@ -90,13 +95,17 @@ router.post(`${appointmentsPrefix}`, async (req, res, next) => {
 // Update an book
 router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const appointment = await Appointment.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
         )
         if (appointment) {
             res.status(200).send(appointment)
         } else {
-            res.status(404).send({error: "Appointment not found"})
+            throw customErrors.noAppt
         }
     }
     catch (err) {
@@ -107,13 +116,17 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
 // Delete a Appointment
 router.delete(`${appointmentsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const appointment = await Appointment.findByIdAndDelete(
             req.params.id, req.body, {returnDocument: 'after'}
         )
         if (appointment) {
             res.status(200).send({Success: "Appointment deleted"})
         } else {
-            res.status(404).send({error: "Appointment not found"})
+            throw customErrors.noAppt
         }
     }
     catch (err) {

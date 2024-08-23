@@ -1,15 +1,13 @@
 import React from 'react'
+import '../components/Team/team.css'
 
 const Team = () => {
   return (
     <>
         <div className="contentFrame">
           <h1>Our Team</h1>
+          <p>Here at Pawfect Care we have a friendly team who are always happy to help out with all pet matters. Below is some information of our friendly team members.</p>
           <div>
-              <img
-                src="https://placehold.co/600x400"
-                alt="Second slide"
-              />
               <h3>Dr. Riley Kim</h3>
               <p>
                 Dr. Riley Kim is a dedicated veterinarian at Pawfect Care. 
@@ -17,12 +15,12 @@ const Team = () => {
                 Her passion for animal welfare is evident in her work, from routine check-ups to complex surgeries. 
                 A graduate of the University of Melbourne, Dr. Kim brings a wealth of knowledge and experience to the clinic.
               </p>
+              <img
+                src="../docs/Vets/Dr-Riley-Kim.webp"
+                alt="Dr Jess Taylor"
+              />
           </div>
           <div>
-              <img
-                src="https://placehold.co/600x400"
-                alt="Second slide"
-              />
               <h3>Dr. Ethan Walker</h3>
               <p>
                 Dr. Ethan Walker is a skilled and compassionate veterinarian at Pawfect Care. 
@@ -30,12 +28,12 @@ const Team = () => {
                 He brought this passion with him to veterinary school, where he excelled in both large and small animal care. 
                 Dr. Walker's calm demeanor and gentle hands make him a favorite among both pets and their owners.
               </p>
+              <img
+                src="../docs/Vets/Dr-Ethan-Walker.png"
+                alt="Dr Jess Taylor"
+              />
           </div>
           <div>
-              <img
-                src="https://placehold.co/600x400"
-                alt="Second slide"
-              />
               <h3>Dr. Jess Taylor</h3>
               <p>
                 Dr. Jess Taylor is a bright and enthusiastic veterinarian starting her career at Pawfect Care. 
@@ -43,19 +41,23 @@ const Team = () => {
                 Jess's genuine love for animals is evident in her gentle approach and dedication to patient care. 
                 While still gaining experience, her natural talent and compassionate nature make her a promising addition to the Pawfect Care team.
               </p>
+              <img
+                src="../docs/Vets/Dr -Jess-Taylor.jpg"
+                alt="Dr Jess Taylor"
+              />
           </div>
           <div>
-              <img
-                src="https://placehold.co/600x400"
-                alt="Second slide"
-              />
-              <h3>Ben</h3>
+              <h3>Ben the Janitor</h3>
               <p>
-                Ben is Pawfect Care's dedicated and cheerful cleaner. 
+                Ben is Pawfect Care's dedicated and cheerful janitor. 
                 Known for his quick wit and even quicker hands, he keeps the clinic sparkling clean. 
                 With a pair of signature cool glasses perched on his nose, Ben brings a touch of style to his everyday tasks. 
                 While he doesn't share the same passion for pets as his colleagues, he genuinely cares about the clinic and its patients.
               </p>
+              <img
+                src="../docs/Vets/Ben.webp"
+                alt="Ben the janitor"
+              />
           </div>
         </div>
     </>

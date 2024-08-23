@@ -4,6 +4,7 @@ import { Pet } from "../models/petsModel.js"
 import { Appointment } from "../models/appointmentsModel.js"
 import { Vet } from '../models/vetsModel.js'
 import errorFormatter from "./errorHandler.js"
+import customErrors from "../errorObjs.js"
 
 const router = Router()
 const petsPrefix = '/pets'
@@ -29,6 +30,10 @@ router.get(`${petsPrefix}`, async (req, res, next) => {
 // Get single pet
 router.get(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const pet = await Pet.findById(
             req.params.id
         ).populate({
@@ -48,7 +53,7 @@ router.get(`${petsPrefix}/:id`, async (req, res, next) => {
         if (pet) {
             res.send(pet)
         } else {
-            res.status(404).send({error: "Pet not found"})
+            throw customErrors.noPet
         }
     }
     catch (err) {
@@ -72,13 +77,17 @@ router.post(`${petsPrefix}`, async (req, res, next) => {
 // Update a Pet
 router.patch(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const pet = await Pet.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
         )
         if (pet) {
             res.status(200).send(pet)
         } else {
-            res.status(404).send({error: "Pet not found"})
+            throw customErrors.noPet
         }
     }
     catch (err) {
@@ -89,13 +98,17 @@ router.patch(`${petsPrefix}/:id`, async (req, res, next) => {
 // Delete a Pet
 router.delete(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
+        if (req.params.id.length < 24) {
+            throw customErrors.shortId
+        }
+
         const pet = await Pet.findByIdAndDelete(
             req.params.id, req.body, {returnDocument: 'after'}
         )
         if (pet) {
             res.status(200).send({Success: "Pet deleted"})
         } else {
-            res.status(404).send({error: "Pet not found"})
+            throw customErrors.noPet
         }
     }
     catch (err) {

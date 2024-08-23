@@ -4,27 +4,29 @@ import { Link } from "react-router-dom"
 const NavBar = () => {
     return (
         <>
-            <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
-                <div className="navbar-brand">
-                    <Link className="navbar-item" to="/">
-                        <h1>---Insert PAWFECT CARE Icon---</h1>
-                    </Link>
-                    <Link role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
+            <nav>
+                <div>
+                    <Link className="navLogo" to="/">
+                        <img
+                            src="../docs/logo-and-art/PC-logo-ellipsis.png"
+                            alt="Navbar Logo"
+                        />
                     </Link>
                 </div>
-                <div id="navbarBasicExample" className="navbar-menu">
-                    <div className="navbar-start">
-                        <Link className="navbar-item" to="/">Home</Link>
-                        <Link className="navbar-item" to="/ourteam" >Our Team</Link>
-                        <Link className="navbar-item" to="/booking" >Book Now</Link>
-                        <Link className="navbar-item" to="/contact" >Contact Us</Link>
+                <div>
+                    <div>
+                        <Link to="/">Home</Link>
+                        <Link to="/ourteam" >Our Team</Link>
+                        <Link to="/booking" >Book Now</Link>
+                        <Link to="/contact" >Contact Us</Link>
                     </div>
-                    <div className="navbar-start">
-                        <Link className="navbar-item" to="/user/login" >Login/Register</Link>
+                    <div>
+                    <Link to="/user/myaccount" >TEMP /user/myaccount</Link>
+                    <Link to="/user/forgotpassword" >TEMP /user/forgotpassword</Link>
+                    <Link to="/user/admin" >TEMP /user/admin</Link>
+                    </div>
+                    <div>
+                        <Link className="login" to="/user/login" >Login/Register</Link>
                     </div>
                 </div>
             </nav>
