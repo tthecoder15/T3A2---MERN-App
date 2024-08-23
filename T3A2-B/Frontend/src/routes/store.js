@@ -1,3 +1,4 @@
+import { jwtDecode } from 'jwt-decode'
 import { create } from 'zustand'
 
 const apiBase = "https://t3a2-mern-app.onrender.com"
@@ -5,9 +6,10 @@ const apiBase = "https://t3a2-mern-app.onrender.com"
 const sessionState = create((set) => ({
     users: [],
     vets: [],
+    publicApptData: [],
     appointments: [],
     pets: [],
-    user: null,
+    userId: null,
     token: null,
     isAuthenticated: false,
     error: null,
@@ -45,34 +47,49 @@ const sessionState = create((set) => ({
           },
           body: JSON.stringify({ email, password }),
         })
-
+        
         if (!response.ok) {
           const errorData = await response.json()
           throw new Error(errorData.message || 'Failed to login')
         }
 
         const data = await response.json()
+        console.log('here is Login response data (currently JWT): ', data)
+        console.log(jwtDecode(data.JWT))
+      
+        set({
+          token: data.JWT,
+          isAuthenticated: true,
+          error: null,
+          userId: jwtDecode(data.JWT),
+        })
 
-        const userResponse = await fetch(`${apiBase}/users/${data.users._id}`, {
+        // uId for passing to the call below to users/:id
+        const uId = jwtDecode(data.JWT).userId
+
+        // Call to user's specific end point, get their data
+        const userIdGet = await fetch(`${apiBase}/users/${uId}`, {
           headers: {
             Authorization: `Bearer ${data.JWT}`,
             'Content-Type': 'application/json',
           },
         })
 
-        if (!userResponse.ok) {
-          const errorUser = await userResponse.json()
+        if (!userIdGet.ok) {
+          const errorUser = await userIdGet.json()
           throw new Error(errorUser.message || 'Failed to load user data')
         }
-
-        const userData = await userResponse.json()
 
         set({
           token: data.JWT,
           isAuthenticated: true,
           error: null,
-          user: userData,
+          userId: jwtDecode(data.JWT),
         })
+
+        console.log('ret data from solo users endpoint', userIdGet)
+        
+        
 
       } catch (error) {
           console.error("Login error:", error.message)
