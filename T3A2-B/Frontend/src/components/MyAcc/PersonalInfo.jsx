@@ -11,6 +11,9 @@ const UpdateUser = () => {
     const { apiBase } = sessionState((state) => ({
         apiBase: state.apiBase,
     }));
+    const { setUserData } = sessionState((state) => ({
+        setUserData: state.setUserData,
+    }));
 
     const [formData, setFormData] = useState({
         email: '',
@@ -64,8 +67,6 @@ const UpdateUser = () => {
 
         if (validateForm()) {
             try {
-                console.log('apibase', apiBase)
-                console.log('userData: ', userData)
                 const response = await fetch(`${apiBase}/users/${userData._id}`, {
                     method: 'PATCH',
                     headers: {
@@ -78,18 +79,19 @@ const UpdateUser = () => {
                         phNumber: formData.phNumber || userData.phNumber,
                         firstName: userData.firstName,
                         lastName: userData.lastName,
-                        isAdmin: userData.isAdmin,
                     }),
                 });
+
                 console.log(response)
-                console.log(await response.json())
 
                 if (!response.ok) {
                     throw new Error('Failed to update user information');
                 }
 
                 const updatedUser = await response.json();
-                console.log('User updated successfully:', updatedUser);
+                console.log(updatedUser)
+                setUserData(updatedUser)
+                
             } catch (error) {
                 console.error('Error: Failed to update user information', error);
                 setErrors((prevErrors) => ({

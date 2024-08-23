@@ -7,6 +7,18 @@ const sessionState = create((set) => ({
     users: [],
     publicApptData: [],
     userData: [],
+    setUserData: (newData) => {
+      set((state) => ({
+        userData: {
+          ...state.userData,
+          email: newData.email, 
+          firstName: newData.firstName, 
+          lastName: newData.lastName, 
+          phNumber: newData.phNumber,
+        }
+      })
+      )
+    },
     token: null,
     isAuthenticated: false,
     error: null,
