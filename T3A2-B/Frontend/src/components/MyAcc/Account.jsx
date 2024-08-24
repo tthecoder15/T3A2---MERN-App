@@ -10,17 +10,12 @@ const AccountSettings = () => {
 
   const firstApp = userData.appointments[0]
   const firstAppPet = firstApp.petId
-  const firstAppDate = Date(firstApp.date).toString()
-
-  // const secondApp = userData.appointments[1]
-  // const secondAppPet = secondApp.petId
-  // const secondAppDate = Date(secondApp.date).toString()
-
+  const firstAppDate = firstApp.date
+  
   const firstPet = userData.pets[0]
   const secondPet = userData.pets[1]
   const thirdPet = userData.pets[2] 
   const currentYear = new Date().getFullYear()
-
   
   const [selectedSetting, setSelectedSetting] = useState('')
 
@@ -28,6 +23,7 @@ const AccountSettings = () => {
     setSelectedSetting(text)
   }
 
+  console.log(secondPet)
 
   const renderInputSection = () => {
     switch (selectedSetting) {
@@ -74,15 +70,6 @@ const AccountSettings = () => {
             ) : (
               <p>You have no upcoming appointments.</p>
             )}
-            {/* {secondApp ? (
-              <p>
-                Your next appointment is for a {secondApp.appointmentType}. 
-                It is booked for your pet {secondAppPet.petName}, 
-                and is booked for {secondAppDate}.
-              </p>
-            ) : (
-              <p>You have no more upcoming appointments.</p>
-            )} */}
             <button onClick={() => handleButtonClick('Upcoming Appointments')}>
                 Update
             </button>
