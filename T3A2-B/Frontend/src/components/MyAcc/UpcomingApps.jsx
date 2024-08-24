@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import sessionState from '../../routes/store'
+
 
 const handleDelete = () => {
   // Delete fetched data from DB

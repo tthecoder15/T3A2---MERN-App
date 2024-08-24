@@ -1,11 +1,28 @@
 import mongoose, { Schema } from "mongoose";
+import { User } from "./usersModel.js";
 
 const petSchema = new Schema({
-    userId: {type: mongoose.Types.ObjectId, required: true, ref: 'User'},
-    name: {type: String, required: true},
+    userId: {
+        type: mongoose.Types.ObjectId, 
+        required: true, 
+        ref: 'User',
+        validate: {
+            validator: async function (id) {
+                let user = await User.findById(id)
+                if (user) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            },
+            message: props => `${props.value} is not a registered userID`
+        }
+    },
+    petName: {type: String, required: true},
     birthYear: {type: Number, required: true},
     breed: {type: String, required: true},
-    animalType: {type: String, required: true, enum: ['dog', 'cat', 'other']},
+    animalType: {type: String, required: true, enum: {values: ['dog', 'cat', 'other'], message: "animalType must be one of 'dog', 'cat' or 'other'."}},
     appointments: [{type: mongoose.Types.ObjectId, ref: 'Appointment'}],
 });
 

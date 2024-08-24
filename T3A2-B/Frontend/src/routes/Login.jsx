@@ -1,5 +1,5 @@
 import React from 'react'
-import LoginField from '../components/Login/Login'
+import LoginField from '../components/Login/LoginFunc'
 
 const Login = () => {
   return (
