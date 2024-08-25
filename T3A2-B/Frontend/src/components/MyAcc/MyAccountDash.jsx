@@ -1,45 +1,32 @@
 import React, { useState } from 'react'
-import UpdateUser from './PersonalInfo'
-import UpcomingAppointments from './UpcomingApps'
+import UpdateUserForm from './UpdateUserForm'
+import UpdateAppointmentForm from './UpdateAppointmentForm'
 import './Account.css'
-import PetInfo from './PetInfo'
+import RegisterPetForm from './RegisterPetForm'
 import sessionState from '../../routes/store'
+import DisplayApptsDropdown from './DisplayApptsDropdown'
 
-const AccountSettings = () => {
+const MyAccountDash = () => {
   const userData = sessionState((state) => state.userData)
-
-  const firstApp = userData.appointments[0]
-  const firstAppPet = firstApp.petId
-  const firstAppDate = firstApp.date
-  
-  const firstPet = userData.pets[0]
-  const secondPet = userData.pets[1]
-  const thirdPet = userData.pets[2] 
   const currentYear = new Date().getFullYear()
-  
+
   const [selectedSetting, setSelectedSetting] = useState('')
 
-  const handleButtonClick = (text) => {
+  const dropdownSelect = (text) => {
     setSelectedSetting(text)
   }
 
-  console.log(secondPet)
 
   const renderInputSection = () => {
     switch (selectedSetting) {
       case 'Personal Information':
-        return <UpdateUser />
+        return <UpdateUserForm/>
       case 'Upcoming Appointments':
-        return <UpcomingAppointments />
+        return <UpdateAppointmentForm/>
       case 'Pet Information':
-        return <PetInfo />
+        return <RegisterPetForm/>
       case 'Appointment History':
-        return (
-          <div className="UpdateAccountBox">
-            <h5>Appointment History</h5>
-            <p>Display here all past appointments</p>
-          </div>
-        )
+        return <DisplayApptsDropdown/>
       default:
         return null
     }
@@ -55,13 +42,13 @@ const AccountSettings = () => {
               <li>Your email address: {userData.email}</li>
             </ul>
             <p>Use the button below to update the above information and your password.</p>
-            <button className="UpdateAccount" onClick={() => handleButtonClick('Personal Information')}>
+            <button className="UpdateAccount" onClick={() => dropdownSelect('Personal Information')}>
                 Update Personal Information
             </button>
         </div>
         <div>
             <h5>Upcoming Appointments</h5>
-            {firstApp ? (
+            {/* {firstApp ? (
               <p>
                 Your next appointment is for a {firstApp.appointmentType}. 
                 It is booked for your pet {firstAppPet.petName}, 
@@ -69,8 +56,8 @@ const AccountSettings = () => {
               </p>
             ) : (
               <p>You have no upcoming appointments.</p>
-            )}
-            <button onClick={() => handleButtonClick('Upcoming Appointments')}>
+            )} */}
+            <button onClick={() => dropdownSelect('Upcoming Appointments')}>
                 Update
             </button>
         </div>
@@ -88,14 +75,14 @@ const AccountSettings = () => {
               <li>Name: {thirdPet.petName}, Animal Type: {thirdPet.animalType}, Age: {currentYear - thirdPet.birthYear}, Breed: {thirdPet.breed}</li>
             ) : (<li>Add Dog Now</li>
             )}  */}
-            <button onClick={() => handleButtonClick('Pet Information')}>
+            <button onClick={() => dropdownSelect('Pet Information')}>
                 Register new pet
             </button>
         </div>
         <div>
             <h5>Appointment History</h5>
             <p>- Add info from API</p>
-            <button onClick={() => handleButtonClick('Appointment History')}>
+            <button onClick={() => dropdownSelect('Appointment History')}>
                 See More..
             </button>
         </div>
@@ -105,4 +92,4 @@ const AccountSettings = () => {
   )
 }
 
-export default AccountSettings
+export default MyAccountDash

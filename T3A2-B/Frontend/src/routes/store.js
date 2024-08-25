@@ -57,7 +57,7 @@ const sessionState = create((set) => ({
           },
           body: JSON.stringify({ email, password }),
         })
-        
+
         
         
         // Check if login promise.ok property is truthy - will be false is fetch fails
@@ -100,7 +100,7 @@ const sessionState = create((set) => ({
         set({
           error: null,
           userData: retUserData
-        })        
+        })
 
       } 
       

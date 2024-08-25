@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import AccountSettings from '../components/MyAcc/Account'
 import sessionState from './store'
+import MyAccountDash from '../components/MyAcc/MyAccountDash'
 
 const MyAcc = () => {
   const userData = sessionState((state) => state.userData)
@@ -17,7 +17,7 @@ const MyAcc = () => {
       <div className="contentFrame">
         <h4>Welcome {userData.firstName} {userData.lastName}</h4>
         <p>Manage your appointments, personal information, pet information, and your history with us.</p>
-        <AccountSettings userInfo={userData}/>
+        <MyAccountDash/>
       </div>
     </>
   )
