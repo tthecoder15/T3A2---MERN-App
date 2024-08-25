@@ -4,17 +4,61 @@ import UpdateAppointmentForm from './UpdateAppointmentForm'
 import './Account.css'
 import RegisterPetForm from './RegisterPetForm'
 import sessionState from '../../routes/store'
+
+import { useEffect } from 'react'
 import DisplayApptsDropdown from './DisplayApptsDropdown'
+import DisplaySingleAppt from './DisplaySingleAppt'
 
 const MyAccountDash = () => {
   const userData = sessionState((state) => state.userData)
-  const currentYear = new Date().getFullYear()
 
   const [selectedSetting, setSelectedSetting] = useState('')
 
   const dropdownSelect = (text) => {
     setSelectedSetting(text)
   }
+
+  const [upcomingAppts, setUpcomingAppts] = useState([]);
+  const [pastAppts, setPastAppts] = useState([]);
+
+  const apptSort = () => {
+    try {
+      let upcDates = [];
+      let oldDates = [];
+      if ("appointments" in userData) {
+        for (let appt of userData.appointments) {
+          let dateNow = Date.now();
+          let apptDate = new Date(appt.date);
+          if (apptDate > dateNow) {
+            upcDates.push(appt);
+          } else {
+            oldDates.push(appt);
+          }
+        }
+        // Sorts upcoming dates, soonest 1st
+        upcDates.sort((appt1, appt2) => {
+          const a1Date = new Date(appt1.date);
+          const a2Date = new Date(appt2.date);
+          return a1Date - a2Date;
+        })
+
+        // Sorts past dates, most recent last
+        oldDates.sort((appt1, appt2) => {
+          const a1Date = new Date(appt1.date);
+          const a2Date = new Date(appt2.date);
+          return a1Date - a2Date;
+        })
+        setUpcomingAppts(upcDates);
+        setPastAppts(oldDates);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    apptSort();
+  }, [userData]);
 
 
   const renderInputSection = () => {
@@ -26,11 +70,13 @@ const MyAccountDash = () => {
       case 'Pet Information':
         return <RegisterPetForm/>
       case 'Appointment History':
-        return <DisplayApptsDropdown/>
+        return <DisplayApptsDropdown upcomingAppts={upcomingAppts} pastAppts={pastAppts}/>
       default:
         return null
     }
   }
+
+  
 
   return (
     <div>
@@ -48,40 +94,24 @@ const MyAccountDash = () => {
         </div>
         <div>
             <h5>Upcoming Appointments</h5>
-            {/* {firstApp ? (
-              <p>
-                Your next appointment is for a {firstApp.appointmentType}. 
-                It is booked for your pet {firstAppPet.petName}, 
-                and is booked for {firstAppDate}.
-              </p>
-            ) : (
-              <p>You have no upcoming appointments.</p>
-            )} */}
-            <button onClick={() => dropdownSelect('Upcoming Appointments')}>
-                Update
-            </button>
+              <h6>Next Appointment: </h6>
+              <DisplaySingleAppt appt={upcomingAppts[0]}/>
+              
+              <button onClick={() => dropdownSelect('Upcoming Appointments')}>
+                  Update Appointment
+              </button>
         </div>
         <div>
             <h5>Pet Information</h5>
-            {/* {firstPet ? (
-              <li>Name: {firstPet.petName}, Animal Type: {firstPet.animalType}, Age: {currentYear - firstPet.birthYear}, Breed: {firstPet.breed}</li>
-            ) : (<li>Add Dog Now</li>
-            )} 
-            {secondPet ? (
-              <li>Name: {secondPet.petName}, Animal Type: {secondPet.animalType}, Age: {currentYear - secondPet.birthYear}, Breed: {secondPet.breed}</li>
-            ) : (<li>Add Dog Now</li>
-            )}
-            {thirdPet ? (
-              <li>Name: {thirdPet.petName}, Animal Type: {thirdPet.animalType}, Age: {currentYear - thirdPet.birthYear}, Breed: {thirdPet.breed}</li>
-            ) : (<li>Add Dog Now</li>
-            )}  */}
+            
             <button onClick={() => dropdownSelect('Pet Information')}>
                 Register new pet
             </button>
         </div>
         <div>
             <h5>Appointment History</h5>
-            <p>- Add info from API</p>
+            <h6>Most Recent Appointment: </h6>
+            <DisplaySingleAppt appt={pastAppts[pastAppts.length-1]}/>
             <button onClick={() => dropdownSelect('Appointment History')}>
                 See More..
             </button>
