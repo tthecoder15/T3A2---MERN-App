@@ -58,6 +58,8 @@ const sessionState = create((set) => ({
           body: JSON.stringify({ email, password }),
         })
         
+        
+        
         // Check if login promise.ok property is truthy - will be false is fetch fails
         if (!response.ok) {
           const errorData = await response.json()

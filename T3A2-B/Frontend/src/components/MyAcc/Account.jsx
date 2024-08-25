@@ -76,7 +76,7 @@ const AccountSettings = () => {
         </div>
         <div>
             <h5>Pet Information</h5>
-            {firstPet ? (
+            {/* {firstPet ? (
               <li>Name: {firstPet.petName}, Animal Type: {firstPet.animalType}, Age: {currentYear - firstPet.birthYear}, Breed: {firstPet.breed}</li>
             ) : (<li>Add Dog Now</li>
             )} 
@@ -87,7 +87,7 @@ const AccountSettings = () => {
             {thirdPet ? (
               <li>Name: {thirdPet.petName}, Animal Type: {thirdPet.animalType}, Age: {currentYear - thirdPet.birthYear}, Breed: {thirdPet.breed}</li>
             ) : (<li>Add Dog Now</li>
-            )} 
+            )}  */}
             <button onClick={() => handleButtonClick('Pet Information')}>
                 Register new pet
             </button>
