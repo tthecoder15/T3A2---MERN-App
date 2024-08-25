@@ -12,7 +12,7 @@ const appointmentsPrefix = '/appointments'
 
 // Get list of appointments no JWT
 router.get(`${appointmentsPrefix}-list`, async (req, res, next) => {
-    let retAppts = await Appointment.find({}, '-__v -usedId -petId -appointmentType').populate([
+    let retAppts = await Appointment.find({}, '-__v -userId -petId -appointmentType').populate([
             {
                 path: 'vetId',
                 select: '-appointments -__v'
@@ -25,7 +25,11 @@ router.get(`${appointmentsPrefix}-list`, async (req, res, next) => {
 
 // Get list of appointments JWT authorised
 router.get(`${appointmentsPrefix}`, async (req, res, next) => {
-    let retAppts = await Appointment.find({}, '-__v').populate([
+    let { userId, isAdmin } = req.auth
+
+    // If user is admin, get all vets and their appointments including user details and pets
+    if (isAdmin) {
+        res.send(await Appointment.find({}, '-__v').populate([
             {
                 path: 'userId',
                 select: '_id firstName lastName phNumber'
@@ -38,18 +42,36 @@ router.get(`${appointmentsPrefix}`, async (req, res, next) => {
                 path: 'petId',
                 select: '-appointments -__v -userId'
             }
-        ]
-    )
-    res.send(retAppts)
+        ]))
+    }
+    else {
+        res.send(await Appointment.find({userId: req.auth.userId}, '-__v').populate([
+            {
+                path: 'userId',
+                select: '_id firstName lastName phNumber'
+            },
+            {
+                path: 'vetId',
+                select: '-appointments -__v'
+            },
+            {
+                path: 'petId',
+                select: '-appointments -__v -userId'
+            }
+        ]))
+    }
 })
 
 // Get single appointment
 router.get(`${appointmentsPrefix}/:id`, async (req, res, next) => {
     try {
+        let { userId, isAdmin } = req.auth
+
         if (req.params.id.length < 24) {
             throw customErrors.shortId
         }
 
+        // Retrieve appt
         const appointment = await Appointment.findById(
             req.params.id
         ).populate([
@@ -66,9 +88,15 @@ router.get(`${appointmentsPrefix}/:id`, async (req, res, next) => {
                 select: '-appointments -__v -userId'
             }
         ])
+
         if (appointment) {
-            // let editedAppt = {...appointment._doc, date: new Date(appointment.date).toString()}
-            res.send(appointment)
+            // Check if user is authed then send
+            if (isAdmin || appointment.userId._id == userId) {
+                res.send(appointment)
+            }
+            else {
+                throw customErrors.authError
+            }
         } 
         else {
             throw customErrors.noAppt
@@ -82,21 +110,58 @@ router.get(`${appointmentsPrefix}/:id`, async (req, res, next) => {
 // Create an appointment
 router.post(`${appointmentsPrefix}`, async (req, res, next) => {
     try {
+        let { userId , isAdmin } = req.auth
+        // Check if user is admin, otherwise sets UserId to JWT value
+        if (!isAdmin) {
+            req.body.userId = userId
+        }
+
+        // Check if appt exists in DB
+        let apptCheck = await Appointment.findOne({'date': req.body.date, 'vetId': req.body.vetId})
+        if (apptCheck) {
+            throw customErrors.apptExists
+        }
+        
+        
         // Create a new appointment object and add it to the DB
         const newAppointment = await Appointment.create(req.body)
-
         // Respond to the client with the registered Appointment instance
-        res.status(201).send(newAppointment)}
+        res.status(201).send(newAppointment)
+    }
     catch (err) {
         next(err)
     }
 })
 
-// Update an book
+// Update an appointment
 router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
     try {
         if (req.params.id.length < 24) {
             throw customErrors.shortId
+        }
+
+        let { userId , isAdmin } = req.auth
+
+        // Check if appointment is registered to user
+        let authCheck = await Appointment.findById(req.params.id)
+        if (authCheck) {
+            if (!isAdmin && authCheck.userId != req.auth.userId) {
+                throw customErrors.authError
+            }
+        }
+        else {
+            throw customErrors.noAppt
+        }
+
+        // Check if appt exists in DB
+        let apptCheck = await Appointment.findOne({'date': req.body.date,  'vetId': req.body.vetId})
+        if (apptCheck) {
+            throw customErrors.apptExists
+        }
+
+        // If not admin, sets update's userId value to equal the JWT userId
+        if (!isAdmin) {
+            req.body.userId = userId
         }
 
         const appointment = await Appointment.findByIdAndUpdate(
@@ -118,6 +183,19 @@ router.delete(`${appointmentsPrefix}/:id`, async (req, res, next) => {
     try {
         if (req.params.id.length < 24) {
             throw customErrors.shortId
+        }
+
+        let { userId , isAdmin } = req.auth
+
+        // Check if appointment is registered to user
+        let authCheck = await Appointment.findById(req.params.id)
+        if (authCheck) {
+            if (!isAdmin && authCheck.userId != req.auth.userId) {
+                throw customErrors.authError
+            }
+        }
+        else {
+            throw customErrors.noAppt
         }
 
         const appointment = await Appointment.findByIdAndDelete(

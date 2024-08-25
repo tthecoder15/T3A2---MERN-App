@@ -36,17 +36,7 @@ router.get(`${petsPrefix}/:id`, async (req, res, next) => {
 
         let { userId , isAdmin } = req.auth
         
-        // Double check this auth check
-        let authCheck = await Pet.findById(req.params.id)
-        if (authCheck) {
-            if (!isAdmin && authCheck.userId != req.auth.userId) {
-                throw customErrors.authError
-            }
-        }
-        else {
-            throw customErrors.noPet
-        }
-
+        // Retrieve pet
         const pet = await Pet.findById(
             req.params.id
         ).populate({
@@ -63,8 +53,14 @@ router.get(`${petsPrefix}/:id`, async (req, res, next) => {
                 }
             ]
         })
+
         if (pet) {
-            res.send(pet)
+            if (isAdmin || pet.userId._id == userId ){
+                res.send(pet)
+            }
+            else {
+                throw customErrors.authError
+            }
         } else {
             throw customErrors.noPet
         }
@@ -92,7 +88,8 @@ router.post(`${petsPrefix}`, async (req, res, next) => {
         // Create a new pet object and add it to the DB
         const newPet = await Pet.create(req.body)
         // Respond to the client with the registered Pet instance
-        res.status(201).send(newPet)}
+        res.status(201).send(newPet)
+    }
     catch (err) {
         next(err)
     }
