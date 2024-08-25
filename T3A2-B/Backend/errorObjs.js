@@ -27,6 +27,27 @@ const customErrors = {
             "user-exists": "Cannot register user, a user is already registered with that email."
         }
     },
+    vetExists: {
+        code: 400,
+        message: {
+            "error/s": ["vet-exists"],
+            "vet-exists": "Cannot register vet, a vet is already registered with that name."
+        }
+    },
+    apptExists: {
+        code: 400,
+        message: {
+            "error/s": ["appt-exists"],
+            "appt-exists": "Cannot register appointment, the selected vet already has a booking at that time."
+        }
+    },
+    petExists: {
+        code: 400,
+        message: {
+            "error/s": ["pet-exists"],
+            "pet-exists": "Cannot register pet, a pet with that name is already registered to this user."
+        }
+    },
     noUser: {
         code: 404,
         message: {

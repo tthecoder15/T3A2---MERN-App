@@ -34,6 +34,9 @@ router.get(`${petsPrefix}/:id`, async (req, res, next) => {
             throw customErrors.shortId
         }
 
+        let { userId , isAdmin } = req.auth
+        
+        // Retrieve pet
         const pet = await Pet.findById(
             req.params.id
         ).populate({
@@ -50,8 +53,14 @@ router.get(`${petsPrefix}/:id`, async (req, res, next) => {
                 }
             ]
         })
+
         if (pet) {
-            res.send(pet)
+            if (isAdmin || pet.userId._id == userId ){
+                res.send(pet)
+            }
+            else {
+                throw customErrors.authError
+            }
         } else {
             throw customErrors.noPet
         }
@@ -64,11 +73,23 @@ router.get(`${petsPrefix}/:id`, async (req, res, next) => {
 // Create a pet
 router.post(`${petsPrefix}`, async (req, res, next) => {
     try {
-        // Validate the input - validation in schema 
+        let { userId , isAdmin } = req.auth
+        // Check if user is admin, otherwise sets UserId to JWT value
+        if (!isAdmin) {
+            req.body.userId = userId
+        }
+
+        // Check if pet exists in DB
+        let petCheck = await Vet.findOne({'petName': req.body.petName})
+        if (petCheck) {
+            throw customErrors.petExists
+        }
+
         // Create a new pet object and add it to the DB
         const newPet = await Pet.create(req.body)
         // Respond to the client with the registered Pet instance
-        res.status(201).send(newPet)}
+        res.status(201).send(newPet)
+    }
     catch (err) {
         next(err)
     }
@@ -79,6 +100,30 @@ router.patch(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
         if (req.params.id.length < 24) {
             throw customErrors.shortId
+        }
+
+        let { userId , isAdmin } = req.auth
+
+        // Check if pet is registered to user
+        let authCheck = await Pet.findById(req.params.id)
+        if (authCheck) {
+            if (!isAdmin && authCheck.userId != req.auth.userId) {
+                throw customErrors.authError
+            }
+        }
+        else {
+            throw customErrors.noPet
+        }
+        
+        // Searches for user's pets with the same name and throws pet-exists error if pet already exists
+        let sameName = Pet.find({petName: req.body.petName, userId: req.body.userId})
+        if (sameName) {
+            throw customErrors.petExists
+        } 
+
+        // If not admin, sets update's userId value to equal the JWT userId
+        if (!isAdmin) {
+            req.body.userId = userId
         }
 
         const pet = await Pet.findByIdAndUpdate(
@@ -100,6 +145,19 @@ router.delete(`${petsPrefix}/:id`, async (req, res, next) => {
     try {
         if (req.params.id.length < 24) {
             throw customErrors.shortId
+        }
+
+        let { userId , isAdmin } = req.auth
+                
+        // Check if pet is registered to user
+        let authCheck = await Pet.findById(req.params.id)
+        if (authCheck) {
+            if (!isAdmin && authCheck.userId != req.auth.userId) {
+                throw customErrors.authError
+            }
+        }
+        else {
+            throw customErrors.noPet
         }
 
         const pet = await Pet.findByIdAndDelete(
