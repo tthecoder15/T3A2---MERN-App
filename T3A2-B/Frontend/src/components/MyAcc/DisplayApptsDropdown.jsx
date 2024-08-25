@@ -11,7 +11,7 @@ const DisplayApptsDropdown = () => {
         try{
             let upcDates = []
             let oldDates = []
-            if ('appointments' != '[]') {
+            if ('appointments' != '{}') {
                 for (let appt of userData.appointments) {
                     let dateNow = Date.now()
                     let apptDate = new Date(appt.date)
