@@ -7,12 +7,23 @@ import sessionState from '../../routes/store'
 
 const AccountSettings = () => {
   const userData = sessionState((state) => state.userData)
+
+  const firstApp = userData.appointments[0]
+  const firstAppPet = firstApp.petId
+  const firstAppDate = firstApp.date
+  
+  const firstPet = userData.pets[0]
+  const secondPet = userData.pets[1]
+  const thirdPet = userData.pets[2] 
+  const currentYear = new Date().getFullYear()
   
   const [selectedSetting, setSelectedSetting] = useState('')
 
   const handleButtonClick = (text) => {
     setSelectedSetting(text)
   }
+
+  console.log(secondPet)
 
   const renderInputSection = () => {
     switch (selectedSetting) {
@@ -50,14 +61,33 @@ const AccountSettings = () => {
         </div>
         <div>
             <h5>Upcoming Appointments</h5>
-            <p>- Add info from API</p>
+            {firstApp ? (
+              <p>
+                Your next appointment is for a {firstApp.appointmentType}. 
+                It is booked for your pet {firstAppPet.petName}, 
+                and is booked for {firstAppDate}.
+              </p>
+            ) : (
+              <p>You have no upcoming appointments.</p>
+            )}
             <button onClick={() => handleButtonClick('Upcoming Appointments')}>
                 Update
             </button>
         </div>
         <div>
             <h5>Pet Information</h5>
-            <p>- Add info from API</p>    
+            {firstPet ? (
+              <li>Name: {firstPet.petName}, Animal Type: {firstPet.animalType}, Age: {currentYear - firstPet.birthYear}, Breed: {firstPet.breed}</li>
+            ) : (<li>Add Dog Now</li>
+            )} 
+            {secondPet ? (
+              <li>Name: {secondPet.petName}, Animal Type: {secondPet.animalType}, Age: {currentYear - secondPet.birthYear}, Breed: {secondPet.breed}</li>
+            ) : (<li>Add Dog Now</li>
+            )}
+            {thirdPet ? (
+              <li>Name: {thirdPet.petName}, Animal Type: {thirdPet.animalType}, Age: {currentYear - thirdPet.birthYear}, Breed: {thirdPet.breed}</li>
+            ) : (<li>Add Dog Now</li>
+            )} 
             <button onClick={() => handleButtonClick('Pet Information')}>
                 Register new pet
             </button>

@@ -61,7 +61,7 @@ const sessionState = create((set) => ({
         // Check if login promise.ok property is truthy - will be false is fetch fails
         if (!response.ok) {
           const errorData = await response.json()
-          throw new Error(errorData.message || 'Failed to login')
+          throw new Error(errorData.message || 'Failed to login: Please make sure your email and password are correct.')
         }
 
         // Convert login fetch promise to JSON obj
