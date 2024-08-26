@@ -1,39 +1,77 @@
 import '@testing-library/jest-dom'
 import { describe, expect, it } from "vitest";
-import { BrowserRouter } from 'react-router-dom'
-import App from '../App.jsx'
-import user from '@testing-library/user-event'
-import { render } from "@testing-library/react";
+import { renderWithRouter } from './config/SetupTests'
+import { screen } from '@testing-library/react'
+import App from '../App'
+import Home from '../routes/Home'
+import Team from '../routes/Team'
+import Contact from '../routes/Contact'
+import Login from '../routes/Login'
+import MyAcc from '../routes/MyAcc'
+import Booking from '../routes/Booking'
+
 
 describe('App Component', () => {
-    it('render app component', () => {
-        const { container } = render(
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        )
-
-        const h1 =  container.querySelector('h1')
-
-        expect(h1).toBeInTheDocument()
-        expect(h1).toHaveTextContent('Pawfect Care')
+    it('renders Home component on default route', () => {
+      renderWithRouter(<App />, { route: '/' })
+      expect(screen.getByText('Pawfect Care')).toBeInTheDocument()
+    })
+  
+    it('renders Team component on /ourteam route', () => {
+      renderWithRouter(<App />, { route: '/ourteam' })
+      expect(screen.getByText('Dr. Riley Kim')).toBeInTheDocument()
     })
 
-    it('Nav logo sends you to /home on click', async () => {
-        const { container } = render(
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        )
-        // Get a reference to logo
-        const navLogo = container.querySelector('#navLogo')
-        // Simulate user clicking the logo in the nav bar
-        await user.click(navLogo)
-        
-        // Check if the user is redirected to /home by searching for the H1 "Pawfect Care"
-        const h1 =  container.querySelector('h1')
-
-        expect(h1).toBeInTheDocument()
-        expect(h1).toHaveTextContent('Pawfect Care')
+    it('renders Contact component on /contact route', () => {
+      renderWithRouter(<App />, { route: '/contact' })
+      expect(screen.getByText('Contact Form')).toBeInTheDocument()
     })
+  
+    it('renders Login component on /login route', () => {
+      renderWithRouter(<App />, { route: '/user/login' })
+      expect(screen.getByText('New User? Register Now')).toBeInTheDocument()
+    })
+
+    it('renders Contact component on /myaccount route', () => {
+      renderWithRouter(<App />, { route: '/user/myaccount' })
+      expect(screen.getByText('Welcome')).toBeInTheDocument()
+    })
+  
+    it('renders Login component on /booking route', () => {
+      renderWithRouter(<App />, { route: '/booking' })
+      expect(screen.getByText('Book Your Appointment')).toBeInTheDocument()
+    })
+
+  
+describe('Individual Components', () => {
+    it('renders Home component independently', () => {
+      renderWithRouter(<Home />)
+      expect(screen.getByText('Pawfect Care')).toBeInTheDocument()
+    })
+  
+    it('renders Team component independently', () => {
+      renderWithRouter(<Team />)
+      expect(screen.getByText('Our Team')).toBeInTheDocument()
+    })
+
+    it('renders Home component independently', () => {
+      renderWithRouter(<Contact />)
+      expect(screen.getByText('Contact Form')).toBeInTheDocument()
+      })
+    
+    it('renders Team component independently', () => {
+      renderWithRouter(<Login />)
+      expect(screen.getByText('New User? Register Now')).toBeInTheDocument()
+    })
+
+    it('renders Home component independently', () => {
+      renderWithRouter(<MyAcc />)
+      expect(screen.getByText('Welcome')).toBeInTheDocument()
+    })
+
+    it('renders Team component independently', () => {
+      renderWithRouter(<Booking />)
+      expect(screen.getByText('Book Your Appointment')).toBeInTheDocument()
+    })
+  })
 })

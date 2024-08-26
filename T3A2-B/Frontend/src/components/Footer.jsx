@@ -26,11 +26,11 @@ const Footer = () => {
                         </p>
                     </div>
                     <div>
-                    <h5>Opening Hours:</h5>
-                    <p>
-                        Weekdays: 9am - 5pm
-                        Weekends: Closed
-                    </p>
+                        <h5>Opening Hours:</h5>
+                        <p>
+                            Weekdays: 9am - 5pm
+                            Weekends: Closed
+                        </p>
                     </div>
                     <Link to="/">
                         <img
@@ -39,9 +39,9 @@ const Footer = () => {
                         />
                         </Link>
                     <div>
-                    <p>
-                        © Copyright Pawfect Care 2024
-                    </p>
+                        <p>
+                            © Copyright Pawfect Care 2024
+                        </p>
                     </div>
                 </div>
             </footer>
