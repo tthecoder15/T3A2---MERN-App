@@ -1,11 +1,11 @@
-import React from 'react';
-import { useForm, ValidationError } from '@formspree/react';
+import React from 'react'
+import { useForm, ValidationError } from '@formspree/react'
 
 function ContactForm() {
-  const [state, handleSubmit] = useForm('xzzpareq');
+  const [state, handleSubmit] = useForm('xzzpareq')
   
   if (state.succeeded) {
-    return <p>Your message has been received.</p>;
+    return <p>Your message has been received.</p>
   }
 
   return (
@@ -34,7 +34,7 @@ function ContactForm() {
         Submit
       </button>
     </form>
-  );
+  )
 }
 
-export default ContactForm;
+export default ContactForm
