@@ -1,7 +1,15 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import sessionState from "../routes/store"
 
 const NavBar = () => {
+    const isAuthenticated = sessionState((state) => state.isAuthenticated)
+    const logout = sessionState((state) => state.logout)
+    
+    const logoutClick = () => {
+        logout()
+    }
+
     return (
         <>
             <nav>
@@ -26,7 +34,14 @@ const NavBar = () => {
                     <Link to="/user/admin" >TEMP /user/admin</Link>
                     </div>
                     <div>
-                        <Link className="login" to="/user/login" >Login/Register</Link>
+                        <Link className="login" to="/user/login" >
+                            {isAuthenticated ? 
+                                <>
+                                    <>My Account</> 
+                                    <button onClick={logoutClick}>Logout</button>
+                                </> 
+                                : <>Login/Register</>}
+                        </Link>
                     </div>
                 </div>
             </nav>
