@@ -11,20 +11,44 @@ const petsPrefix = '/pets'
 
 // Get list of pets
 router.get(`${petsPrefix}`, async (req, res, next) => {
-    res.send(await Pet.find({}, '-__v').populate({
-        path: 'appointments',
-        select: '-__v -petId',
-        populate: [
-            {
-                path: 'userId',
-                select: 'firstName lastName'
-            },
-            {
-                path: 'petId',
-                select: '-appointments -__v'
-            }
-        ]
-    }))
+    let { userId, isAdmin } = req.auth
+    try {
+        if ( isAdmin == true ) {
+            res.send(await Pet.find({}, '-__v').populate({
+                path: 'appointments',
+                select: '-__v -petId',
+                populate: [
+                    {
+                        path: 'userId',
+                        select: 'firstName lastName -_id'
+                    },
+                    {
+                        path: 'vetId',
+                        select: 'vetName'
+                    }
+                    ]
+            }))
+        }
+        else {
+            res.send(await Pet.find({userId: userId}, '-__v').populate({
+                path: 'appointments',
+                select: '-__v -petId',
+                populate: [
+                    {
+                        path: 'userId',
+                        select: 'firstName lastName -_id'
+                    },
+                    {
+                        path: 'vetId',
+                        select: 'vetName'
+                    }
+                    ]
+            }))
+        }
+    }
+    catch (err) {
+        next(err)
+    }
 })
 
 // Get single pet
@@ -79,14 +103,24 @@ router.post(`${petsPrefix}`, async (req, res, next) => {
             req.body.userId = userId
         }
 
-        // Check if pet exists in DB
-        let petCheck = await Vet.findOne({'petName': req.body.petName})
+        // Check if pet with same name exists in DB registered to that user
+        let petCheck = await Pet.findOne({userId: req.body.userId, petName: req.body.petName})
         if (petCheck) {
             throw customErrors.petExists
         }
 
         // Create a new pet object and add it to the DB
         const newPet = await Pet.create(req.body)
+
+        // Retrieve User who registered pet
+        let retUser = await User.findOne({_id: userId})
+
+        // Add new pet to retrieved user
+        retUser.pets.push(newPet._id)
+
+        // Update user with new values
+        let saveUser = await User.findOneAndUpdate({_id: userId}, {pets: retUser.pets}, {returnDocument: 'after'})
+
         // Respond to the client with the registered Pet instance
         res.status(201).send(newPet)
     }
@@ -115,20 +149,36 @@ router.patch(`${petsPrefix}/:id`, async (req, res, next) => {
             throw customErrors.noPet
         }
         
-        // Searches for user's pets with the same name and throws pet-exists error if pet already exists
-        let sameName = Pet.find({petName: req.body.petName, userId: req.body.userId})
-        if (sameName) {
+        // Check if pet with same name exists in DB registered to that user
+        let petCheck = await Pet.findOne({userId: req.body.userId, petName: req.body.petName})
+        if (petCheck) {
             throw customErrors.petExists
-        } 
+        }
 
         // If not admin, sets update's userId value to equal the JWT userId
         if (!isAdmin) {
             req.body.userId = userId
         }
 
+        // Submit changes to DB
         const pet = await Pet.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
         )
+
+        // Add updated pet to user
+        let retUser = await User.findOne({_id: userId})
+        
+        for (let singlePet of retUser.pets) {
+            if (singlePet._id == pet._id) {
+                // Assign new pet value to matched pet
+                singlePet = pet
+            }
+        }
+
+        // Save updated User to db
+        let saveUser = await User.findOneAndUpdate({_id: userId}, retUser, {new: true})
+
+
         if (pet) {
             res.status(200).send(pet)
         } else {
@@ -163,6 +213,20 @@ router.delete(`${petsPrefix}/:id`, async (req, res, next) => {
         const pet = await Pet.findByIdAndDelete(
             req.params.id, req.body, {returnDocument: 'after'}
         )
+
+        // Retrieve user to delete pet
+        let retUser = await User.findOne({_id: userId})
+        
+        for (let petIndex in retUser.pets) {
+            if (retUser.pets[petIndex].toString() == req.params.id) {
+                // Assign new pet value to matched pet
+                retUser.pets.splice(petIndex, 1)
+            }
+        }
+
+        // Save updated User to db
+        let saveUser = await User.findOneAndUpdate({_id: userId}, retUser, {new: true})
+
         if (pet) {
             res.status(200).send({Success: "Pet deleted"})
         } else {
