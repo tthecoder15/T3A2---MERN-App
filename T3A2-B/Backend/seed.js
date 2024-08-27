@@ -51,6 +51,7 @@ async function seedDatabase() {
 
         const seedAppointments = [
             { userId: savedUsers[0]._id, vetId: savedVets[0]._id, petId: savedPets[0]._id, date: new Date("2024-12-01T11:00"), appointmentType: "check-up" },
+            { userId: savedUsers[0]._id, vetId: savedVets[0]._id, petId: savedPets[0]._id, date: new Date("2023-12-01T11:00"), appointmentType: "check-up" },
             { userId: savedUsers[1]._id, vetId: savedVets[0]._id, petId: savedPets[1]._id, date: new Date(2024, 12, 1, 10, 0, 0), appointmentType: "vaccination" },
             { userId: savedUsers[2]._id, vetId: savedVets[1]._id, petId: savedPets[2]._id, date: new Date(2024, 12, 1, 9, 0), appointmentType: "check-up" },
             { userId: savedUsers[2]._id, vetId: savedVets[1]._id, petId: savedPets[3]._id, date: new Date(2024, 12, 1, 10, 0), appointmentType: "check-up" }
@@ -64,15 +65,17 @@ async function seedDatabase() {
 
         // Add appointments to pets
         savedPets[0].appointments.push(savedAppointments[0]._id);
-        savedPets[1].appointments.push(savedAppointments[1]._id);
-        savedPets[2].appointments.push(savedAppointments[2]._id);
-        savedPets[3].appointments.push(savedAppointments[3]._id);
+        savedPets[0].appointments.push(savedAppointments[1]._id);
+        savedPets[1].appointments.push(savedAppointments[2]._id);
+        savedPets[2].appointments.push(savedAppointments[3]._id);
+        savedPets[3].appointments.push(savedAppointments[4]._id);
 
         // Add appointments to vets
         savedVets[0].appointments.push(savedAppointments[0]._id);
         savedVets[0].appointments.push(savedAppointments[1]._id);
-        savedVets[1].appointments.push(savedAppointments[2]._id);
+        savedVets[0].appointments.push(savedAppointments[2]._id);
         savedVets[1].appointments.push(savedAppointments[3]._id);
+        savedVets[1].appointments.push(savedAppointments[4]._id);
 
         // Add pets to users
         savedUsers[0].pets.push(savedPets[0]._id);
@@ -82,9 +85,10 @@ async function seedDatabase() {
 
         // Add appointments to users
         savedUsers[0].appointments.push(savedAppointments[0]._id);
-        savedUsers[1].appointments.push(savedAppointments[1]._id);
-        savedUsers[2].appointments.push(savedAppointments[2]._id);
+        savedUsers[0].appointments.push(savedAppointments[1]._id);
+        savedUsers[1].appointments.push(savedAppointments[2]._id);
         savedUsers[2].appointments.push(savedAppointments[3]._id);
+        savedUsers[2].appointments.push(savedAppointments[4]._id);
 
         for (let pet of savedPets) {
             let update = await Pet.findOneAndUpdate({_id: pet._id}, {appointments: pet.appointments}, {new: true})

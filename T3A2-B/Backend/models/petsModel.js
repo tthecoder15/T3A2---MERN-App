@@ -33,7 +33,7 @@ const petSchema = new Schema({
                     return false
                 }
             },
-            message: props => `${props.value} is not a registered userID`
+            message: props => `${props.value} is an invalid birth year. Please enter a birth year after 2000 and not past the current year.`
         }
     },
     breed: {type: String, required: true},

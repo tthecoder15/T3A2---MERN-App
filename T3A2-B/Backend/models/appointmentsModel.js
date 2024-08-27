@@ -35,7 +35,7 @@ const appointmentSchema = new Schema({
                     return false
                 }
             },
-            message: props => `${props.value} is not a registered petID`
+            message: props => `${props.value} is not a registered vetID`
         }
     },
     petId: {

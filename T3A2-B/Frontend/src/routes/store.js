@@ -14,15 +14,20 @@ const sessionState = create (
         set((state) => ({
           userData: {
             ...state.userData,
-            email: newData.email, 
-            firstName: newData.firstName, 
-            lastName: newData.lastName, 
-            phNumber: newData.phNumber,
+            email: newData.email ? newData.email : state.userData.email,
+            firstName: newData.firstName ? newData.firstName : state.userData.firstName, 
+            lastName: newData.lastName ? newData.lastName : state.userData.lastName, 
+            phNumber: newData.phNumber ? newData.phNumber : state.userData.phNumber,
+            pets: newData.pets ? [...state.userData.pets, newData.pets] : state.userData.pets,
+            appointments: newData.appointments ? [state.userData.appointments, newData.appointments] : state.userData.appointments
           }
         }))
       },
       token: null,
       isAuthenticated: false,
+      setIsAuthenticated: (changeValue) => {
+        set((state) => ({isAuthenticated: changeValue}))
+      },
       error: null,
       apiBase: "https://t3a2-mern-app.onrender.com",
 
