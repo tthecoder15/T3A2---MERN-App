@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Dropdown from "react-bootstrap/Dropdown";
 import sessionState from "../../routes/store";
 import { jwtDecode } from "jwt-decode";
-import LoginPopup from "./LoginPopup";
+import LoginPopup from "../Login/LoginPopup";
 
 const PetInfo = () => {
   const apiBase = sessionState((state) => state.apiBase);
@@ -130,14 +130,12 @@ const PetInfo = () => {
           throw errorData;
         }
 
-        let submittedPet = await response.json()
-        setErrors((prevErrors) => ({ ...prevErrors, postError: "" }))
-        setSubmitSuccess(true)
-        console.log(submittedPet)
-        setUserData({pets: submittedPet})
-        console.log('post register user data', userData)
-
-
+        let submittedPet = await response.json();
+        setErrors((prevErrors) => ({ ...prevErrors, postError: "" }));
+        setSubmitSuccess(true);
+        console.log(submittedPet);
+        setUserData({ pets: submittedPet });
+        console.log("post register user data", userData);
       } catch (err) {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -212,7 +210,11 @@ const PetInfo = () => {
         ) : (
           <></>
         )}
-        {submitSuccess ? <p style={{color: "gray"}}>Successfully registered pet!</p> : <></>}
+        {submitSuccess ? (
+          <p style={{ color: "gray" }}>Successfully registered pet!</p>
+        ) : (
+          <></>
+        )}
         <LoginPopup />
         <button onClick={toggleIsAuth}>
           Toggle "isAuthenticated" to Make Popup Appear
