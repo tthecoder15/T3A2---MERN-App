@@ -4,7 +4,7 @@ import '@testing-library/jest-dom'
 import { vi } from 'vitest'
 import { useForm } from '@formspree/react'
 import ContactForm from '../components/Contact/ContactForm'
-import renderWithRouter from './config/Setup'
+import renderWithRouter from './config/RenderWithRouter'
 
 // Mock the useForm hook
 vi.mock('@formspree/react', () => ({

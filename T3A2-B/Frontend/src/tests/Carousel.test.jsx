@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import NewsCarousel from '../components/Home/Carousel'
-import renderWithRouter from './config/Setup'
+import renderWithRouter from './config/RenderWithRouter'
 
 describe('NewsCarousel', () => {
   it('renders the carousel component', () => {

@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import { describe, expect, it } from 'vitest'
 import user from '@testing-library/user-event'
-import renderWithRouter from './config/Setup'
+import renderWithRouter from './config/RenderWithRouter'
 import NavBar from '../components/NavBar'
 import { screen } from '@testing-library/react'
 import sessionState from '../routes/store'

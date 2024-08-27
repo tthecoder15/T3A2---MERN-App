@@ -2,7 +2,7 @@ import '@testing-library/jest-dom'
 import { describe, expect, it } from 'vitest'
 import { screen } from '@testing-library/react'
 import Footer from '../components/Footer'
-import renderWithRouter from './config/Setup'
+import renderWithRouter from './config/RenderWithRouter'
 
 describe('Footer Component', () => {
 

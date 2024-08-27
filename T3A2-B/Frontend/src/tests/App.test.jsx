@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { describe, expect, it } from "vitest";
-import { renderWithRouter } from './config/Setup'
+import renderWithRouter from './config/RenderWithRouter'
 import { screen } from '@testing-library/react'
 import App from '../App'
 import Home from '../routes/Home'
