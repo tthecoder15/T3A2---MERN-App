@@ -12,14 +12,19 @@ const appointmentsPrefix = '/appointments'
 
 // Get list of appointments no JWT
 router.get(`${appointmentsPrefix}-list`, async (req, res, next) => {
-    let retAppts = await Appointment.find({}, '-__v -userId -petId -appointmentType').populate([
-            {
-                path: 'vetId',
-                select: '-appointments -__v'
-            }
-        ]
-    )
-    res.send(retAppts)
+    try {
+        let retAppts = await Appointment.find({}, '-__v -userId -petId -appointmentType').populate([
+                {
+                    path: 'vetId',
+                    select: '-appointments -__v'
+                }
+            ]
+        )
+        res.send(retAppts)
+    }
+    catch (err) {
+        next(err)
+    }
 })
 
 
