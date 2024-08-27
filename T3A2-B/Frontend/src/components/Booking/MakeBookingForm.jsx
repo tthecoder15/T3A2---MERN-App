@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import sessionState from "../../routes/store";
 import SelectPetDropdown from "./SelectPetDropdown";
-import SelectVetDropdown from "./SelectServiceDropdown";
+import SelectServiceDropdown from "./SelectServiceDropdown"
+import SelectVetDropdown from "./SelectVetDropdown";
+import BookingCalendar from "./BookingCalendar";
 
 const MakeBookingForm = () => {
   const userData = sessionState((state) => state.userData);
@@ -12,16 +14,30 @@ const MakeBookingForm = () => {
   const [serviceSelect, setServiceSelect] = useState("");
   const [vetArray, setVetArray] = useState([]);
   const [vetSelect, setVetSelect] = useState("");
+  const [timeSelect, setTimeSelect] = useState("")
   const [errors, setErrors] = useState({});
 
+  // Loads vets for populating the choices of vets and their appointments
+  // Load effect calls this upon the page loading
   async function loadVets() {
-    const loadedVets = await fetch(`${apiBase}/users/vets`, {
+    const response = await fetch(`${apiBase}/vets-list`, {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
     });
+    
+    if (!response.ok) {
+      const errorData = await response.json()
+      console.log(errorData)
+    }
+
+    const retVets = await response.json()
+    setVetArray(await retVets)
+    console.log("Here's the vet endpoint return", await vetArray)
   }
+
+  // Calls loadVets on load
+  useEffect(() => {loadVets()}, [])
 
   const handlePetChange = (pet) => {
     setPetSelect(pet);
@@ -71,15 +87,28 @@ const MakeBookingForm = () => {
     return true;
   };
 
+  const validateTime = () => {
+    if (!timeSelect) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        timeSelect: "Please select a vet.",
+      }));
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const isPetValid = validatePet();
     const isServiceValid = validateService();
     const isVetValid = validateVet();
+    const isTimeValid = validateTime()
 
-    if (isPetValid && isServiceValid && isVetValid) {
+    if (isPetValid && isServiceValid && isVetValid && isTimeValid) {
       // Submit form data to API
+      
     }
   };
 
@@ -96,10 +125,8 @@ const MakeBookingForm = () => {
       </div>
       <div id="select-apptType">
         <p>Select Appointment Type</p>
-        <SelectVetDropdown
-          handleServiceChange={handleServiceChange}
-          serviceSelect={serviceSelect}
-        />
+        <SelectServiceDropdown handleServiceChange={handleServiceChange}
+          serviceSelect={serviceSelect}/>
         {errors.serviceSelect && (
           <p style={{ color: "red" }}>{errors.serviceSelect}</p>
         )}
@@ -109,7 +136,12 @@ const MakeBookingForm = () => {
         <SelectVetDropdown
           handleVetChange={handleVetChange}
           vetSelect={vetSelect}
+          vetArray={vetArray}
         />
+      </div>
+      <div>
+        <p>Choose your time slot:</p>
+        <BookingCalendar vetArray={vetArray} vetSelect={vetSelect} setTimeSelect={setTimeSelect}/>
       </div>
     </>
   );
