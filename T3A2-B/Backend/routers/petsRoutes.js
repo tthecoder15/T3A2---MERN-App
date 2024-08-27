@@ -113,13 +113,13 @@ router.post(`${petsPrefix}`, async (req, res, next) => {
         const newPet = await Pet.create(req.body)
 
         // Retrieve User who registered pet
-        let retUser = await User.findOne({_id: userId})
+        let retUser = await User.findOne({_id: req.body.userId})
 
         // Add new pet to retrieved user
         retUser.pets.push(newPet._id)
 
         // Update user with new values
-        let saveUser = await User.findOneAndUpdate({_id: userId}, {pets: retUser.pets}, {returnDocument: 'after'})
+        let saveUser = await User.findOneAndUpdate({_id: req.body.userId}, {pets: retUser.pets}, {returnDocument: 'after'})
 
         // Respond to the client with the registered Pet instance
         res.status(201).send(newPet)
@@ -166,8 +166,9 @@ router.patch(`${petsPrefix}/:id`, async (req, res, next) => {
         )
 
         // Add updated pet to user
-        let retUser = await User.findOne({_id: userId})
+        let retUser = await User.findOne({_id: req.body.userId})
         
+        // Update pet in user
         for (let singlePet of retUser.pets) {
             if (singlePet._id == pet._id) {
                 // Assign new pet value to matched pet
@@ -176,7 +177,7 @@ router.patch(`${petsPrefix}/:id`, async (req, res, next) => {
         }
 
         // Save updated User to db
-        let saveUser = await User.findOneAndUpdate({_id: userId}, retUser, {new: true})
+        let saveUser = await User.findOneAndUpdate({_id: req.body.userId}, retUser, {new: true})
 
 
         if (pet) {
@@ -215,17 +216,18 @@ router.delete(`${petsPrefix}/:id`, async (req, res, next) => {
         )
 
         // Retrieve user to delete pet
-        let retUser = await User.findOne({_id: userId})
+        let retUser = await User.findOne({_id: req.body.userId})
         
+        // Delete pet in user
         for (let petIndex in retUser.pets) {
             if (retUser.pets[petIndex].toString() == req.params.id) {
-                // Assign new pet value to matched pet
+                // Delete matched pet value
                 retUser.pets.splice(petIndex, 1)
             }
         }
 
         // Save updated User to db
-        let saveUser = await User.findOneAndUpdate({_id: userId}, retUser, {new: true})
+        let saveUser = await User.findOneAndUpdate({_id: req.body.userId}, retUser, {new: true})
 
         if (pet) {
             res.status(200).send({Success: "Pet deleted"})
