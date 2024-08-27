@@ -18,8 +18,8 @@ const sessionState = create (
             firstName: newData.firstName ? newData.firstName : state.userData.firstName, 
             lastName: newData.lastName ? newData.lastName : state.userData.lastName, 
             phNumber: newData.phNumber ? newData.phNumber : state.userData.phNumber,
-            pets: newData.pets ? [...state.userData.pets, newData.pets] : state.userData.pets,
-            appointments: newData.appointments ? [state.userData.appointments, newData.appointments] : state.userData.appointments
+            pets: newData.pets ? (newData.pets != '[]' ? [...state.userData.pets, newData.pets] : []) : state.userData.pets,
+            appointments: newData.appointments ? [...(state.userData.appointments || []), ...newData.appointments] : state.userData.appointments
           }
         }))
       },
@@ -30,30 +30,6 @@ const sessionState = create (
       },
       error: null,
       apiBase: "https://t3a2-mern-app.onrender.com",
-
-      // load: async () => {
-      //   const token = get().token
-
-      //   const headers = {
-      //     'Authorization': `Bearer ${token}`,
-      //     'Content-Type': 'application/json',
-      //   }
-
-      //   try {
-      //     const [users, vets, appointments, pets] = await Promise.all([
-      //       fetch(`${apiBase}/users`, { headers }).then(res => res.json()),
-      //       fetch(`${apiBase}/vets`, { headers }).then(res => res.json()),
-      //       fetch(`${apiBase}/appointments`, { headers }).then(res => res.json()),
-      //       fetch(`${apiBase}/pets`, { headers }).then(res => res.json()),
-      //     ])
-
-      //     set({ users, vets, appointments, pets })
-
-      //   } catch (error) {
-      //     set({ error: 'Failed to load data' })
-      //     console.error("Load error:", error)
-      //   }
-      // },
 
       login: async (email, password) => {
         try {
@@ -126,7 +102,7 @@ const sessionState = create (
           token: null,
           isAuthenticated: false,
           error: null,
-          userData: null,
+          userData: {},
           publicApptData: null
         })
       },

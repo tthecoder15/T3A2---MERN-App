@@ -3,7 +3,23 @@ import { Pet } from "./petsModel.js";
 import { Appointment } from "./appointmentsModel.js";
 
 const userSchema = new Schema({
-    email: {type: String, required: true},
+    email: {
+        type: String, 
+        required: true,
+        validate: {
+            validator: async function (email) {
+                console.log('email test')
+                let eRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+                if (eRegex.test(email)) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            },
+            message: props => `${props.value} is not a valid email`
+        }
+    },
     password: {type: String, required: true},
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},

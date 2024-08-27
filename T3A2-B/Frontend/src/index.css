@@ -93,12 +93,11 @@ footer a {
 }
 
 footer a:hover {
-  color: #44961d; /* White text color on hover */
+  color: #44961d; 
 }
 
 footer div {
   display: flex;
-  flex-wrap: wrap; /* Allows content to wrap if needed */
   width: 60%; /* Adjust width as needed */
 }
 
