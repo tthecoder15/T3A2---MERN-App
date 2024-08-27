@@ -31,30 +31,6 @@ const sessionState = create (
       error: null,
       apiBase: "https://t3a2-mern-app.onrender.com",
 
-      // load: async () => {
-      //   const token = get().token
-
-      //   const headers = {
-      //     'Authorization': `Bearer ${token}`,
-      //     'Content-Type': 'application/json',
-      //   }
-
-      //   try {
-      //     const [users, vets, appointments, pets] = await Promise.all([
-      //       fetch(`${apiBase}/users`, { headers }).then(res => res.json()),
-      //       fetch(`${apiBase}/vets`, { headers }).then(res => res.json()),
-      //       fetch(`${apiBase}/appointments`, { headers }).then(res => res.json()),
-      //       fetch(`${apiBase}/pets`, { headers }).then(res => res.json()),
-      //     ])
-
-      //     set({ users, vets, appointments, pets })
-
-      //   } catch (error) {
-      //     set({ error: 'Failed to load data' })
-      //     console.error("Load error:", error)
-      //   }
-      // },
-
       login: async (email, password) => {
         try {
           const response = await fetch(`${apiBase}/users/login`, {
