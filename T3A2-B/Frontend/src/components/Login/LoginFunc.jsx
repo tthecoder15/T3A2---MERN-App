@@ -52,7 +52,7 @@ const LoginField = () => {
           />
         </div>
         {error && <div style={{ color: 'red' }}>{error}</div>}
-        <button type="submit">Login</button>
+        <button type="submit" data-testid="Login">Login</button>
       </form>
       {isAuthenticated && <div>Login Successful!</div>}
     </div>
