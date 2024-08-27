@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import sessionState from '../../routes/store'
 
-const LoginField = () => {
+const LoginField = ({previousRoute}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -21,8 +21,7 @@ const LoginField = () => {
   }
 
   useEffect(() => {
-    if (isAuthenticated) {
-      console.log("Logged in user:", userData)
+    if (isAuthenticated && previousRoute == 'user/login') {
       navigate('/user/myaccount')
     }
   }, [isAuthenticated, navigate, userData])
