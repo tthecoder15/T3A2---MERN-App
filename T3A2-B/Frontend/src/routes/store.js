@@ -18,8 +18,8 @@ const sessionState = create (
             firstName: newData.firstName ? newData.firstName : state.userData.firstName, 
             lastName: newData.lastName ? newData.lastName : state.userData.lastName, 
             phNumber: newData.phNumber ? newData.phNumber : state.userData.phNumber,
-            pets: newData.pets ? [...state.userData.pets, newData.pets] : state.userData.pets,
-            appointments: newData.appointments ? [state.userData.appointments, newData.appointments] : state.userData.appointments
+            pets: newData.pets ? (newData.pets != '[]' ? [...state.userData.pets, newData.pets] : []) : state.userData.pets,
+            appointments: newData.appointments ? [...(state.userData.appointments || []), ...newData.appointments] : state.userData.appointments
           }
         }))
       },
@@ -102,7 +102,7 @@ const sessionState = create (
           token: null,
           isAuthenticated: false,
           error: null,
-          userData: null,
+          userData: {},
           publicApptData: null
         })
       },
