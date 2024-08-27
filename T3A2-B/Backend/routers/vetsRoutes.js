@@ -31,7 +31,7 @@ router.get(`${vetsPrefix}`, async (req, res, next) => {
 
     // If user is not admin, return only vet name and ID
     else {
-        res.send(await Vet.find({}, '-__v').populate('appointments', '-__v -userId -petId -appointmentType'))
+        res.send(await Vet.find({}, '-__v').populate('appointments', '-__v -vetId -userId -petId -appointmentType'))
     }
 
 })
