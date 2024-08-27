@@ -4,15 +4,15 @@ import { useState } from "react";
 import sessionState from "../../routes/store";
 import RegisterPetForm from "../MyAcc/RegisterPetForm";
 
-const SelectPetDropdown = ({ handlePetChange, petSelect, setPetSelect }) => {
+const SelectPetDropdown = ({ petSelect, handlePetChange }) => {
   const userData = sessionState((state) => state.userData);
   const [registerPet, setRegisterPet] = useState(false);
-
+  console.log(userData)
   return (
     <div>
       <Dropdown>
         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-          {petSelect || "Select Pet"}
+          {petSelect.petName || "Select Pet"}
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {userData ? (
@@ -20,9 +20,9 @@ const SelectPetDropdown = ({ handlePetChange, petSelect, setPetSelect }) => {
               return (
                 <Dropdown.Item
                   onClick={() => {
-                    handlePetChange(`${pet.petName}`), setRegisterPet(false);
+                   setRegisterPet(false), handlePetChange(pet);
                   }}
-                >
+                key={pet.petName}>
                   {pet.petName}
                 </Dropdown.Item>
               );

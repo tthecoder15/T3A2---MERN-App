@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import sessionState from '../../routes/store'
 
@@ -20,11 +20,12 @@ const LoginField = ({previousRoute}) => {
     }
   }
 
-  useEffect(() => {
-    if (isAuthenticated && previousRoute == 'user/login') {
+  useLayoutEffect(() => {
+    console.log('USER DATA', userData)
+    if (isAuthenticated && previousRoute == 'user/login' && userData) {
       navigate('/user/myaccount')
     }
-  }, [isAuthenticated, navigate, userData])
+  }, [userData])
 
   return (
     <div>

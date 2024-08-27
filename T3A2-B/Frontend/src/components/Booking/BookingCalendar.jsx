@@ -185,7 +185,6 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
                 monthClick(`${month}`);
               }}
               key={month}
-              monthIndex={monthList.indexOf(month)}
             >
               {month}
             </button>

@@ -11,6 +11,7 @@ const sessionState = create (
       publicApptData: {},
       userData: {},
       setUserData: (newData) => {
+        console.log(newData)
         set((state) => ({
           userData: {
             ...state.userData,
@@ -18,8 +19,8 @@ const sessionState = create (
             firstName: newData.firstName ? newData.firstName : state.userData.firstName, 
             lastName: newData.lastName ? newData.lastName : state.userData.lastName, 
             phNumber: newData.phNumber ? newData.phNumber : state.userData.phNumber,
-            pets: newData.pets ? (newData.pets != '[]' ? [...state.userData.pets, newData.pets] : []) : state.userData.pets,
-            appointments: newData.appointments ? [...(state.userData.appointments || []), ...newData.appointments] : state.userData.appointments
+            pets: newData.pets ? (newData.pets.length == 0 ? [] : [...state.userData.pets, newData.pets]) : state.userData.pets,
+            appointments: newData.appointments ? (newData.appointments.length == 0 ? [] : [...state.userData.appointments, newData.appointments]) : state.userData.appointments
           }
         }))
       },
