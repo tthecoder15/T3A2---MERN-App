@@ -165,11 +165,6 @@ const BookingCalendar = ({
             // Generate date string for individual appointment
             let apptDateString = new Date(appt.date).toString();
             // Check if appt date string is present in list of dates
-            console.log(
-              "included in? ",
-              timeBlocksArr.includes(apptDateString)
-            );
-            console.log(timeBlocksArr.indexOf(apptDateString));
             if (timeBlocksArr.includes(apptDateString)) {
               // Remove booked appointment time from generated times
               timeBlocksArr.splice(timeBlocksArr.indexOf(apptDateString), 1);
