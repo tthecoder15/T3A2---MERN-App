@@ -8,12 +8,12 @@ const DisplaySingleAppt = ({ appt }) => {
     let petName = appt.petId.petName
     let apptType = appt.appointmentType.charAt(0).toUpperCase() + appt.appointmentType.slice(1)
     return (
-    <>
+    <div className='appointment-box'>
         <p>Appointment Date: {apptDate.slice(0, 21)}</p>
         <p>Vet: {vetName}</p> 
         <p>Patient: {petName}</p> 
         <p>Appointment Type: {apptType}</p>
-    </>
+    </div>
     )
 }
 

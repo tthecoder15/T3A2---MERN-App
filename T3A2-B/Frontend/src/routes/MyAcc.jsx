@@ -1,16 +1,15 @@
-import React from 'react'
 import sessionState from './store'
 import MyAccountDash from '../components/MyAcc/MyAccountDash'
 
 const MyAcc = () => {
   const userData = sessionState((state) => state.userData)
-  const token = sessionState((state) => state.token)
-
-  if (!userData) {
+  const isAuthenticated = sessionState((state) => state.isAuthenticated)
+  
+  if (!userData.firstName) {
     return  <div className="contentFrame">
               <h3>Loading request...</h3>
             </div>
-  }
+  }  
 
   return (
     <>

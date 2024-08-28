@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { alignPropType } from "react-bootstrap/esm/types";
+import './booking.css'
 
 const BookingCalendar = ({
   vetArray,
@@ -165,11 +166,6 @@ const BookingCalendar = ({
             // Generate date string for individual appointment
             let apptDateString = new Date(appt.date).toString();
             // Check if appt date string is present in list of dates
-            console.log(
-              "included in? ",
-              timeBlocksArr.includes(apptDateString)
-            );
-            console.log(timeBlocksArr.indexOf(apptDateString));
             if (timeBlocksArr.includes(apptDateString)) {
               // Remove booked appointment time from generated times
               timeBlocksArr.splice(timeBlocksArr.indexOf(apptDateString), 1);
@@ -192,7 +188,7 @@ const BookingCalendar = ({
   };
 
   return (
-    <div>
+    <div className="dates">
       <div id="year-buttons">
         {yearList.map((year) => (
           <button

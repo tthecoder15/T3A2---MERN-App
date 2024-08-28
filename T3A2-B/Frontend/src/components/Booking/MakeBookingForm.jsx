@@ -165,7 +165,7 @@ const MakeBookingForm = () => {
 
   return (
     <>
-      <div id="select-pet">
+      <div id="select-pet" className="booking-select">
         <p>Select Pet</p>
         <SelectPetDropdown
           handlePetChange={handlePetChange}
@@ -173,7 +173,7 @@ const MakeBookingForm = () => {
         />
         {errors.petSelect && <p style={{ color: "red" }}>{errors.petSelect}</p>}
       </div>
-      <div id="select-apptType">
+      <div id="select-apptType" className="booking-select">
         <p>Select Appointment Type</p>
         <SelectServiceDropdown
           handleServiceChange={handleServiceChange}
@@ -183,7 +183,7 @@ const MakeBookingForm = () => {
           <p style={{ color: "red" }}>{errors.serviceSelect}</p>
         )}
       </div>
-      <div id="select-vet">
+      <div id="select-vet" className="booking-select">
         <p>Select your vet</p>
         <SelectVetDropdown
           handleVetChange={handleVetChange}
@@ -191,7 +191,7 @@ const MakeBookingForm = () => {
           vetArray={vetArray}
         />
       </div>
-      <div>
+      <div className="calender">
         <p>Choose your time slot:</p>
         <BookingCalendar
           vetArray={vetArray}
