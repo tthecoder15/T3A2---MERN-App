@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import Dropdown from "react-bootstrap/Dropdown";
 import sessionState from "../../routes/store";
 import { jwtDecode } from "jwt-decode";
