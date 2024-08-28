@@ -201,9 +201,20 @@ const PetInfo = () => {
         )}
       </div>
       <div id="submit-input">
-        <button type="submit" onClick={postNewPet}>
-          Register Pet
-        </button>
+        {
+          isAuthenticated != true ? 
+            <LoginPopup 
+              trigger={() => (
+                    <button>
+                      Register Pet
+                    </button>
+                  )}
+            /> 
+            : 
+            <button type="submit" onClick={postNewPet}>
+              Register Pet
+            </button>
+        }
         {errors.postError ? (
           <p style={{ color: "red" }}>{errors.postError.toString()}</p>
         ) : (
@@ -214,7 +225,6 @@ const PetInfo = () => {
         ) : (
           <></>
         )}
-        <LoginPopup closeOnDocumentClick={'no'}/>
         <button onClick={toggleIsAuth}>
           Toggle "isAuthenticated" to Make Popup Appear
         </button>

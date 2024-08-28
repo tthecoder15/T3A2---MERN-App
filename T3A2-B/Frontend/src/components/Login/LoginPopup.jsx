@@ -6,15 +6,16 @@ import "reactjs-popup/dist/index.css";
 import RegisterUser from "./RegisterUser";
 import { Link } from "react-router-dom";
 
-const LoginPopup = ({closeOnDocumentClick}) => {
+const LoginPopup = ({trigger, closeOnDocumentClick}) => {
   const isAuthenticated = sessionState((state) => state.isAuthenticated);
   return (
     <Popup
       closeOnDocumentClick={closeOnDocumentClick == 'no' ? false : true}
       className="popup"
       modal
-      open={!isAuthenticated}
+
       position="right center"
+      trigger={trigger ? trigger : ''}
     >
       <LoginField />
       <Link to={'/user/login'}>Register Account</Link>

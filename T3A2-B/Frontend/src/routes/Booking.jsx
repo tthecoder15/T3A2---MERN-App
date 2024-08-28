@@ -8,29 +8,32 @@ const Booking = () => {
   const userData = sessionState((state) => state.userData);
   const isAuthenticated = sessionState((state) => state.isAuthenticated);
 
-  const [showPopup, setShowPopup] = useState(false)
+  const [showPopup, setShowPopup] = useState(false);
 
-  const loginButtonClick = () => {
-    setShowPopup(true)
-  }
-
-  console.log(userData)
+  console.log(userData);
   return (
-    
     <>
       <div className="contentFrame">
         <h2>Book Your Appointment</h2>
         <div>
           <div>
             {userData.firstName ? (
-              <p>Hello {userData.firstName}, to make an appointment, please fill in the following form.</p>
+              <p>
+                Hello {userData.firstName}, to make an appointment, please fill
+                in the following form.
+              </p>
             ) : (
               <p>Hello, to book an appointment, please log in or register: </p>
             )}
-            {isAuthenticated ? <></> : <button onClick={loginButtonClick}>Login/Register</button>}
-            {showPopup ? <LoginPopup/> : <></>}
+            {userData.firstName ? <></> : 
+              <LoginPopup
+              trigger={() => (
+                <button className="button">
+                  Login/Register
+                </button>
+              )}/>}
           </div>
-          <MakeBookingForm setShowPopup={setShowPopup}/>
+          <MakeBookingForm/>
         </div>
       </div>
     </>

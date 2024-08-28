@@ -3,7 +3,9 @@ import DisplaySingleAppt from "./DisplaySingleAppt";
 const DisplayApptsDropdown = ({ upcomingAppts, pastAppts }) => {
   const genApptsHtml = (appts) => {
     return appts.map((appt) => {
-      return <DisplaySingleAppt appt={appt} key={appt._id} />;
+      return (
+        <DisplaySingleAppt appt={appt} key={appt._id}/>
+    );
     });
   };
 
