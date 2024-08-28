@@ -8,7 +8,6 @@ const userSchema = new Schema({
         required: true,
         validate: {
             validator: async function (email) {
-                console.log('email test')
                 let eRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
                 if (eRegex.test(email)) {
                     return true
