@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { alignPropType } from "react-bootstrap/esm/types";
+import './booking.css'
 
 const BookingCalendar = ({
   vetArray,
@@ -187,7 +188,7 @@ const BookingCalendar = ({
   };
 
   return (
-    <div>
+    <div className="dates">
       <div id="year-buttons">
         {yearList.map((year) => (
           <button

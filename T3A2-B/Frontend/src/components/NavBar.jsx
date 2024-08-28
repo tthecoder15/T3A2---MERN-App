@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import sessionState from "../routes/store";
+import React from "react"
+import { Link } from "react-router-dom"
+import sessionState from "../routes/store"
+import './global.css'
 
 const NavBar = () => {
   const isAuthenticated = sessionState((state) => state.isAuthenticated);
