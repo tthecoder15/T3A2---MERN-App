@@ -38,13 +38,13 @@ const MakeBookingForm = () => {
     }
 
     const retVets = await response.json();
-    setVetArray(await retVets);
+    setVetArray(retVets);
   }
 
   // Calls loadVets on load
   useEffect(() => {
     loadVets();
-  }, []);
+  }, [userData]);
 
   const handlePetChange = (pet) => {
     setPetSelect(pet);
@@ -126,7 +126,7 @@ const MakeBookingForm = () => {
             vetId: vetSelect._id,
             userId: userId,
             appointmentType: serviceSelect,
-            date: timeSelect,
+            date: timeSelect
           }),
         });
 
@@ -146,7 +146,6 @@ const MakeBookingForm = () => {
         submittedAppointment.vetId = vetSelect
         setErrors((prevErrors) => ({ ...prevErrors, postError: "" }));
         setSubmitSuccess(true);
-        console.log("submitted Appointment: ", submittedAppointment);
         setUserData({ appointments: submittedAppointment });
         console.log("post register user data", userData);
       } catch (err) {

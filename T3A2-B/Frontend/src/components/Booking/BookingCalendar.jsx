@@ -18,7 +18,6 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
   ];
 
   const timesList = [
-    "08:00",
     "09:00",
     "10:00",
     "11:00",
@@ -27,8 +26,9 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
     "14:00",
     "15:00",
     "16:00",
-    "17:00",
   ];
+
+  console.log(vetArray)
 
   const today = new Date();
   const todayDay = today.toString().slice(0, 3);
@@ -80,16 +80,6 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
     setSelectedMonth(month);
   };
 
-  function getDaysInMonth(month, year) {
-    var date = new Date(year, month, 1);
-    var days = [];
-    while (date.getMonth() === month) {
-      days.push(new Date(date));
-      date.setDate(date.getDate() + 1);
-    }
-    return days;
-  }
-
   // Generates list of days to be generated as buttons
   const genDays = () => {
     if (selectedMonth) {
@@ -133,6 +123,7 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
           ).toString()
         );
       }
+      console.log('before filter', genTimeObjs)
       // Iterate through vets in vetArray
       for (let vet of vetArray) {
         // Check if the vet being considered is the select vet
@@ -142,6 +133,8 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
             // Generate date string for individual appointment
             let apptDateString = new Date(appt.date).toString()
             // Check if appt date string is present in list of dates
+            console.log('included in? ', genTimeObjs.includes(apptDateString))
+            console.log(genTimeObjs.indexOf(apptDateString))
             if (genTimeObjs.includes(apptDateString)) {
               // Remove booked appointment time from generated times
               genTimeObjs.splice(genTimeObjs.indexOf(apptDateString), 1);
@@ -149,6 +142,7 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
           }
         }
       }
+      console.log('after filter', genTimeObjs)
       setDisplayTimes(genTimeObjs)
     }
   };
