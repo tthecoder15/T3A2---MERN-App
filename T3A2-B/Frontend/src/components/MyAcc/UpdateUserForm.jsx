@@ -2,8 +2,17 @@ import React, { useState } from 'react';
 import sessionState from '../../routes/store';
 
 const UpdateUser = () => {
-    const { user } = sessionState((state) => ({
-        user: state.user,
+    const { userData } = sessionState((state) => ({
+        userData: state.userData,
+    }));
+    const { token } = sessionState((state) => ({
+        token: state.token,
+    }));
+    const { apiBase } = sessionState((state) => ({
+        apiBase: state.apiBase,
+    }));
+    const { setUserData } = sessionState((state) => ({
+        setUserData: state.setUserData,
     }));
 
     const [formData, setFormData] = useState({
@@ -58,19 +67,18 @@ const UpdateUser = () => {
 
         if (validateForm()) {
             try {
-                const response = await fetch(`https://t3a2-mern-app.onrender.com/user/${user._id}`, {
+                const response = await fetch(`${apiBase}/users/${userData._id}`, {
                     method: 'PATCH',
                     headers: {
-                        Authorization: `Bearer ${user.accessToken}`,
+                        Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        email: formData.email || user.email,
-                        password: formData.password || user.password,
-                        phNumber: formData.phNumber || user.phNumber,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        isAdmin: user.isAdmin,
+                        email: formData.email || userData.email,
+                        password: formData.password || userData.password,
+                        phNumber: formData.phNumber || userData.phNumber,
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
                     }),
                 });
 
@@ -79,7 +87,8 @@ const UpdateUser = () => {
                 }
 
                 const updatedUser = await response.json();
-                console.log('User updated successfully:', updatedUser);
+                setUserData(updatedUser)
+                
             } catch (error) {
                 console.error('Error: Failed to update user information', error);
                 setErrors((prevErrors) => ({

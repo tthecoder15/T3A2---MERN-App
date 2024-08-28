@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import sessionState from '../../routes/store'
 
-const LoginField = () => {
+const LoginField = ({previousRoute}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { login, user, isAuthenticated, error } = sessionState()
+  const { login, userData, isAuthenticated, error } = sessionState()
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Attempting to login with:', { email, password })
+    console.log('attempting login ')
     try {
       await login(email, password)
-      console.log("Logged in user:", user)
     } catch (error) {
       console.error("Login failed:", error.message)
     }
   }
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      console.log("Logged in user:", user)
+  useLayoutEffect(() => {
+    if (isAuthenticated && previousRoute == 'user/login' && userData) {
       navigate('/user/myaccount')
     }
-  }, [isAuthenticated, navigate, user])
+  }, [userData])
 
   return (
     <div>
@@ -52,7 +50,7 @@ const LoginField = () => {
           />
         </div>
         {error && <div style={{ color: 'red' }}>{error}</div>}
-        <button type="submit">Login</button>
+        <button type="submit" data-testid="Login">Login</button>
       </form>
       {isAuthenticated && <div>Login Successful!</div>}
     </div>
