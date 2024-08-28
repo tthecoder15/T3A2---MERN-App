@@ -40,6 +40,7 @@ const MakeBookingForm = () => {
 
     if (!response.ok) {
       const errorData = await response.json();
+      setVetArray('')
       console.log(errorData);
     }
 
