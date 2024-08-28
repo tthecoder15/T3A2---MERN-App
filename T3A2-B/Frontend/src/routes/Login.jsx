@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginField from '../components/Login/LoginField'
-import RegisterUser from '../components/Login/Register'
+import RegisterUser from '../components/Login/RegisterUser'
 
 const Login = () => {
   return (

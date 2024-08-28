@@ -113,8 +113,6 @@ const RegisterUser = () => {
                 });
                 setSuccessMessage('You have registered successfully, please log in.');
 
-                console.log('JWT received:', data.JWT);
-
                 setErrors({});
             } catch (error) {
                 console.error('Error:', error);

@@ -20,7 +20,10 @@ const PetInfo = () => {
   const [errors, setErrors] = useState({});
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const userId = jwtDecode(token).userId;
+  let userId;
+  if (token) {
+    userId = jwtDecode(token).userId;
+  }
 
   const handleNameChange = (e) => {
     setPetName(e.target.value);
@@ -93,7 +96,6 @@ const PetInfo = () => {
 
   const toggleIsAuth = () => {
     setIsAuthenticated(false);
-    console.log(isAuthenticated);
   };
 
   async function postNewPet(e) {
@@ -134,7 +136,6 @@ const PetInfo = () => {
         setErrors((prevErrors) => ({ ...prevErrors, postError: "" }));
         setSubmitSuccess(true);
         setUserData({ pets: submittedPet });
-        console.log("post register user data", userData);
       } catch (err) {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -214,7 +215,7 @@ const PetInfo = () => {
         ) : (
           <></>
         )}
-        <LoginPopup />
+        <LoginPopup closeOnDocumentClick={'no'}/>
         <button onClick={toggleIsAuth}>
           Toggle "isAuthenticated" to Make Popup Appear
         </button>

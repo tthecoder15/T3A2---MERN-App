@@ -30,7 +30,15 @@ body {
   }
 }
 
+/* Selected button styling */
+button.selected-button {
+  background-color: blue;
+}
 
+/* Not selected button styling */
+button.not-selected-button {
+  background-color: white;
+}
 
 /* Prefill Navbar.  Change later */
 

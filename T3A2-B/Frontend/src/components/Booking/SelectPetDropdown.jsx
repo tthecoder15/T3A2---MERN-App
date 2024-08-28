@@ -7,7 +7,7 @@ import RegisterPetForm from "../MyAcc/RegisterPetForm";
 const SelectPetDropdown = ({ petSelect, handlePetChange }) => {
   const userData = sessionState((state) => state.userData);
   const [registerPet, setRegisterPet] = useState(false);
-  console.log(userData)
+  
   return (
     <div>
       <Dropdown>
@@ -15,7 +15,7 @@ const SelectPetDropdown = ({ petSelect, handlePetChange }) => {
           {petSelect.petName || "Select Pet"}
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          {userData ? (
+          {userData.pets ? (
             userData.pets.map((pet) => {
               return (
                 <Dropdown.Item

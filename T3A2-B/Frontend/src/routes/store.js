@@ -11,7 +11,6 @@ const sessionState = create (
       publicApptData: {},
       userData: {},
       setUserData: (newData) => {
-        console.log(newData)
         set((state) => ({
           userData: {
             ...state.userData,
@@ -52,6 +51,7 @@ const sessionState = create (
 
           // Convert login fetch promise to JSON obj
           const retToken = await response.json()
+          console.log(retToken)
           
           // Set global state 'token', 'isAuthenticated'
           set({

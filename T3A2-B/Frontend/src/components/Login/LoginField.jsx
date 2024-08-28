@@ -11,17 +11,14 @@ const LoginField = ({previousRoute}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Attempting to login with:', { email, password })
     try {
       await login(email, password)
-      console.log("Logged in user:", userData)
     } catch (error) {
       console.error("Login failed:", error.message)
     }
   }
 
   useLayoutEffect(() => {
-    console.log('USER DATA', userData)
     if (isAuthenticated && previousRoute == 'user/login' && userData) {
       navigate('/user/myaccount')
     }
