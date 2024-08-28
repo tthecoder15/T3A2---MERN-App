@@ -82,14 +82,11 @@ const UpdateUser = () => {
                     }),
                 });
 
-                console.log(response)
-
                 if (!response.ok) {
                     throw new Error('Failed to update user information');
                 }
 
                 const updatedUser = await response.json();
-                console.log(updatedUser)
                 setUserData(updatedUser)
                 
             } catch (error) {

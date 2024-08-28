@@ -6,14 +6,20 @@ import SelectServiceDropdown from "./SelectServiceDropdown";
 import SelectVetDropdown from "./SelectVetDropdown";
 import BookingCalendar from "./BookingCalendar";
 import { jwtDecode } from "jwt-decode";
+import LoginPopup from "../Login/LoginPopup";
 
 const MakeBookingForm = () => {
   const token = sessionState((state) => state.token);
-  const userId = jwtDecode(token).userId;
+  let userId
+  if (token) {
+    userId = jwtDecode(token).userId;
+  }
 
   const userData = sessionState((state) => state.userData);
   const setUserData = sessionState((state) => state.setUserData);
   const apiBase = sessionState((state) => state.apiBase);
+  const isAuthenticated = sessionState((state) => state.isAuthenticated);
+  const setIsAuthenticated = sessionState((state) => state.setIsAuthenticated);
 
   const [petSelect, setPetSelect] = useState("");
   const [serviceSelect, setServiceSelect] = useState("");
@@ -38,13 +44,13 @@ const MakeBookingForm = () => {
     }
 
     const retVets = await response.json();
-    setVetArray(await retVets);
+    setVetArray(retVets);
   }
 
   // Calls loadVets on load
   useEffect(() => {
     loadVets();
-  }, []);
+  }, [userData]);
 
   const handlePetChange = (pet) => {
     setPetSelect(pet);
@@ -126,7 +132,7 @@ const MakeBookingForm = () => {
             vetId: vetSelect._id,
             userId: userId,
             appointmentType: serviceSelect,
-            date: timeSelect,
+            date: timeSelect
           }),
         });
 
@@ -146,9 +152,8 @@ const MakeBookingForm = () => {
         submittedAppointment.vetId = vetSelect
         setErrors((prevErrors) => ({ ...prevErrors, postError: "" }));
         setSubmitSuccess(true);
-        console.log("submitted Appointment: ", submittedAppointment);
         setUserData({ appointments: submittedAppointment });
-        console.log("post register user data", userData);
+        console.log("post register user data, this console log is in MakeBookingForm.jsx", userData);
       } catch (err) {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -192,6 +197,8 @@ const MakeBookingForm = () => {
           vetArray={vetArray}
           vetSelect={vetSelect}
           setTimeSelect={setTimeSelect}
+          submitSuccess={submitSuccess}
+          setSubmitSuccess={setSubmitSuccess}
         />
       </div>
       <div id="submit-booking-button">
@@ -206,6 +213,7 @@ const MakeBookingForm = () => {
         ) : (
           <></>
         )}
+
       </div>
     </>
   );

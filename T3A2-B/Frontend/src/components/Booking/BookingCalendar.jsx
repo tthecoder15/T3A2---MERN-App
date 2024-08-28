@@ -1,7 +1,13 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { alignPropType } from "react-bootstrap/esm/types";
 
-const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
+const BookingCalendar = ({
+  vetArray,
+  vetSelect,
+  setTimeSelect,
+  submitSuccess,
+  setSubmitSuccess,
+}) => {
   const monthList = [
     "Jan",
     "Feb",
@@ -18,7 +24,6 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
   ];
 
   const timesList = [
-    "08:00",
     "09:00",
     "10:00",
     "11:00",
@@ -27,11 +32,10 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
     "14:00",
     "15:00",
     "16:00",
-    "17:00",
   ];
 
   const today = new Date();
-  const todayDay = today.toString().slice(0, 3);
+  const todayDay = today.getDate();
   const todayMonth = today.toString().slice(4, 7);
   const thisYear = today.getFullYear();
   const yearList = [thisYear, thisYear + 1];
@@ -42,14 +46,21 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
   const [displayDays, setDisplayDays] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
   const [displayTimes, setDisplayTimes] = useState("");
+  const [timeButton, setTimeButton] = useState("");
 
   // Handles clicks on year buttons
   const yearClick = (year) => {
     if (year != selectedYear) {
       // Resets display values so all displayed buttons besides year are reset
-      setDisplayDays("");
       setDisplayMonths("");
+      setDisplayDays("");
+      setDisplayTimes("");
       setSelectedMonth("");
+      setSelectedDay("");
+      // Selected time for form, passed in
+      setTimeSelect("");
+      // Selected time button
+      setTimeButton("");
       setSelectedYear(year);
     }
   };
@@ -77,24 +88,20 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
 
   // Handles month button selection
   const monthClick = (month) => {
+    setDisplayTimes("");
+    setSelectedDay("");
+    // Selected time for form, passed in
+    setTimeSelect("");
+    // Selected time button
+    setTimeButton("");
     setSelectedMonth(month);
   };
-
-  function getDaysInMonth(month, year) {
-    var date = new Date(year, month, 1);
-    var days = [];
-    while (date.getMonth() === month) {
-      days.push(new Date(date));
-      date.setDate(date.getDate() + 1);
-    }
-    return days;
-  }
 
   // Generates list of days to be generated as buttons
   const genDays = () => {
     if (selectedMonth) {
       let daysList = [];
-      let refDay
+      let refDay;
       let monthIndex = monthList.indexOf(selectedMonth);
       // If present month, days generated states from current date
       if (selectedMonth == todayMonth) {
@@ -120,48 +127,69 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
 
   // Handles day button selection
   const dayClick = (dateObj) => {
+    // Selected time for form, passed in
+    setTimeSelect("");
+    // Selected time button
+    setTimeButton("");
     setSelectedDay(dateObj.getDate());
   };
 
   const genTimes = () => {
-    let genTimeObjs = [];
+    let timeBlocksArr = [];
+    // Generate time objects for each time listed in available time list constant
     if (selectedDay) {
       for (let timeSlot of timesList) {
-        genTimeObjs.push(
+        timeBlocksArr.push(
           new Date(
             `${selectedDay} ${selectedMonth} ${selectedYear} ${timeSlot}`
           ).toString()
         );
       }
+
+      // If selected day is today, remove times that are in the past
+      if (selectedDay == todayDay) {
+        for (let i in timeBlocksArr) {
+          if (new Date(timeBlocksArr[i]) > today) {
+            timeBlocksArr.splice(0, i - 1);
+            break;
+          }
+        }
+      }
+
       // Iterate through vets in vetArray
       for (let vet of vetArray) {
         // Check if the vet being considered is the select vet
-        if (vet.vetName == vetSelect) {
+        if (vet.vetName == vetSelect.vetName) {
           // Iterate through array of appointments in vet
           for (let appt of vet.appointments) {
             // Generate date string for individual appointment
-            let apptDateString = new Date(appt.date).toString()
+            let apptDateString = new Date(appt.date).toString();
             // Check if appt date string is present in list of dates
-            if (genTimeObjs.includes(apptDateString)) {
+            console.log(
+              "included in? ",
+              timeBlocksArr.includes(apptDateString)
+            );
+            console.log(timeBlocksArr.indexOf(apptDateString));
+            if (timeBlocksArr.includes(apptDateString)) {
               // Remove booked appointment time from generated times
-              genTimeObjs.splice(genTimeObjs.indexOf(apptDateString), 1);
+              timeBlocksArr.splice(timeBlocksArr.indexOf(apptDateString), 1);
             }
           }
         }
       }
-      setDisplayTimes(genTimeObjs)
+      setDisplayTimes(timeBlocksArr);
     }
-  };
-
-  // Handles time button selection
-  const timeClick = (time) => {
-    console.log(new Date(time))
-    setTimeSelect(new Date(time));
   };
 
   useLayoutEffect(() => {
     genTimes();
-  }, [selectedDay, vetSelect]);
+  }, [selectedDay, vetSelect, submitSuccess]);
+
+  // Handles time button selection
+  const timeClick = (time) => {
+    setTimeSelect(new Date(time));
+    setTimeButton(time.slice(0, 24));
+  };
 
   return (
     <div>
@@ -169,9 +197,13 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
         {yearList.map((year) => (
           <button
             onClick={() => {
-              yearClick(`${year}`);
+              yearClick(year);
+              setSubmitSuccess(false);
             }}
             key={year}
+            className={
+              selectedYear == year ? "selected-button" : "not-selected-button"
+            }
           >
             {year}
           </button>
@@ -182,9 +214,15 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
           displayMonths.map((month) => (
             <button
               onClick={() => {
-                monthClick(`${month}`);
+                monthClick(month);
+                setSubmitSuccess(false);
               }}
               key={month}
+              className={
+                selectedMonth == month
+                  ? "selected-button"
+                  : "not-selected-button"
+              }
             >
               {month}
             </button>
@@ -199,8 +237,14 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
             <button
               onClick={() => {
                 dayClick(day);
+                setSubmitSuccess(false);
               }}
               key={day.getDate()}
+              className={
+                selectedDay == day.getDate()
+                  ? "selected-button"
+                  : "not-selected-button"
+              }
             >
               {day.getDate()}
             </button>
@@ -215,8 +259,14 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
             <button
               onClick={() => {
                 timeClick(time);
+                setSubmitSuccess(false);
               }}
               key={time.slice(0, 24)}
+              className={
+                timeButton == time.slice(0, 24)
+                  ? "selected-button"
+                  : "not-selected-button"
+              }
             >
               {time.slice(15, 24)}
             </button>
@@ -230,4 +280,3 @@ const BookingCalendar = ({ vetArray, vetSelect, setTimeSelect }) => {
 };
 
 export default BookingCalendar;
-
