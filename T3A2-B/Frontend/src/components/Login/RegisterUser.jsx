@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import sessionState from '../../routes/store';
 
-const RegisterUser = () => {
+const RegisterUser = ({ onSuccess }) => {
     const { apiBase, setUserData, token } = sessionState((state) => ({
         apiBase: state.apiBase,
         setUserData: state.setUserData,
@@ -88,11 +88,8 @@ const RegisterUser = () => {
 
                 const data = await response.json();
 
-                // Add a check to ensure newUser is valid
                 const { newUser } = data;
 
-                // Set userData using setUserData
-                // Ensure pets and appointments are initialized as arrays
                 const updatedUser = {
                     ...newUser,
                     pets: Array.isArray(newUser.pets) ? newUser.pets : [],
@@ -101,7 +98,6 @@ const RegisterUser = () => {
 
                 setUserData(updatedUser);
 
-                // Clear the form data and set the success message
                 setFormData({
                     email: '',
                     confirmEmail: '',
@@ -112,8 +108,8 @@ const RegisterUser = () => {
                     lastName: '',
                 });
                 setSuccessMessage('You have registered successfully, please log in.');
-
-                console.log('JWT received:', data.JWT);
+                
+                onSuccess('You have registered successfully, please log in.');  // Notify parent component
 
                 setErrors({});
             } catch (error) {

@@ -1,20 +1,16 @@
 import React from 'react'
 import LoginField from '../components/Login/LoginField'
-import RegisterUser from '../components/Login/Register'
+import RegisterDropDown from '../components/Login/RegisterDropDown'
 
 const Login = () => {
   return (
     <>
         <div className="contentFrame">
-          <h2>Login</h2>
-          <h3>New User? Register Now</h3>
+          <h1>Login or Register</h1>
+          <p>Use the below tools to login to your account, or if you are new to Pawfect Care, use the register button to register your details with us.</p>
           <LoginField previousRoute={'user/login'}/>
-          <RegisterUser />
-          <ul>
-            <li>Email/Password field</li>
-            <li>Reroute user based on admin or no_admin auth</li>
-            <li>Account registration dropdown input menu</li>
-          </ul>
+          <h3>New User?</h3>
+          <RegisterDropDown />
         </div>
     </>
   );
