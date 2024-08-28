@@ -133,7 +133,6 @@ const PetInfo = () => {
         let submittedPet = await response.json();
         setErrors((prevErrors) => ({ ...prevErrors, postError: "" }));
         setSubmitSuccess(true);
-        console.log(submittedPet);
         setUserData({ pets: submittedPet });
         console.log("post register user data", userData);
       } catch (err) {

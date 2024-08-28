@@ -60,7 +60,7 @@ const ServicesButtons = () => {
             )}>Surgeries</button>
       </div>
       <div>
-        {displayedText && <p>{displayedText}</p>}
+        {displayedText}
       </div>
     </div>
   );

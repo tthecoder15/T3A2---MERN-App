@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import sessionState from '../../routes/store'
 
-const LoginField = () => {
+const LoginField = ({previousRoute}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -20,12 +20,12 @@ const LoginField = () => {
     }
   }
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      console.log("Logged in user:", userData)
+  useLayoutEffect(() => {
+    console.log('USER DATA', userData)
+    if (isAuthenticated && previousRoute == 'user/login' && userData) {
       navigate('/user/myaccount')
     }
-  }, [isAuthenticated, navigate, userData])
+  }, [userData])
 
   return (
     <div>
@@ -52,7 +52,7 @@ const LoginField = () => {
           />
         </div>
         {error && <div style={{ color: 'red' }}>{error}</div>}
-        <button type="submit">Login</button>
+        <button type="submit" data-testid="Login">Login</button>
       </form>
       {isAuthenticated && <div>Login Successful!</div>}
     </div>
