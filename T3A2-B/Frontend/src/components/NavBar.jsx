@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import sessionState from "../routes/store"
+import './global.css'
 
 const NavBar = () => {
     const isAuthenticated = sessionState((state) => state.isAuthenticated)
@@ -27,11 +28,6 @@ const NavBar = () => {
                         <Link to="/ourteam" >Our Team</Link>
                         <Link to="/booking" >Book Now</Link>
                         <Link to="/contact" >Contact Us</Link>
-                    </div>
-                    <div>
-                    <Link to="/user/myaccount" >TEMP /user/myaccount</Link>
-                    <Link to="/user/forgotpassword" >TEMP /user/forgotpassword</Link>
-                    <Link to="/user/admin" >TEMP /user/admin</Link>
                     </div>
                     <div>
                         <Link className="login" to="/user/login" >

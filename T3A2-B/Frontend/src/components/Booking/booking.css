@@ -1,0 +1,13 @@
+.bookingFrame {
+    background-color: #C2EDF6;
+    margin: 3%;
+    border-radius: 1rem;
+    border: 1px solid black;
+    width: 90%;
+    padding: 2%;
+    box-shadow: 0.3rem 0.3rem 0.3rem  black;
+}
+
+.bookingFrame div {
+    margin: 2%;
+}

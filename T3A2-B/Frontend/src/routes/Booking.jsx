@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import MakeBookingForm from "../components/Booking/MakeBookingForm";
 import sessionState from "./store";
 import LoginPopup from "../components/Login/LoginPopup";
+import '../components/Booking/booking.css'
 
 const Booking = () => {
   const userData = sessionState((state) => state.userData);
@@ -20,7 +21,7 @@ const Booking = () => {
     <>
       <div className="contentFrame">
         <h2>Book Your Appointment</h2>
-        <div>
+        <div className="bookingFrame">
           <div>
             {userData.firstName ? (
               <p>Hello {userData.firstName}, to make an appointment, please fill in the following form.</p>
