@@ -14,34 +14,35 @@ const NavBar = () => {
   return (
     <>
       <nav>
-        <div>
-          <Link className="navLogo" to="/">
+        <div className="navLogo">
+          <Link to="/">
             <img
               src="../docs/logo-and-art/PC-logo-ellipsis.png"
               alt="Navbar Logo"
             />
           </Link>
         </div>
-        <div>
-          <div>
+          <div className="site-nav">
             <Link to="/">Home</Link>
+            <p>|</p>
             <Link to="/ourteam">Our Team</Link>
+            <p>|</p>
             <Link to="/booking">Book Now</Link>
+            <p>|</p>
             <Link to="/contact">Contact Us</Link>
           </div>
-          <div>
-            <Link className="login" to="/user/login">
+          <div className="login"> 
+            <Link id="logged-in" to="/user/login">
               {isAuthenticated ? (
                 <>
                   <>My Account</>
-                  <button onClick={logoutClick}>Logout</button>
+                  <button id="logged-in" onClick={logoutClick}>Logout</button>
                 </>
               ) : (
                 <>Login/Register</>
               )}
             </Link>
           </div>
-        </div>
       </nav>
     </>
   );
