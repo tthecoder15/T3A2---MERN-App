@@ -1,31 +1,26 @@
 body {
   background-color: #A1E17F;
-  min-height: calc(100vh - footer-height)
+  min-height: calc(100vh - footer-height);
+  margin:0;
+  padding:0;
 }
 
 .contentFrame {
+  display:flex;
+  align-content: center;
   background-color: #caffae;
   color: #209D69;
-  margin-left: 10%;
+  margin-left: 20%;
   margin-right: 10%;
   margin-top:0;
-  /* padding-bottom:2rem;
-  padding-top:5rem;
-  padding-left:20rem;
-  padding-right:15rem; */
-  padding: 5%
+  padding-bottom:5%;
+  padding-top:5%;
+  padding-left:10%;
+  padding-right:5%;
 }
 
 
-/* Half screen dimensions */
-@media only screen and (min-width: 1100px) {
-  .contentFrame {
-    margin: 0 15%;
-    padding: 3% 9%;
-  }
-}
-
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 768px) {
   .contentFrame {
     margin: 0;
     padding: 3% 9%;
