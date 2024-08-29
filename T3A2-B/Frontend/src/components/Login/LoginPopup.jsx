@@ -1,9 +1,8 @@
 import React from "react";
 import Popup from "reactjs-popup";
-import LoginField from "./LoginField";
+import LoginField from "./LoginField"
 import sessionState from "../../routes/store";
 import "reactjs-popup/dist/index.css";
-import RegisterUser from "./RegisterUser";
 import { Link } from "react-router-dom";
 
 const LoginPopup = ({trigger, closeOnDocumentClick}) => {

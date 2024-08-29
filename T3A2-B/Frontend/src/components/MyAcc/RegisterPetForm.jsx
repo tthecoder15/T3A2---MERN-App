@@ -10,7 +10,6 @@ const PetInfo = () => {
   const isAuthenticated = sessionState((state) => state.isAuthenticated);
   const setIsAuthenticated = sessionState((state) => state.setIsAuthenticated);
   const setUserData = sessionState((state) => state.setUserData);
-  const userData = sessionState((state) => state.userData);
 
   const [petName, setPetName] = useState("");
   const [petBreed, setPetBreed] = useState("");
@@ -91,10 +90,6 @@ const PetInfo = () => {
       return false;
     }
     return true;
-  };
-
-  const toggleIsAuth = () => {
-    setIsAuthenticated(false);
   };
 
   async function postNewPet(e) {
@@ -201,20 +196,13 @@ const PetInfo = () => {
         )}
       </div>
       <div id="submit-input">
-        {
-          isAuthenticated != true ? 
-            <LoginPopup 
-              trigger={() => (
-                    <button>
-                      Register Pet
-                    </button>
-                  )}
-            /> 
-            : 
-            <button type="submit" onClick={postNewPet}>
-              Register Pet
-            </button>
-        }
+        {isAuthenticated != true ? (
+          <LoginPopup trigger={() => <button>Register Pet</button>} />
+        ) : (
+          <button type="submit" onClick={postNewPet}>
+            Register Pet
+          </button>
+        )}
         {errors.postError ? (
           <p style={{ color: "red" }}>{errors.postError.toString()}</p>
         ) : (
@@ -225,9 +213,6 @@ const PetInfo = () => {
         ) : (
           <></>
         )}
-        <button onClick={toggleIsAuth}>
-          Toggle "isAuthenticated" to Make Popup Appear
-        </button>
       </div>
     </div>
   );

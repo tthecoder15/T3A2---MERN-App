@@ -73,7 +73,7 @@ const MyAccountDash = () => {
       case "Personal Information":
         return <UpdateUserForm />;
       case "Upcoming Appointments":
-        return <UpdateAppointmentForm />;
+        return <UpdateAppointmentForm upcomingAppts={upcomingAppts}/>;
       case "Pet Information":
         return <RegisterPetForm />;
       case "Appointment History":

@@ -1,25 +1,24 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import sessionState from '../../routes/store'
+import React from "react";
+import { Link } from "react-router-dom";
+import sessionState from "../../routes/store";
+import DisplaySingleAppt from "./DisplaySingleAppt";
 
-
-const handleDelete = () => {
-  // Delete fetched data from DB
-}
-
-const UpcomingAppointments = () => {
+const UpcomingAppointments = ({ upcomingAppts }) => {
   return (
     <div className="UpdateAccountBox">
       <h5>Upcoming Appointments</h5>
-      <p>---CONNECT TO DB---</p>
-      <p>Once connected, display each booked appointment next appointment first</p>
-      <p>You do not have any current appointments.</p>
-      <Link to="/booking">Book now</Link>
-      <button onClick={() => handleDelete('Upcoming Appointments')}>
-                Cancel Booking
-            </button>
-    </div>
-  )
-}
 
-export default UpcomingAppointments
+      {upcomingAppts ? (
+        upcomingAppts.map((appt) => {
+          return <DisplaySingleAppt appt={appt} updateB={true} deleteB={true} />;
+        })
+      ) : (
+        <></>
+      )}
+
+      {/* <Link to="/booking">Book now</Link> */}
+    </div>
+  );
+};
+
+export default UpcomingAppointments;

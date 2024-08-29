@@ -2,17 +2,27 @@ import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { useState } from "react";
 import sessionState from "../../routes/store";
-import RegisterPetForm from "../MyAcc/RegisterPetForm";
+import RegisterPetPopup from "./RegisterPetPopup";
 
 const SelectPetDropdown = ({ petSelect, handlePetChange }) => {
   const userData = sessionState((state) => state.userData);
-  const [registerPet, setRegisterPet] = useState(false);
-  
+  const [popupOpen, setPopupOpen] = useState(false);
+
+  const clickRegPet = () => {
+    setTimeout(() => {
+      setPopupOpen(true);
+    }, 200);
+  };
+
   return (
     <div>
       <Dropdown>
         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-          {petSelect.petName || "Select Pet"}
+          {petSelect.petName
+            ? petSelect.petName
+            : petSelect == "Register New Pet"
+            ? "Register New Pet"
+            : "Select Pet"}
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {userData.pets ? (
@@ -20,9 +30,12 @@ const SelectPetDropdown = ({ petSelect, handlePetChange }) => {
               return (
                 <Dropdown.Item
                   onClick={() => {
-                   setRegisterPet(false), handlePetChange(pet);
+                    //  setRegisterPet(false),
+
+                    handlePetChange(pet);
                   }}
-                key={pet.petName}>
+                  key={pet.petName}
+                >
                   {pet.petName}
                 </Dropdown.Item>
               );
@@ -30,12 +43,24 @@ const SelectPetDropdown = ({ petSelect, handlePetChange }) => {
           ) : (
             <></>
           )}
-          <Dropdown.Item onClick={() => {handlePetChange(`Register New Pet`), setRegisterPet(true);}}>
+          <Dropdown.Item
+            onClick={() => {
+              handlePetChange("Register New Pet");
+              clickRegPet();
+            }}
+          >
             Register New Pet
           </Dropdown.Item>
+          {popupOpen ? (
+            <RegisterPetPopup
+              popupOpen={popupOpen}
+              setPopupOpen={setPopupOpen}
+            />
+          ) : (
+            <></>
+          )}
         </Dropdown.Menu>
       </Dropdown>
-      {registerPet ? <RegisterPetForm /> : <></>}
     </div>
   );
 };
