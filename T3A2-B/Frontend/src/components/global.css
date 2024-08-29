@@ -26,30 +26,25 @@ nav {
 .login {
   display: flex;
   align-items:center;
-  justify-content: space-between;
-  color: rgb(0, 0, 0);
-  padding: 10px 20px;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  order:3;
+  order: 3;
+  gap: 10px;
 }
 
-.login button {
+.login a, .login button {
   background-color: #C2EDF6;
   color: rgb(0, 0, 0);
   padding: 10px 20px;
   border-radius: 0.5rem;
   cursor: pointer;
   border: none;
-  margin-left: 10px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.login button:hover {
-  background-color: #e0f2ff; 
-}
-
-#logged-in button:hover {
-  background-color: #e0f2ff; 
+.login a:hover, .login button:hover {
+  background-color: #e0f2ff;
 }
 
 nav a {

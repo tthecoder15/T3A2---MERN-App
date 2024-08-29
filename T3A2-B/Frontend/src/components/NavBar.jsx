@@ -1,14 +1,16 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import sessionState from "../routes/store"
 import './global.css'
 
 const NavBar = () => {
   const isAuthenticated = sessionState((state) => state.isAuthenticated);
   const logout = sessionState((state) => state.logout);
+  const navigate = useNavigate();
 
   const logoutClick = () => {
     logout();
+    navigate("/user/login")
   };
 
   return (
@@ -32,16 +34,14 @@ const NavBar = () => {
             <Link to="/contact">Contact Us</Link>
           </div>
           <div className="login"> 
-            <Link id="logged-in" to="/user/login">
               {isAuthenticated ? (
                 <>
-                  <>My Account</>
+                  <Link id="logged-in" to="/user/login"><>My Account</></Link>
                   <button id="logged-in" onClick={logoutClick}>Logout</button>
                 </>
               ) : (
-                <>Login/Register</>
+                  <Link id="logged-in" to="/user/login">Login/Register</Link>
               )}
-            </Link>
           </div>
       </nav>
     </>
