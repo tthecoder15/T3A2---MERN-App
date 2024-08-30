@@ -23,6 +23,21 @@ const sessionState = create (
           }
         }))
       },
+    
+      // instanceType must be plural to allign with userData properties
+      deleteUserData: (deleteId, instanceType) => {
+          set((state) => {
+            const arrayClone = [...state.userData[instanceType]]
+            const updatedArray = arrayClone.filter((instance) => instance._id !== deleteId)
+
+          return {
+            userData: {
+              ...state.userData,
+              [instanceType]: updatedArray,
+            }
+          }
+        })
+      },
       token: null,
       isAuthenticated: false,
       setIsAuthenticated: (changeValue) => {
@@ -40,8 +55,6 @@ const sessionState = create (
             },
             body: JSON.stringify({ email, password }),
           })
-
-          
           
           // Check if login promise.ok property is truthy - will be false is fetch fails
           if (!response.ok) {
@@ -51,7 +64,6 @@ const sessionState = create (
 
           // Convert login fetch promise to JSON obj
           const retToken = await response.json()
-          console.log(retToken)
           
           // Set global state 'token', 'isAuthenticated'
           set({

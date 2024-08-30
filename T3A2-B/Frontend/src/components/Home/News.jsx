@@ -1,15 +1,13 @@
-import React from 'react';
-import Carousel from 'react-bootstrap/Carousel'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useState } from 'react';
+import './Home.css'
 
-function NewsCarousel() {
-  return (
-    <Carousel data-bs-theme="dark" data-testid="carousel">
-      <Carousel.Item interval={10000} data-testid="carousel-item">
-        <div>
-          <div>
-          <Carousel.Caption > 
-            <h5>The Paw-stronaut: First Dog on the Moon</h5>
+function News() {
+  // Array of image and text combinations
+  const contentArray = [
+    {
+      text: (
+        <>
+          <h3>The Paw-stronaut: First Dog on the Moon</h3>
             <p>
               Man has conquered the moon, but what about our furry friends? 
               Well, it turns out the first dog to walk on the moon wasn't a heroic canine astronaut, 
@@ -31,22 +29,14 @@ function NewsCarousel() {
               but Lucky was undoubtedly the first dog, 
               and his paw prints on the moon will forever be a reminder of man's best friend's incredible journey.
             </p>
-          
-          </Carousel.Caption>
-          </div>
-          <div>
-            <img
-              src="../../docs/Home/CarouselOne.jpg"
-              alt="Astronaut Dog"
-            />
-          </div>
-        </div>
-      </Carousel.Item>
-      <Carousel.Item interval={10000} data-testid="carousel-item">
-        <div >
-          <div>
-          <Carousel.Caption >
-            <h5>The Feline Physician: Whiskers the Cancer Cure</h5>
+        </>
+      ),
+      imgSrc: "./docs/Home/CarouselOne.jpg"
+    },
+    {
+      text: (
+        <>
+          <h3>The Feline Physician: Whiskers the Cancer Cure</h3>
             <p>
               Whiskers wasn't your average house cat. 
               He had a knack for sniffing out trouble, 
@@ -80,21 +70,14 @@ function NewsCarousel() {
               His legacy lives on as a symbol of hope and the enduring bond between 
               humans and animals.
             </p>
-          </Carousel.Caption>
-          </div>
-          <div>
-            <img
-              src="../../docs/Home/CarouselTwo.jpg"
-              alt="Cat on Scrubs"
-            />
-          </div>
-        </div>
-      </Carousel.Item>
-      <Carousel.Item interval={10000} data-testid="carousel-item">
-        <div>
-          <div>
-          <Carousel.Caption>
-            <h5>Ben the Janitor: Pawfect Care's Unsung Hero</h5>
+        </>
+      ),
+      imgSrc: "./docs/Home/CarouselTwo.jpg"
+    },
+    {
+      text: (
+        <>
+          <h3>Ben the Janitor: Pawfect Care's Unsung Hero</h3>
             <p>
               Behind the scenes of Pawfect Care Veterinary Clinic, 
               a quiet but essential worker ensures the facility remains a 
@@ -117,18 +100,42 @@ function NewsCarousel() {
               clean and safe environment make him an invaluable asset to the 
               Pawfect Care team.
             </p>
-          </Carousel.Caption>
-          </div>
-          <div>
-            <img
-              src="../../docs/Home/CarouselThree.jpg"
-              alt="Mop on floor"
-            />
-          </div>
-        </div>
-      </Carousel.Item>
-    </Carousel>
+        </>
+      ),
+      imgSrc: "./docs/Home/CarouselThree.jpg"
+    }
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const switchContent = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % contentArray.length);
+  };
+
+  const nextIndex = (currentIndex + 1) % contentArray.length;
+
+  const getNextTitle = () => {
+    const nextContent = contentArray[nextIndex].text;
+    // Use the heading text for button
+    const titleMatch = nextContent.props.children.find(child => child.type === 'h3');
+    return titleMatch ? titleMatch.props.children : 'Next News';
+  }
+
+  return (
+    <div className="news-container">
+      <img 
+        src={contentArray[currentIndex].imgSrc} 
+        alt="Displayed content" 
+        className="news-image" 
+      />
+      <div className="news-content">
+        {contentArray[currentIndex].text}
+        <button onClick={switchContent} className="news-button">
+          {getNextTitle()}
+        </button>
+      </div>
+    </div>
   );
 }
 
-export default NewsCarousel;
+export default News;

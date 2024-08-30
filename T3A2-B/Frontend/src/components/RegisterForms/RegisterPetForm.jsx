@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import sessionState from "../../routes/store";
 import { jwtDecode } from "jwt-decode";
-import LoginPopup from "../Login/LoginPopup";
+import LoginPopup from "../Popups/LoginPopup"
 
-const PetInfo = () => {
+// makePopupClose is an optional parameter if RegisterPetForm is used in a popup
+const RegisterPetForm = ({ makePopupClose }) => {
   const apiBase = sessionState((state) => state.apiBase);
   const token = sessionState((state) => state.token);
   const isAuthenticated = sessionState((state) => state.isAuthenticated);
   const setIsAuthenticated = sessionState((state) => state.setIsAuthenticated);
   const setUserData = sessionState((state) => state.setUserData);
-  const userData = sessionState((state) => state.userData);
 
   const [petName, setPetName] = useState("");
   const [petBreed, setPetBreed] = useState("");
   const [animalType, setAnimalType] = useState("");
   const [petYear, setPetYear] = useState("");
   const [errors, setErrors] = useState({});
-  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   let userId;
   if (token) {
@@ -93,10 +92,6 @@ const PetInfo = () => {
     return true;
   };
 
-  const toggleIsAuth = () => {
-    setIsAuthenticated(false);
-  };
-
   async function postNewPet(e) {
     e.preventDefault();
     const isYearValid = validateYear();
@@ -130,16 +125,33 @@ const PetInfo = () => {
           }
           throw errorData;
         }
-
-        let submittedPet = await response.json();
-        setErrors((prevErrors) => ({ ...prevErrors, postError: "" }));
-        setSubmitSuccess(true);
-        setUserData({ pets: submittedPet });
-      } catch (err) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          postError: err[err["error/s"]],
+          postError: "",
+          submitSuccess: true,
         }));
+
+        let submittedPet = await response.json();
+        setUserData({ pets: submittedPet });
+
+        // If register pet is called as a popup, successful register closes popup
+        if (makePopupClose) {
+          makePopupClose();
+        }
+      } catch (err) {
+        if (err["error/s"] == "invalid_token") {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            submitSuccess: false,
+            postError: "Please log in and try again.",
+          }));
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            submitSuccess: false,
+            postError: err[err["error/s"]],
+          }));
+        }
       }
     }
   }
@@ -174,15 +186,14 @@ const PetInfo = () => {
             {animalType || "Select Animal Type"}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => handleAnimalTypeChange("Dog")}>
-              Dog
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleAnimalTypeChange("Cat")}>
-              Cat
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleAnimalTypeChange("Other")}>
-              Other
-            </Dropdown.Item>
+            {["Dog", "Cat", "Other"].map((animalType) => (
+              <Dropdown.Item
+                key={animalType}
+                onClick={() => handleAnimalTypeChange(animalType)}
+              >
+                {animalType}
+              </Dropdown.Item>
+            ))}
           </Dropdown.Menu>
         </Dropdown>
       </div>
@@ -201,36 +212,22 @@ const PetInfo = () => {
         )}
       </div>
       <div id="submit-input">
-        {
-          isAuthenticated != true ? 
-            <LoginPopup 
-              trigger={() => (
-                    <button>
-                      Register Pet
-                    </button>
-                  )}
-            /> 
-            : 
-            <button type="submit" onClick={postNewPet}>
-              Register Pet
-            </button>
-        }
+        {isAuthenticated != true ? (
+          <LoginPopup trigger={() => <button>Register Pet</button>} />
+        ) : (
+          <button type="submit" onClick={postNewPet}>
+            Register Pet
+          </button>
+        )}
         {errors.postError ? (
           <p style={{ color: "red" }}>{errors.postError.toString()}</p>
-        ) : (
-          <></>
-        )}
-        {submitSuccess ? (
+        ) : null}
+        {errors.submitSuccess ? (
           <p style={{ color: "gray" }}>Successfully registered pet!</p>
-        ) : (
-          <></>
-        )}
-        <button onClick={toggleIsAuth}>
-          Toggle "isAuthenticated" to Make Popup Appear
-        </button>
+        ) : null}
       </div>
     </div>
   );
 };
 
-export default PetInfo;
+export default RegisterPetForm;

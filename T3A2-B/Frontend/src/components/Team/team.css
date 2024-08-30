@@ -1,8 +1,43 @@
-img {
-    height: 30rem;
-    margin-bottom: 2rem;
-    border: 0.5rem;
-    border-radius:1%;
-}
-
-/* Change images so they are all the same size.  Put them in divs, resize div */
+.contentFrame {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .team {
+    width: 80%;
+    max-width: 1200px;
+  }
+  
+  .team > div {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 40px;
+  }
+  
+  .team > div img {
+    max-width: 200px;
+    height: auto;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .team > div .content {
+    flex: 1;
+  }
+  
+  .team > div h3 {
+    margin: 0 0 10px;
+    font-size: 1.75rem;
+    color: #333;
+  }
+  
+  .team > div p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+    margin: 0;
+  }
+  
+  

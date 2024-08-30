@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import RegisterUser from './RegisterUser'
+import RegisterUser from '../RegisterForms/RegisterUser'
 
 const RegisterDropDown = () => {
     const [registerField, setRegisterField] = useState("")  
@@ -8,16 +8,21 @@ const RegisterDropDown = () => {
 
     const dropdownSelect = () => {
         if (isOpen) {
-            setRegisterField("");  // Clear the form when closing
+            // Clear the form when closing
+            setRegisterField("");  
         } else {
-            setRegisterField("User");  // Set to "User" when opening the form
+            // Set to "User" when opening the form
+            setRegisterField("User");  
         }
-        setIsOpen(!isOpen);  // Toggle the open state
+        // Toggle the open state
+        setIsOpen(!isOpen);  
     }
 
     const handleSuccess = (message) => {
-        setSuccessMessage(message);  // Set the success message
-        setIsOpen(false);  // Close the form
+        // Set the success message
+        setSuccessMessage(message);
+        // Close the form
+        setIsOpen(false);
     }
 
     const renderRegisterField = () => {
