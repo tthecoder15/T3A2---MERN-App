@@ -6,41 +6,60 @@
   width: 90%;
   padding: 2%;
   box-shadow: 0.3rem 0.3rem 0.3rem black;
+  color: black !important;
 }
 
-.bookingFrame p {
+.bookingFrame div {
+  margin-top: 1rem;
+}
+
+/* Toggle Button */
+.dropdown-toggle {
+  background-color: #f5f5f5;
   color: black;
-}
-
-.booking-select {
-  position: relative;
-  background-color: white;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
   border: 1px solid black;
-  margin: 2%;
-  padding: 2%;
-  height: 5rem;
-  width: calc(100% - 4%);
+  box-shadow: 0.2rem 0.2rem 0.2rem black;
+  border-radius: 0.5rem;
 }
 
-.booking-select #dropdown-basic {
-  position: absolute;
-  top: -1.3rem;
-}
-
-#dropdown-basic {
-  background-color: transparent;
+#dropdown-basic:hover, #dropdown-basic:focus {
+  background-color: #9cdbff;
   color: black;
-  border: 0;
-  margin: 0.1rem;
 }
 
 .dropdown-menu {
-  background-color: #9cdbff;
+  background-color: #ffffff;
   border: 1px solid black;
-  border-radius: 0.4rem;
-  width: calc(100% - 4%);
+  width: 25%;
+  max-width: calc(90% - 6%); 
+  box-shadow: 0.2rem 0.2rem 0.2rem black;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  border-radius: 0.5rem;
 }
 
+div.dropdown-menu {
+  margin-top: 0;
+}
+
+/* Dropdown Items */
+.dropdown-item {
+  color: black;
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #c2edf6;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: #9cdbff;
+  color: black;
+}
+
+
+/* Calendar style */
 .calendar {
   display: flex;
   flex-direction: column;
