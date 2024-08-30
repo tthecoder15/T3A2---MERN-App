@@ -6,13 +6,18 @@ import RegisterPetPopup from "./RegisterPetPopup";
 
 const SelectPetDropdown = ({ petSelect, handlePetChange }) => {
   const userData = sessionState((state) => state.userData);
-  const [popupOpen, setPopupOpen] = useState(false);
 
-  const clickRegPet = () => {
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
+
+  const makePopupOpen = () => {
     setTimeout(() => {
-      setPopupOpen(true);
+      setPopupIsOpen(true);
     }, 200);
-  };
+  }
+
+  const makePopupClose = () => {
+    setPopupIsOpen(false)
+  }
 
   return (
     <div>
@@ -46,19 +51,23 @@ const SelectPetDropdown = ({ petSelect, handlePetChange }) => {
           <Dropdown.Item
             onClick={() => {
               handlePetChange("Register New Pet");
-              clickRegPet();
+              // clickRegPet();
+              makePopupOpen()
             }}
           >
             Register New Pet
           </Dropdown.Item>
-          {popupOpen ? (
+          <RegisterPetPopup popupIsOpen={popupIsOpen} makePopupClose={makePopupClose}/>
+          
+          
+          {/* {popupIsOpen ? (
             <RegisterPetPopup
-              popupOpen={popupOpen}
-              setPopupOpen={setPopupOpen}
+              popupIsOpen={popupIsOpen}
+              setPopupIsOpen={setPopupIsOpen}
             />
           ) : (
             <></>
-          )}
+          )} */}
         </Dropdown.Menu>
       </Dropdown>
     </div>

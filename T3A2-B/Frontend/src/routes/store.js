@@ -29,7 +29,7 @@ const sessionState = create (
           set((state) => {
             const arrayClone = [...state.userData[instanceType]]
             const updatedArray = arrayClone.filter((instance) => instance._id !== deleteId)
-          
+
           return {
             userData: {
               ...state.userData,

@@ -3,9 +3,14 @@ import LoginField from "../Login/LoginField";
 import sessionState from "../../routes/store";
 import "reactjs-popup/dist/index.css";
 import { useState } from "react";
-// import { Link } from "react-router-dom";
 
-const DeleteApptPopup = ({ appt, trigger, closeOnDocumentClick }) => {
+const DeleteApptPopup = ({
+  appt,
+  popupIsOpen,
+  makePopupClose,
+  trigger,
+  closeOnDocumentClick,
+}) => {
   const token = sessionState((state) => state.token);
   const isAuthenticated = sessionState((state) => state.isAuthenticated);
   const setIsAuthenticated = sessionState((state) => state.setIsAuthenticated);
@@ -13,15 +18,16 @@ const DeleteApptPopup = ({ appt, trigger, closeOnDocumentClick }) => {
   const deleteUserData = sessionState((state) => state.deleteUserData);
 
   const [errors, setErrors] = useState({});
-  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const apptId = appt._id;
+  const popupOpenHandle = () => {
+    setErrors({})
+  };
 
   async function deleteBooking(e) {
     e.preventDefault();
     if (isAuthenticated) {
       try {
-        const response = await fetch(`${apiBase}/appointments/${apptId}`, {
+        const response = await fetch(`${apiBase}/appointments/${appt._id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -38,21 +44,30 @@ const DeleteApptPopup = ({ appt, trigger, closeOnDocumentClick }) => {
           throw errorData;
         }
 
-        let deleteConfirmation = await response.json();
-        setErrors((prevErrors) => ({ ...prevErrors, postError: "" }));
-        setSubmitSuccess(true);
-
-        deleteUserData(apptId, "appointments");
-
-        console.log(
-          "post register user data, this console log is in MakeBookingForm.jsx",
-          userData
-        );
-      } catch (err) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          postError: err[err["error/s"]],
+          postError: "",
+          submitSuccess: true,
         }));
+        
+        deleteUserData(appt._id, "appointments");
+        makePopupClose();
+
+      } catch (err) {
+        if (err["error/s"] == "invalid_token") {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            submitSuccess: false,
+            postError: "Please log in and try again.",
+          }));
+
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            submitSuccess: false,
+            postError: err[err["error/s"]],
+          }));
+        }
       }
     }
   }
@@ -64,28 +79,31 @@ const DeleteApptPopup = ({ appt, trigger, closeOnDocumentClick }) => {
       modal
       position="right center"
       trigger={trigger ? trigger : ""}
+      onClose={makePopupClose}
+      onOpen={popupOpenHandle}
+      open={popupIsOpen}
     >
       <h4>Deletion Confirmation</h4>
       <p>Are you sure you would like to delete this appointment?</p>
 
-      {submitSuccess ? (
-        <></>
+      {errors.submitSuccess ? (
+        null
       ) : (
         <>
           <button onClick={deleteBooking}>Confirm</button>
-          <button>Cancel</button>
+          <button onClick={makePopupClose}>Cancel</button>
         </>
       )}
 
       {errors.postError ? (
         <p style={{ color: "red" }}>{errors.postError.toString()}</p>
       ) : (
-        <></>
+        null
       )}
-      {submitSuccess ? (
+      {errors.submitSuccess ? (
         <p style={{ color: "gray" }}>Successfully deleted appointment</p>
       ) : (
-        <></>
+        null
       )}
       {isAuthenticated ? <></> : <LoginField />}
     </Popup>
