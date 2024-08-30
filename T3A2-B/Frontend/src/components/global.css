@@ -57,6 +57,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: inherit;
 }
 
 .login a:hover, .login button:hover {

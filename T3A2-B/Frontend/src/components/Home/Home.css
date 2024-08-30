@@ -90,6 +90,10 @@
     width: 200px;
 }
 
+.displayed-text h2{
+    color: #333;
+}
+
 .displayed-text {
     flex-grow: 1;
     min-height: 300px;
@@ -97,6 +101,7 @@
     overflow-y: auto;
     transition: all 0.3s ease-in-out;
     max-width: 100%;
+    color: #555;
 }
 
 /* Mobile view */
