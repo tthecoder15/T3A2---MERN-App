@@ -2,7 +2,7 @@ import { jwtDecode } from 'jwt-decode'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
-const apiBase = "https://t3a2-mern-app.onrender.com"
+const apiBase = "https://pawfect-care-api.onrender.com"
 
 const sessionState = create (
   persist (  
@@ -44,7 +44,7 @@ const sessionState = create (
         set((state) => ({isAuthenticated: changeValue}))
       },
       error: null,
-      apiBase: "https://t3a2-mern-app.onrender.com",
+      apiBase: "https://pawfect-care-api.onrender.com",
 
       login: async (email, password) => {
         try {

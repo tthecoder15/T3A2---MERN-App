@@ -9,7 +9,7 @@ const UpdateAppointmentsDropdown = ({ upcomingAppts }) => {
       {upcomingAppts ? (
         upcomingAppts.map((appt) => {
           return (
-            <DisplaySingleAppt appt={appt} updateB={true} deleteB={true} />
+            <DisplaySingleAppt appt={appt} key={appt._id} updateB={true} deleteB={true} />
           );
         })
       ) : (
