@@ -12,14 +12,19 @@ const appointmentsPrefix = '/appointments'
 
 // Get list of appointments no JWT
 router.get(`${appointmentsPrefix}-list`, async (req, res, next) => {
-    let retAppts = await Appointment.find({}, '-__v -userId -petId -appointmentType').populate([
-            {
-                path: 'vetId',
-                select: '-appointments -__v'
-            }
-        ]
-    )
-    res.send(retAppts)
+    try {
+        let retAppts = await Appointment.find({}, '-__v -userId -petId -appointmentType').populate([
+                {
+                    path: 'vetId',
+                    select: '-appointments -__v'
+                }
+            ]
+        )
+        res.send(retAppts)
+    }
+    catch (err) {
+        next(err)
+    }
 })
 
 
@@ -134,6 +139,15 @@ router.post(`${appointmentsPrefix}`, async (req, res, next) => {
         // Update Pet with new appointment
         let savePet = await Pet.findOneAndUpdate({_id: req.body.petId}, {appointments: retPet.appointments}, {returnDocument: 'after'})
 
+        // Retrieve Vet whose appointment it is
+        let retVet = await Vet.findOne({_id: req.body.vetId})
+
+        // Add new appointment to retrieved Pet
+        retVet.appointments.push(newAppointment._id)
+
+        // Update Vet with new appointment
+        let saveVet = await Vet.findOneAndUpdate({_id: req.body.vetId}, {appointments: retVet.appointments}, {returnDocument: 'after'})
+
         // Retrieve User who registered pet
         let retUser = await User.findOne({_id: req.body.userId})
 
@@ -200,6 +214,20 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
         // Update Pet with new appointment
         let savePet = await Pet.findOneAndUpdate({_id: req.body.petId}, {appointments: retPet.appointments}, {returnDocument: 'after'})
  
+        // Retrieve Vet whose appointment it is
+        let retVet = await Vet.findOne({_id: req.body.vetId})
+
+        // Update appointment in pet
+        for (let singleAppt of retVet.appointments) {
+            if (singleAppt._id == updAppointment._id) {
+                // Assign new appointment value to matched appointment in pet
+                singleAppt = updAppointment
+            }
+        }
+
+        // Update Vet with new appointment
+        let saveVet = await Vet.findOneAndUpdate({_id: req.body.vetId}, {appointments: retVet.appointments}, {returnDocument: 'after'})
+
         // Retrieve User who registered pet
         let retUser = await User.findOne({_id: req.body.userId})
 
@@ -262,6 +290,21 @@ router.delete(`${appointmentsPrefix}/:id`, async (req, res, next) => {
 
         // Update Pet with new appointment
         let savePet = await Pet.findOneAndUpdate({_id: authCheck.petId}, {appointments: retPet.appointments}, {returnDocument: 'after'})
+
+        // Retrieve Vet whose appointment it is
+        let retVet = await Vet.findOne({_id: authCheck.vetId})
+        
+        // Delete appointment in pet
+        for (let apptIndex in retVet.appointments) {
+            if (retVet.appointments[apptIndex].toString() == req.params.id) {
+                // Delete matched appointment value
+                retVet.appointments.splice(apptIndex, 1)
+            }
+        }
+
+
+        // Update Vet with new appointment
+         let saveVet = await Vet.findOneAndUpdate({_id: req.body.vetId}, {appointments: retVet.appointments}, {returnDocument: 'after'})
 
         // Retrieve User who registered pet
         let retUser = await User.findOne({_id: authCheck.userId})

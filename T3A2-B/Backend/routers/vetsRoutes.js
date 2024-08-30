@@ -8,30 +8,48 @@ import customErrors from "../errorObjs.js"
 const router = Router()
 const vetsPrefix = '/vets'
 
+// Get list of vets no JWT
+router.get(`${vetsPrefix}-list`, async (req, res, next) => {
+    // Return only vet names and IDs
+    try {
+        let retVets = await Vet.find({}, '-__v').populate('appointments', '-__v -vetId -userId -petId -appointmentType')
+        res.send(retVets)
+    }
+    catch (err) {
+        next(err)
+    }
+
+})
+
 // Get list of vets
 router.get(`${vetsPrefix}`, async (req, res, next) => {
-    let { userId, isAdmin } = req.auth
+    try {
+        let { userId, isAdmin } = req.auth
 
-    // If user is admin, get all vets and their appointments including user details and pets
-    if (isAdmin) {
-    res.send(await Vet.find({}, '-__v').populate({
-        path: 'appointments',
-        select: '-vetId -__v',
-        populate: [
-            {
-                path: 'userId',
-                select: 'firstName lastName'
-            },
-            {
-                path: 'petId',
-                select: 'name'
-            },
-        ]
-    }))}
+        // If user is admin, get all vets and their appointments including user details and pets
+        if (isAdmin) {
+        res.send(await Vet.find({}, '-__v').populate({
+            path: 'appointments',
+            select: '-vetId -__v',
+            populate: [
+                {
+                    path: 'userId',
+                    select: 'firstName lastName'
+                },
+                {
+                    path: 'petId',
+                    select: 'name'
+                },
+            ]
+        }))}
 
-    // If user is not admin, return only vet name and ID
-    else {
-        res.send(await Vet.find({}, '-__v').populate('appointments', '-__v -vetId -userId -petId -appointmentType'))
+        // If user is not admin, return only vet name and ID
+        else {
+            res.send(await Vet.find({}, '-__v').populate('appointments', '-__v -vetId -userId -petId -appointmentType'))
+        }
+    }
+    catch (err) {
+        next(err)
     }
 
 })

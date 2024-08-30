@@ -20,7 +20,7 @@ app.use(expressjwt({
     secret: process.env.JWT_SECRET_KEY,
     algorithms: ['HS256'],
     credentialsRequired: true
-}).unless({ path: ['/users/login', '/appointments-list', {url: '/users', methods: ['POST']}]}))
+}).unless({ path: ['/users/login', '/appointments-list', '/vets-list', {url: '/users', methods: ['POST']}]}))
 
 
 

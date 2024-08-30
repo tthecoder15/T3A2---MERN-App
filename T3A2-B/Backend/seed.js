@@ -19,8 +19,6 @@ async function seedDatabase() {
             { email: "pawfectcare@gmail.com", password: await bcrypt.hash("admin123", saltRounds), firstName: "Admin", lastName: "Adminson", isAdmin: true, phNumber: '0444444444'}
         ];
 
-        console.log(seedUsers)
-
         await User.deleteMany();
         console.log("Previously recorded Users deleted");
         let savedUsers = await User.insertMany(seedUsers);
@@ -57,7 +55,6 @@ async function seedDatabase() {
             { userId: savedUsers[2]._id, vetId: savedVets[1]._id, petId: savedPets[3]._id, date: new Date(2024, 12, 1, 10, 0), appointmentType: "check-up" }
         ];
 
-        console.log('YAR THIS BE THE SEED APPOINTMENTS!', seedAppointments)
         await Appointment.deleteMany();
         console.log("Previously recorded Appointments dropped");
         let savedAppointments= await Appointment.insertMany(seedAppointments);
