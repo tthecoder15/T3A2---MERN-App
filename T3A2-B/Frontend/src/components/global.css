@@ -1,92 +1,185 @@
+/* NavBar */
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #9CDBFF; 
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #9CDBFF; 
+  font-size: 1.3vw;
+  position: relative;
+}
   
+.navLogo {
+  display: flex;
+  width: 10vw;
+  order: 1;
+}
+
+.site-nav {
+  display: flex;
+  align-items:center;
+  order:2;
+}
+
+.site-nav p {
+  display:inline;
+  margin: 0 16px;
+}
+
+.login {
+  display: flex;
+  align-items:center;
+  order: 3;
+  gap: 10px;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: black;
+}
+
+.login a, .login button {
+  background-color: #C2EDF6;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+}
+
+.login a:hover, .login button:hover {
+  background-color: #e0f2ff;
+}
+
+nav a {
+  color: #000000; 
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+nav a:hover {
+  background-color: #e0f2ff; 
+}
+
+nav img {
+  margin-top: -2rem;
+  margin-bottom: -2rem;
+  width: 10rem;
+  height: 6rem;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #676767;
+  color: #ffffff;
+}
+
+footer div {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+}
+
+footer img {
+  margin: 0 auto;
+  width: 10rem;
+  height: 6rem;
+}
+
+footer .logo-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+footer .copyright {
+  justify-content: center;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  color: #e0f2ff;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    padding: 10px;
+    font-size: 4vw;
+  }
+
   .navLogo {
+    display: none;
+  }
+
+  .site-nav, .login {
+    display: none;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .login {
+    margin-top: 15px;
+    order: 1;
+  }
+
+  .hamburger {
     display: flex;
+    order: 1;
+  }
+
+  .site-nav p {
+    display: none;
+  }
+
+  .site-nav.active, .login.active {
+    display: flex;
+  }
+
+  footer {
+    flex-direction: column; 
     align-items: center;
   }
-  
-  .login {
-    display: flex;
-    background-color: #C2EDF6;
-    color: rgb(0, 0, 0);
-    padding: 10px 20px;
-    border-radius: 0.5rem;
-    cursor: pointer;
+
+  footer .logo-container {
+    margin: 0 0 1rem 0;
   }
-  
-  nav a {
-    color: #000000; /* Light blue text color */
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 5px;
+
+  footer div[id*='footer'] {
+    align-items: center;
+    margin-left: 1.5rem;
+    text-align: center;
   }
-  
-  nav a:hover {
-    background-color: #e0f2ff; /* Lighter blue on hover */
+
+  .copyright {
+    margin-top: 1rem;
+    margin-left: 1rem;
   }
-  
-  nav img {
-    margin-top: -2rem;
-    margin-bottom: -2rem;
-    width: 10rem;
-    height: 6rem;
-  }
-  
-  /* Prefill footer.  Change later */
-  
-  footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start; /* Adjust for vertical alignment if needed */
-    padding: 1rem;
-    background-color: #676767;  /* Light blue background (optional) */
-    color: #ffffff;
-  }
-  
-  footer a {
-    color: #ffffff; /* White text color */
-    text-decoration: underline;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  footer a:hover {
-    color: #44961d; 
-  }
-  
-  footer div {
-    display: flex;
-    width: 60%; /* Adjust width as needed */
-  }
-  
-  footer div p:first-child {
-    flex: 1;
-  }
-  
-  
-  footer div p:last-child {
-    flex: 1; /* Takes up available space */
-    text-align: right;
-  }
-  
-  footer a:last-child {  /* Logo link */
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  footer p:last-child {
-    text-align: center; /* Copyright text centered */
-  }
-  
-  footer img {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    width: 10rem;
-    height: 6rem;
-  }
+}

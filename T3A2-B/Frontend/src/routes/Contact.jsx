@@ -5,7 +5,7 @@ const Contact = () => {
   return (
     <>
         <div className="contentFrame">
-          <h2>Contact Us</h2>
+          <h1>Contact Us</h1>
           <div>
             <h4>Visit</h4>
             <p>

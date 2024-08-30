@@ -1,19 +1,25 @@
 import React from 'react'
-import Carousel from '../components/Home/Carousel'
+import News from '../components/Home/News'
 import ServicesButtons from '../components/Home/Services'
 
 const Home = () => {
     return (
         <>
         <div className="contentFrame">
-          <h1>Pawfect Care</h1>
-            <div>
-              <Carousel />
+          <div className="home">
+            <div className="news-frame">
+              <h1>Pawfect Care</h1>
+              <h2>In the News..</h2>
+              <News />
             </div>
-            <ServicesButtons />
+            <div className="service-frame">
+              <h2>Our Services</h2>
+              <ServicesButtons />
+            </div>
+          </div>
         </div>
         </>
       )
-    }
+}
     
-    export default Home
+export default Home
