@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Dropdown from "react-bootstrap/Dropdown";
-import sessionState from "../../routes/store";
-import SelectPetDropdown from "./SelectPetDropdown";
-import SelectServiceDropdown from "./SelectServiceDropdown";
-import SelectVetDropdown from "./SelectVetDropdown";
-import BookingCalendar from "./BookingCalendar";
 import { jwtDecode } from "jwt-decode";
-import LoginPopup from "../Login/LoginPopup";
+import React, { useEffect, useState } from "react";
+import sessionState from "../../routes/store";
+import BookingCalendar from "./BookingCalendar";
+import SelectPetDropdown from "./BookingDropdowns/SelectPetDropdown";
+import SelectServiceDropdown from "./BookingDropdowns/SelectServiceDropdown";
+import SelectVetDropdown from "./BookingDropdowns/SelectVetDropdown";
 
 const MakeBookingForm = () => {
   const token = sessionState((state) => state.token);
-  let userId
+  let userId;
   if (token) {
     userId = jwtDecode(token).userId;
   }
@@ -18,7 +16,6 @@ const MakeBookingForm = () => {
   const userData = sessionState((state) => state.userData);
   const setUserData = sessionState((state) => state.setUserData);
   const apiBase = sessionState((state) => state.apiBase);
-  const isAuthenticated = sessionState((state) => state.isAuthenticated);
   const setIsAuthenticated = sessionState((state) => state.setIsAuthenticated);
 
   const [petSelect, setPetSelect] = useState("");
@@ -40,7 +37,7 @@ const MakeBookingForm = () => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      setVetArray('')
+      setVetArray("");
       console.log(errorData);
     }
 
@@ -133,7 +130,7 @@ const MakeBookingForm = () => {
             vetId: vetSelect._id,
             userId: userId,
             appointmentType: serviceSelect,
-            date: timeSelect
+            date: timeSelect,
           }),
         });
 
@@ -147,14 +144,17 @@ const MakeBookingForm = () => {
         }
 
         let submittedAppointment = await response.json();
-        
+
         // Alter submitted Appointment object to made log in population
-        submittedAppointment.petId = petSelect
-        submittedAppointment.vetId = vetSelect
+        submittedAppointment.petId = petSelect;
+        submittedAppointment.vetId = vetSelect;
         setErrors((prevErrors) => ({ ...prevErrors, postError: "" }));
         setSubmitSuccess(true);
         setUserData({ appointments: submittedAppointment });
-        console.log("post register user data, this console log is in MakeBookingForm.jsx", userData);
+        console.log(
+          "post register user data, this console log is in MakeBookingForm.jsx",
+          userData
+        );
       } catch (err) {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -192,7 +192,7 @@ const MakeBookingForm = () => {
           vetArray={vetArray}
         />
       </div>
-      <div className="calender">
+      <div className="calendar">
         <p>Choose your time slot:</p>
         <BookingCalendar
           vetArray={vetArray}
@@ -214,7 +214,6 @@ const MakeBookingForm = () => {
         ) : (
           <></>
         )}
-
       </div>
     </>
   );

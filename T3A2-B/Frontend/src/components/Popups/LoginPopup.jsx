@@ -1,6 +1,6 @@
 import React from "react";
 import Popup from "reactjs-popup";
-import LoginField from "./LoginField"
+import LoginField from "../Login/LoginField"
 import "reactjs-popup/dist/index.css";
 import { Link } from "react-router-dom";
 

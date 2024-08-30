@@ -1,30 +1,24 @@
-import React, { useState, useEffect } from "react";
-import UpdateUserForm from "./UpdateUserForm";
-import UpdateAppointmentForm from "./UpdateAppointmentForm";
-import "./Account.css";
-import RegisterPetForm from "./RegisterPetForm";
+import React, { useEffect, useState } from "react";
 import sessionState from "../../routes/store";
-import DisplayApptsDropdown from "./DisplayApptsDropdown";
+import RegisterPetForm from "../RegisterForms/RegisterPetForm";
+import "./Account.css";
 import DisplaySingleAppt from "./DisplaySingleAppt";
+import DisplayApptsDropdown from "./MyAccDropdowns/DisplayApptsDropdown";
+import UpdateAppointmentForm from "./MyAccDropdowns/UpdateAppointmentsDropdown";
+import UpdateUserDropdownForm from "./MyAccDropdowns/UpdateUserDropdown";
 
 const MyAccountDash = () => {
   const userData = sessionState((state) => state.userData);
 
   const [selectedSetting, setSelectedSetting] = useState("");
-  const [isFormOpen, setIsFormOpen] = useState(true)
 
   const dropdownSelect = (text) => {
     if (selectedSetting === text) {
       setSelectedSetting("");
     } else {
       setSelectedSetting(text);
-      setIsFormOpen(true);
     }
   };
-
-  const closeForm = () => {
-    setIsFormOpen(false);
-  }
 
   const [upcomingAppts, setUpcomingAppts] = useState([]);
   const [pastAppts, setPastAppts] = useState([]);
@@ -71,9 +65,9 @@ const MyAccountDash = () => {
   const renderInputSection = () => {
     switch (selectedSetting) {
       case "Personal Information":
-        return <UpdateUserForm />;
+        return <UpdateUserDropdownForm />;
       case "Upcoming Appointments":
-        return <UpdateAppointmentForm upcomingAppts={upcomingAppts}/>;
+        return <UpdateAppointmentForm upcomingAppts={upcomingAppts} />;
       case "Pet Information":
         return <RegisterPetForm />;
       case "Appointment History":
@@ -111,8 +105,7 @@ const MyAccountDash = () => {
           </button>
         </div>
         <div>
-          <h5>Upcoming Appointments</h5>
-          <h6>Next Appointment: </h6>
+          <h5>Next Appointment</h5>
           <DisplaySingleAppt appt={upcomingAppts[0]} />
           <button onClick={() => dropdownSelect("Upcoming Appointments")}>
             {selectedSetting === "Upcoming Appointments"

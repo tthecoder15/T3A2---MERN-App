@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import sessionState from "../../routes/store";
 import { jwtDecode } from "jwt-decode";
-import LoginPopup from "../Login/LoginPopup";
+import LoginPopup from "../Popups/LoginPopup"
 
 // makePopupClose is an optional parameter if RegisterPetForm is used in a popup
 const RegisterPetForm = ({ makePopupClose }) => {

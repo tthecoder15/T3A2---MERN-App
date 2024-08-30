@@ -1,7 +1,7 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import RegisterPetForm from "../MyAcc/RegisterPetForm";
+import RegisterPetForm from "../RegisterForms/RegisterPetForm";
 
 const RegisterPetPopup = ({
   popupIsOpen,

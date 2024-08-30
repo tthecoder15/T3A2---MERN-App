@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import DeleteApptPopup from './DeleteApptPopup'
+import DeleteApptPopup from '../Popups/DeleteApptPopup'
 
 const DisplaySingleAppt = ({ appt, updateB, deleteB }) => {
     if (!appt) return <></>

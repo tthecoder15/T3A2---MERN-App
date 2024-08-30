@@ -1,84 +1,82 @@
 .bookingFrame {
-    background-color: #C2EDF6;
-    margin: 3%;
-    border-radius: 1rem;
-    border: 1px solid black;
-    width: 90%;
-    padding: 2%;
-    box-shadow: 0.3rem 0.3rem 0.3rem  black;
+  background-color: #c2edf6;
+  margin: 3%;
+  border-radius: 1rem;
+  border: 1px solid black;
+  width: 90%;
+  padding: 2%;
+  box-shadow: 0.3rem 0.3rem 0.3rem black;
 }
 
 .bookingFrame p {
-    color: black;
+  color: black;
 }
 
 .booking-select {
-    position: relative;
-    background-color: white;
-    border: 1px solid black;
-    margin: 2%;
-    padding: 2%;
-    height: 5rem;
-    width: calc(100% - 4%);
+  position: relative;
+  background-color: white;
+  border: 1px solid black;
+  margin: 2%;
+  padding: 2%;
+  height: 5rem;
+  width: calc(100% - 4%);
 }
 
 .booking-select #dropdown-basic {
-    position: absolute;
-    top: -1.3rem;
+  position: absolute;
+  top: -1.3rem;
 }
 
 #dropdown-basic {
-    background-color: transparent;
-    color: black;
-    border:0;
-    margin: 0.1rem;
+  background-color: transparent;
+  color: black;
+  border: 0;
+  margin: 0.1rem;
 }
 
 .dropdown-menu {
-    background-color: #9CDBFF;
-    border: 1px solid black;
-    border-radius: 0.4rem;
-    width: calc(100% - 4%);
+  background-color: #9cdbff;
+  border: 1px solid black;
+  border-radius: 0.4rem;
+  width: calc(100% - 4%);
 }
 
-.calender {
-    display: flex;
-    flex-direction: column;
-    margin: 2%;
-    padding: 2%;
+.calendar {
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+  padding: 2%;
 }
 
-.calender div {
-    margin: 1%;
+.calendar div {
+  margin: 1%;
 }
 
 /* Selected button styling */
 button.selected-button {
-    background-color: #9CDBFF;
-    margin-right: 0.5rem;
-    margin-left: 0.5rem;
-  }
-  
+  background-color: #9cdbff;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 /* Not selected button styling */
-    button.not-selected-button {
-    background-color: white;
-    margin:0.1rem;
+button.not-selected-button {
+  background-color: white;
+  margin: 0.1rem;
 }
 
 #submit-booking-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #submit-booking-button button {
-    background-color: white;
+  background-color: white;
 }
 
 #submit-booking-button p {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
-
-
