@@ -1,6 +1,5 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { alignPropType } from "react-bootstrap/esm/types";
-import './booking.css'
+import React, { useLayoutEffect, useState } from "react";
+import "./booking.css";
 
 const BookingCalendar = ({
   vetArray,
@@ -9,6 +8,8 @@ const BookingCalendar = ({
   submitSuccess,
   setSubmitSuccess,
 }) => {
+  // Local states/arrays for quick reference/comparison throughout
+  // Hard coded for processing speed
   const monthList = [
     "Jan",
     "Feb",
@@ -23,7 +24,6 @@ const BookingCalendar = ({
     "Nov",
     "Dec",
   ];
-
   const timesList = [
     "09:00",
     "10:00",
@@ -34,13 +34,14 @@ const BookingCalendar = ({
     "15:00",
     "16:00",
   ];
-
   const today = new Date();
+  const todayYear = today.getFullYear();
   const todayDay = today.getDate();
   const todayMonth = today.toString().slice(4, 7);
   const thisYear = today.getFullYear();
   const yearList = [thisYear, thisYear + 1];
 
+  // Dynamic states for handling button selections
   const [selectedYear, setSelectedYear] = useState("");
   const [displayMonths, setDisplayMonths] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -69,9 +70,13 @@ const BookingCalendar = ({
   // Generates list of months for buttons to be generated from
   const genMonths = () => {
     if (selectedYear) {
+      // If the selected year is the current year
       if (selectedYear == thisYear) {
+        // Iterates through months in monthList
         for (let month in monthList) {
+          // Finds the month that is equal to today's month
           if (monthList[month] == todayMonth) {
+            // Removes all months before the current month
             setDisplayMonths(monthList.slice(month));
             break;
           }
@@ -105,7 +110,7 @@ const BookingCalendar = ({
       let refDay;
       let monthIndex = monthList.indexOf(selectedMonth);
       // If present month, days generated states from current date
-      if (selectedMonth == todayMonth) {
+      if (selectedMonth == todayMonth && selectedYear == todayYear) {
         refDay = new Date(today);
       } else {
         // If not present month, days generate from the 1st
@@ -114,9 +119,19 @@ const BookingCalendar = ({
 
       // Increments day count until month value ticks over to next month
       while (refDay.getMonth() === monthIndex) {
-        daysList.push(new Date(refDay));
+        // Generates date object including date and day to represent each day in a month
+        let dayObj = new Date(refDay);
+        daysList.push(dayObj);
         refDay.setDate(refDay.getDate() + 1);
       }
+
+      // Filter Saturdays and Sundays out
+      daysList = daysList.filter((date) => {
+        let day = date.toString().slice(0, 3);
+        return day !== "Sat" && day !== "Sun";
+      });
+
+      // Finalise list of days to display
       setDisplayDays(daysList);
     }
   };
@@ -146,15 +161,15 @@ const BookingCalendar = ({
           ).toString()
         );
       }
-
-      // If selected day is today, remove times that are in the past
-      if (selectedDay == todayDay) {
-        for (let i in timeBlocksArr) {
-          if (new Date(timeBlocksArr[i]) > today) {
-            timeBlocksArr.splice(0, i - 1);
-            break;
-          }
-        }
+      // If selected day is today, remove times that are in the past (in an hour before the present hour)
+      if (
+        selectedDay == todayDay &&
+        selectedMonth == todayMonth &&
+        selectedYear == todayYear
+      ) {
+        timeBlocksArr = timeBlocksArr.filter((time) => {
+          return new Date(time) > today;
+        });
       }
 
       // Iterate through vets in vetArray
@@ -165,11 +180,10 @@ const BookingCalendar = ({
           for (let appt of vet.appointments) {
             // Generate date string for individual appointment
             let apptDateString = new Date(appt.date).toString();
-            // Check if appt date string is present in list of dates
-            if (timeBlocksArr.includes(apptDateString)) {
-              // Remove booked appointment time from generated times
-              timeBlocksArr.splice(timeBlocksArr.indexOf(apptDateString), 1);
-            }
+            // Filter all times that are already taken by that vet
+            timeBlocksArr = timeBlocksArr.filter((time) => {
+              return time != apptDateString;
+            });
           }
         }
       }
@@ -177,6 +191,7 @@ const BookingCalendar = ({
     }
   };
 
+  // Generates time buttons when selected day/vetSelect changes or a new appointment is selected
   useLayoutEffect(() => {
     genTimes();
   }, [selectedDay, vetSelect, submitSuccess]);
@@ -242,7 +257,7 @@ const BookingCalendar = ({
                   : "not-selected-button"
               }
             >
-              {day.getDate()}
+              {day.toString().slice(0, 3) + " " + day.toString().slice(7, 10)}
             </button>
           ))
         ) : (
