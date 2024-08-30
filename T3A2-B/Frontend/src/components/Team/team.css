@@ -40,4 +40,34 @@
     margin: 0;
   }
   
-  
+    /* Mobile view */
+@media (max-width: 786px) {
+  .team {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .team > div {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .team > div img {
+    margin-right: 0;
+    margin-bottom: 20px;
+    max-width: 150px;
+  }
+
+  .team > div .team-member {
+    padding: 0 10px;
+  }
+
+  .team > div h3 {
+    font-size: 1.5rem;
+  }
+
+  .team > div p {
+    font-size: 0.9rem;
+  }
+}

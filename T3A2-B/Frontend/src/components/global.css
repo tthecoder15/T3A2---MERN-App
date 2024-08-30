@@ -125,6 +125,10 @@ footer a:hover {
   color: #e0f2ff;
 }
 
+footer h3 {
+  margin-bottom: 0px;
+}
+
 /* Mobile view */
 @media (max-width: 768px) {
   nav {
