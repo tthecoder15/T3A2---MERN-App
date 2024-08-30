@@ -5,6 +5,7 @@ import { Pet } from "../models/petsModel.js"
 import { Appointment } from "../models/appointmentsModel.js"
 import { Vet } from '../models/vetsModel.js'
 import jwt from 'jsonwebtoken'
+// dotenv import neccessary for JWT key
 import { dotenv } from "../db.js"
 import bcrypt from 'bcrypt'
 import customErrors from "../errorObjs.js"
@@ -164,12 +165,14 @@ router.patch(`${usersPrefix}/:id`, async (req, res, next) => {
             throw customErrors.authError
         }
 
+        // Hash new password
+        req.body.password = await bcrypt.hash(req.body.password, saltRounds)
+
         const user = await User.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
         ).select('-password -pets -appointments -isAdmin -__v -_id')
                
         if (user) {
-            console.log(user)
             res.status(200).send(user)
         } else {
             throw customErrors.noUser
@@ -185,7 +188,7 @@ router.delete(`${usersPrefix}/:id`, async (req, res, next) => {
     try {
         let { userId, isAdmin } = req.auth
         
-        if (!isAdmin || req.params.id == userId) {
+        if (!isAdmin && req.params.id !== userId) {
             throw customErrors.authError
         }
 

@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll --verbose --forceExit",
     "start": "node --watch index.js",
     "seed": "node seed.js"
   },
@@ -22,6 +22,7 @@
     "mongoose": "^8.5.1"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "supertest": "^7.0.0"
   }
 }

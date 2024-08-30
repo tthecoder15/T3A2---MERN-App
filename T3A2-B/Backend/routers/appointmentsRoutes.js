@@ -33,6 +33,7 @@ router.get(`${appointmentsPrefix}`, async (req, res, next) => {
     let { userId, isAdmin } = req.auth
 
     // If user is admin, get all vets and their appointments including user details and pets
+    try {
     if (isAdmin) {
         res.send(await Appointment.find({}, '-__v').populate([
             {
@@ -64,6 +65,9 @@ router.get(`${appointmentsPrefix}`, async (req, res, next) => {
                 select: '-appointments -__v -userId'
             }
         ]))
+    }}
+    catch (err) {
+        next(err)
     }
 })
 
@@ -133,6 +137,11 @@ router.post(`${appointmentsPrefix}`, async (req, res, next) => {
         // Retrieve Pet whose appointment it is
         let retPet = await Pet.findOne({_id: req.body.petId})
 
+        // Check if registered Pet belongs to user
+        if (!isAdmin && retPet.userId != userId) {
+            throw customErrors.authError
+        }
+
         // Add new appointment to retrieved Pet
         retPet.appointments.push(newAppointment._id)
 
@@ -185,6 +194,15 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
             throw customErrors.noAppt
         }
 
+        let retPet
+        // Retrieve Pet whose appointment it is if petId is included in update values
+        if (req.body.petId) {
+        retPet = await Pet.findOne({_id: req.body.petId})
+        // Check if registered Pet belongs to user
+        if (!isAdmin && retPet.userId != userId) {
+            throw customErrors.authError
+        }}
+
         // Check if appt exists in DB
         let apptCheck = await Appointment.findOne({'date': req.body.date,  'vetId': req.body.vetId})
         if (apptCheck) {
@@ -200,8 +218,22 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
             req.params.id, req.body, {returnDocument: 'after'}
         )
 
-        // Retrieve Pet whose appointment it is
-        let retPet = await Pet.findOne({_id: req.body.petId})
+        // If userId, vetId or petId is not included in update request, take those values from the updated appointment to update them in individual instance
+        if (!req.body.userId) {
+            req.body.userId = updAppointment.userId.toString()
+        }
+
+        if (!req.body.petId) {
+            req.body.petId = updAppointment.petId.toString()
+        }
+
+        if (!req.body.vetId) {
+            req.body.vetId = updAppointment.vetId.toString()
+        }
+
+        if (!retPet) {
+            retPet = await Pet.findOne({_id: req.body.petId})
+        }
 
         // Update appointment in pet
         for (let singleAppt of retPet.appointments) {
@@ -213,7 +245,7 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
 
         // Update Pet with new appointment
         let savePet = await Pet.findOneAndUpdate({_id: req.body.petId}, {appointments: retPet.appointments}, {returnDocument: 'after'})
- 
+
         // Retrieve Vet whose appointment it is
         let retVet = await Vet.findOne({_id: req.body.vetId})
 

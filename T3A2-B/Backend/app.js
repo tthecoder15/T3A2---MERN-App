@@ -5,7 +5,6 @@ import petsRoutes from "./routers/petsRoutes.js"
 import appointmentsRoutes from "./routers/appointmentsRoutes.js"
 import errorHandler from "./routers/errorHandler.js";
 import { expressjwt } from "express-jwt";
-import { dotenv } from "./db.js";
 import cors from 'cors'
 
 const app = express()
