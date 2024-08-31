@@ -29,7 +29,7 @@ describe('App Component', () => {
   
     it('renders Login component on /login route', () => {
       renderWithRouter(<App />, { route: '/user/login' })
-      expect(screen.getByText('New User? Register Now')).toBeInTheDocument()
+      expect(screen.getByText('Login or Register')).toBeInTheDocument()
     })
   
     it('renders Booking component on /booking route', () => {
@@ -56,7 +56,7 @@ describe('Individual Components', () => {
     
     it('renders Login component independently', () => {
       renderWithRouter(<Login />)
-      expect(screen.getByText('New User? Register Now')).toBeInTheDocument()
+      expect(screen.getByText('Login or Register')).toBeInTheDocument()
     })
 
 
