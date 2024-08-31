@@ -211,12 +211,18 @@ router.delete(`${petsPrefix}/:id`, async (req, res, next) => {
             throw customErrors.noPet
         }
 
+        // Creates local var for ref if user submitting delete request's ID isn't equal to the pet's
+        let petsUserId = userId
+        if (authCheck.userId !== userId) {
+            petsUserId = authCheck.userId
+        }
+
         const pet = await Pet.findByIdAndDelete(
             req.params.id, req.body, {returnDocument: 'after'}
         )
 
         // Retrieve user to delete pet
-        let retUser = await User.findOne({_id: req.body.userId})
+        let retUser = await User.findOne({_id: petsUserId})
         
         // Delete pet in user
         for (let petIndex in retUser.pets) {
@@ -227,7 +233,25 @@ router.delete(`${petsPrefix}/:id`, async (req, res, next) => {
         }
 
         // Save updated User to db
-        let saveUser = await User.findOneAndUpdate({_id: req.body.userId}, retUser, {new: true})
+        let saveUser = await User.findOneAndUpdate({_id: petsUserId}, retUser, {new: true})
+
+        // Delete appointments linked to pet
+        let petsAppts = await Appointment.find({petId: req.params.id})
+       
+        if (petsAppts.length != 0) {
+            let apptIdsArray = petsAppts.map((appt) => appt._id)
+                let delUsersAppts = await User.updateOne(
+                    {appointments: {$in: apptIdsArray}},
+                    {$pull: {appointments: {$in: apptIdsArray}}}
+                )
+                let delVetsAppts = await Vet.updateMany(
+                    {appointments: {$in: apptIdsArray}}, 
+                    {$pull: {appointments: {$in: apptIdsArray}}}
+                )
+                let delAppts = await Appointment.deleteMany(
+                    {_id: {$in: apptIdsArray}}
+                )
+        } 
 
         if (pet) {
             res.status(200).send({Success: "Pet deleted"})

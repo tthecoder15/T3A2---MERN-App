@@ -189,6 +189,9 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
             if (!isAdmin && authCheck.userId != req.auth.userId) {
                 throw customErrors.authError
             }
+            if (req.body.petId && authCheck.petId !== req.body.petId) {
+                throw customErrors.changeApptPet
+            }
         }
         else {
             throw customErrors.noAppt
@@ -218,7 +221,7 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
             req.params.id, req.body, {returnDocument: 'after'}
         )
 
-        // If userId, vetId or petId is not included in update request, take those values from the updated appointment to update them in individual instance
+        // If userId, or petId is not included in update request, take those values from the updated appointment to update them in individual instance
         if (!req.body.userId) {
             req.body.userId = updAppointment.userId.toString()
         }
@@ -227,10 +230,26 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
             req.body.petId = updAppointment.petId.toString()
         }
 
-        if (!req.body.vetId) {
-            req.body.vetId = updAppointment.vetId.toString()
+        // If vetId is passed in the body, it could mean the booking's vet is changing, need to get the vetId of old vet and remove appointment from it
+        if (req.body.vetId) {
+            // Finds all vets with the updated appointment's Id in their appointments
+            let allVetsWAppt = await Vet.find({appointments: {_id: req.params.id}})
+            // Filters for vets who don't have the submitted vetId
+            let notVet = allVetsWAppt.find((vet) => {return vet._id !== req.body.vetId})
+            // Delete appointment in vet
+            if (notVet) {
+                for (let apptIndex in notVet.appointments) {
+                    if (notVet.appointments[apptIndex].toString() == req.params.id) {
+                    // Delete matched appointment value
+                    notVet.appointments.splice(apptIndex, 1)
+                    }
+                }
+                // Update old Vet without appointment
+                let saveNotVet = await Vet.findOneAndUpdate({_id: notVet._id}, {appointments: notVet.appointments}, {returnDocument: 'after'})
+            }
         }
 
+        // Retrieved pet might be defined from before, retrieves it if not
         if (!retPet) {
             retPet = await Pet.findOne({_id: req.body.petId})
         }
@@ -246,15 +265,26 @@ router.patch(`${appointmentsPrefix}/:id`, async (req, res, next) => {
         // Update Pet with new appointment
         let savePet = await Pet.findOneAndUpdate({_id: req.body.petId}, {appointments: retPet.appointments}, {returnDocument: 'after'})
 
-        // Retrieve Vet whose appointment it is
+        // If vetId is not passed in body, retrieves the vet who receives the updated booking based on submitted updated appointment
+        if (!req.body.vetId) {
+            req.body.vetId = updAppointment.vetId.toString()
+        }
+
+        // Retrieve Vet whose ID is saved to the appointment
         let retVet = await Vet.findOne({_id: req.body.vetId})
 
-        // Update appointment in pet
-        for (let singleAppt of retVet.appointments) {
-            if (singleAppt._id == updAppointment._id) {
-                // Assign new appointment value to matched appointment in pet
-                singleAppt = updAppointment
+        // Check to see if appt is already saved with vet, if so updates
+        let updApt = false
+        // Update appointment in new Vet
+        for (let i in retVet.appointments) {
+            if (retVet.appointments[i]._id == updAppointment._id) {
+                retVet.appointments[i] = updAppointment
+                updApt = true
             }
+        }
+        // If not, adds it to their appointments
+        if (!updApt) {
+            retVet.appointments.push(updAppointment)
         }
 
         // Update Vet with new appointment
@@ -326,7 +356,7 @@ router.delete(`${appointmentsPrefix}/:id`, async (req, res, next) => {
         // Retrieve Vet whose appointment it is
         let retVet = await Vet.findOne({_id: authCheck.vetId})
         
-        // Delete appointment in pet
+        // Delete appointment in vet
         for (let apptIndex in retVet.appointments) {
             if (retVet.appointments[apptIndex].toString() == req.params.id) {
                 // Delete matched appointment value

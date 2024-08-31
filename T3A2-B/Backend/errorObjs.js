@@ -83,7 +83,13 @@ const customErrors = {
             "shortID": "The ID parameter you provided is less than 12 characters long and invalid."
         }
     },
-
+    shortId: {
+        code: 400,
+        message: {
+            "error/s": ["changeApptPet"],
+            "changeApptPet": "You cannot change the pet linked to an appointment. Please delete the appointment and book a new one."
+        }
+    },
 }
 
 export default customErrors

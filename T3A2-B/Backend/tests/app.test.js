@@ -405,6 +405,7 @@ describe("test /appointments endpoints", () => {
 
         expect(updateAppointment.body.vetId).toBe(vetId2)
         expect(updateAppointment.body._id).toBe(appointmentId)
+        updateAppointment = updateAppointment.body
     })
 
     test("GET /users, newly updated appointment is in user's list of appointments with vetId", async () => {
@@ -429,82 +430,74 @@ describe("test /appointments endpoints", () => {
         expect(newAppt.vetId._id).toBe(vetId2)
     })
 
-    // test("GET /vets, updated Appointment is in new vet's list of appointments and not in old vet's", async () => {
+    test("GET /vets, updated Appointment is in new vet's list of appointments and not in old vet's", async () => {
         
-    //     let authLogin = await request(app).post('/users/login').send({"email": "pawfectcare@gmail.com", password: "admin123"})
-    //     expect(authLogin.status).toBe(200)
-    //     let adminToken = authLogin.body.JWT
-    //     let getVets = await request(app).get('/vets').set('Authorization', `Bearer ${adminToken}`)
-    //     expect(getVets.status).toBe(200)
-    //     expect(getVets.body).toBeInstanceOf(Array)
-    //     const retVets = getVets.body
-    //     let selectedVet = retVets.find((vet) => {return vet._id == vetId2
-    //     })
-    //     console.log('selected Vet', selectedVet)
-        
-    //     console.log(appointmentId)
-    //     let newAppt = selectedVet.appointments.find((appt) => {return appt._id == appointmentId
-    //     })
-        
-        
-    //     expect(newAppt).toBeDefined()
-    //     expect(newAppt.date).toBe(`${new Date(2025, 6, 5, 10, 0, 0).toISOString()}`)
-    //     expect(newAppt.vetId).toBe(vetId2)
-    //     let oldVet = retVets.find((vet) => {return vet._id == vetId})
-    //     expect(oldVet.appointments).not.toEqual(expect.arrayContaining(appointmentPost))
-    // })
+        let authLogin = await request(app).post('/users/login').send({"email": "pawfectcare@gmail.com", password: "admin123"})
+        expect(authLogin.status).toBe(200)
+        let adminToken = authLogin.body.JWT
+        let getVets = await request(app).get('/vets').set('Authorization', `Bearer ${adminToken}`)
+        expect(getVets.status).toBe(200)
+        expect(getVets.body).toBeInstanceOf(Array)
+        const retVets = getVets.body
+        let selectedVet = retVets.find((vet) => {return vet._id == vetId2
+        })
+        let newAppt = selectedVet.appointments.find((appt) => {return appt._id == appointmentId
+        })
+        expect(newAppt).toBeDefined()
+        expect(newAppt.date).toBe(`${new Date(2025, 6, 5, 10, 0, 0).toISOString()}`)
+        let oldVet = retVets.find((vet) => {return vet._id == vetId})
+        let oldVetPatchAppt = oldVet.appointments.find((appt) => appt._id == updateAppointment._id)
+        expect(oldVetPatchAppt).toBe(undefined)
+    })
 
-    // test('PATCH /appointments when not registered to user fails', async () => {
-    //     let user2Login = await request(app).post('/users/login').send({email: "marylou@gmail.com", password: "marymare"})
-    //     expect(user2Login.status).toBe(200)
-    //     expect(user2Login.body.JWT).toBeDefined()
-    //     let notUserJWT = user2Login.body.JWT
-    //     let unauthPatch = await request(app).patch(`/appointments/${appointmentId}`).set('Authorization', `Bearer ${notUserJWT}`).send({vetId: vetId})
-    //     expect(unauthPatch.status).toBe(403)
-    // })
+    test('PATCH /appointments when not registered to user fails', async () => {
+        let user2Login = await request(app).post('/users/login').send({email: "marylou@gmail.com", password: "marymare"})
+        expect(user2Login.status).toBe(200)
+        expect(user2Login.body.JWT).toBeDefined()
+        let notUserJWT = user2Login.body.JWT
+        let unauthPatch = await request(app).patch(`/appointments/${appointmentId}`).set('Authorization', `Bearer ${notUserJWT}`).send({vetId: vetId})
+        expect(unauthPatch.status).toBe(403)
+    })
 
-    // test('DELETE /appointments/:id', async () => {
-    //     deleteAppointment = await request(app).delete(`/appointments/${appointmentId}`).set('Authorization', `Bearer ${token}`)
-    //     expect(deleteAppointment.status).toBe(200)
-    // })
+    test('DELETE /appointments/:id', async () => {
+        deleteAppointment = await request(app).delete(`/appointments/${appointmentId}`).set('Authorization', `Bearer ${token}`)
+        expect(deleteAppointment.status).toBe(200)
+    })
 
-    // let updatedAppointmentPost = {
-    //     userId: userId,
-    //     vetId: vetId2,
-    //     petId: petId,
-    //     date: new Date(2025, 6, 5, 10, 0, 0)
-    // }
+    test("GET /users, deleted Appointment is not in user's list of appointments", async () => {
+        let getUsers4 = await request(app).get('/users').set('Authorization', `Bearer ${token}`)
+        expect(getUsers4.status).toBe(200)
+        const appointments = getUsers4.body.appointments
+        expect(appointments).toBeDefined()
+        let delAppt = appointments.find((appt) => appt._id == updateAppointment._id)
+        expect(delAppt).toBe(undefined)
+    })
 
-    // test("GET /users, deleted Appointment is not in user's list of appointments", async () => {
-    //     let getUsers4 = await request(app).get('/users').set('Authorization', `Bearer ${token}`)
-    //     expect(getUsers4.status).toBe(200)
-    //     const appointments = getUsers4.body.appointments
-    //     expect(appointments).toBeDefined()
-    //     expect(appointments).not.toEqual(expect.arrayContaining(appointmentPost))
-    // })
+    test("GET /pets, deleted Appointment is not in pets's list of appointments", async () => {
+        let getPet2 = await request(app).get('/pets').set('Authorization', `Bearer ${token}`)
+        expect(getPet2.status).toBe(200)
+        expect(getPet2.body).toBeInstanceOf(Array)
+        const retPets = getPet2.body
+        let apptPet = retPets.find((pet) => pet._id == updateAppointment.petId)
+        expect(apptPet).toBeDefined()
+        let delAppt = apptPet.appointments.find((appt) => appt._id == updateAppointment._id)
+        expect(delAppt).toBe(undefined)
+    })
 
-    // test("GET /pets, deleted Appointment is not in pets's list of appointments", async () => {
-    //     let getPet2 = await request(app).get('/pets').set('Authorization', `Bearer ${token}`)
-    //     expect(getPet2.status).toBe(200)
-    //     expect(getPet2.body).toBeInstanceOf(Array)
-    //     const retPets = getPet2.body
-    //     expect(retPets.appointments).toBeDefined()
-    //     expect(retPets.appointments).not.toEqual(expect.arrayContaining(appointmentPost))
-    // })
-
-    // test("GET /vets, deleted Appointment is not in vet's list of appointments", async () => {
-    //     let authLogin = await request(app).post('/users/login').send({"email": "pawfectcare@gmail.com", password: "admin123"})
-    //     expect(authLogin.status).toBe(200)
-    //     let adminToken = authLogin.body.JWT
-    //     let getVets = await request(app).get('/vets').set('Authorization', `Bearer ${adminToken}`)
-    //     expect(getVets.status).toBe(200)
-    //     expect(getVets.body).toBeInstanceOf(Array)
-    //     const retVets = getVets.body
-    //     let checkVet = retVets.find((vet) => {return vet._id == vetId2
-    //     })
-    //     expect(checkVet).toBeDefined()
-    //     expect(checkVet.appointments).not.toEqual(expect.arrayContaining(appointmentPost))
-    // })
+    test("GET /vets, deleted Appointment is not in vet's list of appointments", async () => {
+        let authLogin = await request(app).post('/users/login').send({"email": "pawfectcare@gmail.com", password: "admin123"})
+        expect(authLogin.status).toBe(200)
+        let adminToken = authLogin.body.JWT
+        let getVets = await request(app).get('/vets').set('Authorization', `Bearer ${adminToken}`)
+        expect(getVets.status).toBe(200)
+        expect(getVets.body).toBeInstanceOf(Array)
+        const retVets = getVets.body
+        let checkVet = retVets.find((vet) => {return vet._id == vetId2
+        })
+        expect(checkVet).toBeDefined()
+        let delAppt = checkVet.appointments.find((appt) => appt._id == updateAppointment._id)
+        expect(delAppt).toBe(undefined)
+    })
 
 })
 
