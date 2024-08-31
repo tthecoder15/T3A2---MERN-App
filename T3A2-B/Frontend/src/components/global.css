@@ -95,6 +95,10 @@ footer {
   color: #ffffff;
 }
 
+footer p {
+  color: white !important;
+}
+
 footer div {
   display: flex;
   flex-direction: column;
