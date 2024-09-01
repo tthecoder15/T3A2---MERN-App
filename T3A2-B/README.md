@@ -459,6 +459,11 @@ The fourth screenshot of our Kanban board during T3A2-B.
 ![31/08/2024](./docs/Trello/31-08-2024.png)
 The fifth screenshot of our Kanban board during T3A2-B.
 
+#### 1/09/2024 Sixth Trello Screenshot
+
+![1/09/2024](./docs/Trello/1-09-2024.png)
+The sixth and final screenshot of our Kanban board during T3A2-B.
+
 ## Development Environment Testing
 
 Before deploying the website, we had completed extensive testing by running the web application on a local port. Below are a list of tests we completed before deploying the website.

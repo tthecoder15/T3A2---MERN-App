@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import sessionState from "../../routes/store";
 import { jwtDecode } from "jwt-decode";
-import LoginPopup from "../Popups/LoginPopup"
+import LoginPopup from "../Popups/LoginPopup";
 
 // makePopupClose is an optional parameter if RegisterPetForm is used in a popup
 const RegisterPetForm = ({ makePopupClose }) => {
@@ -17,7 +17,7 @@ const RegisterPetForm = ({ makePopupClose }) => {
   const [animalType, setAnimalType] = useState("");
   const [petYear, setPetYear] = useState("");
   const [errors, setErrors] = useState({});
-  const [showLoginPopup, setShowLoginPopup] = useState(false)
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   let userId;
   if (token) {
@@ -105,7 +105,7 @@ const RegisterPetForm = ({ makePopupClose }) => {
         // Set "submitting" error to true so it displays to user
         setErrors((prevErrors) => ({
           ...prevErrors,
-          submitting: true
+          submitting: true,
         }));
 
         const response = await fetch(`${apiBase}/pets`, {
@@ -129,11 +129,11 @@ const RegisterPetForm = ({ makePopupClose }) => {
           console.log(errorData);
           if (errorData["error/s"] == "invalid_token") {
             setIsAuthenticated(false);
-            setShowLoginPopup(true)
+            setShowLoginPopup(true);
             setErrors((prevErrors) => ({
               ...prevErrors,
-              submitting: false
-            }))
+              submitting: false,
+            }));
           }
           throw errorData;
         }
@@ -142,9 +142,10 @@ const RegisterPetForm = ({ makePopupClose }) => {
           setErrors((prevErrors) => ({
             ...prevErrors,
             postError: "",
+            submitting: false,
             submitSuccess: true,
-          }))
-        };
+          }));
+        }
 
         let submittedPet = await response.json();
         setUserData({ pets: submittedPet });
@@ -169,8 +170,6 @@ const RegisterPetForm = ({ makePopupClose }) => {
       }
     }
   }
-
-
 
   return (
     <div className="RegisterPetBox">
@@ -229,17 +228,26 @@ const RegisterPetForm = ({ makePopupClose }) => {
       </div>
       <div id="submit-input">
         <button type="submit" onClick={postNewPet}>
-            Register Pet
+          Register Pet
         </button>
-        {showLoginPopup ? <LoginPopup popupControl={showLoginPopup} setPopupControl={setShowLoginPopup}/> : null}        
-        {errors.submitting ? <p style={{ color: "gray" }}>Request submitted, please wait.</p> : null}
+        {showLoginPopup ? (
+          <LoginPopup
+            popupControl={showLoginPopup}
+            setPopupControl={setShowLoginPopup}
+          />
+        ) : null}
+        {errors.submitting ? (
+          <p style={{ color: "gray" }}>Request submitted, please wait.</p>
+        ) : null}
         {errors.postError ? (
           <p style={{ color: "red" }}>{errors.postError.toString()}</p>
         ) : null}
         {errors.submitSuccess ? (
           <p style={{ color: "gray" }}>Successfully registered pet!</p>
         ) : null}
-        {makePopupClose ? <button onClick={makePopupClose}>Cancel</button> : null}
+        {makePopupClose ? (
+          <button onClick={makePopupClose}>Cancel</button>
+        ) : null}
       </div>
     </div>
   );
