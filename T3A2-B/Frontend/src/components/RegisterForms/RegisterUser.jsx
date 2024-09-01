@@ -64,7 +64,11 @@ const RegisterUser = ({ onSuccess, registerUser }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
+        // Set "submitting" error to true so it displays to user
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            submitting: true
+          }));
 
         if (validateForm()) {
             try {
@@ -200,9 +204,10 @@ const RegisterUser = ({ onSuccess, registerUser }) => {
                     onChange={handleChange}
                 />
                 {renderError('confirmPassword')}
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Creating your account...' : 'Register Now'}
+                <button type="submit">
+                    'Register Now'
                 </button>
+                {errors.submitting ? <p style={{ color: "gray" }}>Request submitted, please wait.</p> : null}
                 {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
                 {renderError('submit')}
             </form>
