@@ -8,7 +8,6 @@ const Booking = () => {
   const userData = sessionState((state) => state.userData);
   const isAuthenticated = sessionState((state) => state.isAuthenticated);
 
-  console.log(userData);
   return (
     <>
       <div className="contentFrame">

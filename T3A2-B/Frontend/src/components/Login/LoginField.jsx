@@ -11,7 +11,6 @@ const LoginField = ({previousRoute}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('attempting login ')
     try {
       await login(email, password)
     } catch (error) {
