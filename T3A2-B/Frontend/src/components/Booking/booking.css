@@ -73,29 +73,45 @@ div.dropdown-menu {
 
 /* Selected button styling */
 button.selected-button {
-  background-color: #9cdbff;
+  background-color: #209D69;
   margin-right: 0.5rem;
   margin-left: 0.5rem;
+  width: auto;
 }
 
 /* Not selected button styling */
 button.not-selected-button {
   background-color: white;
+  color: black;
   margin: 0.1rem;
+  width: auto;
+}
+
+button.not-selected-button:hover {
+  color: white;
+  background-color: #209D69;
 }
 
 #submit-booking-button {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: auto;
 }
 
 #submit-booking-button button {
-  background-color: white;
+  background-color: #209D69;
+  width: auto;
+  transition: background-color 0.3s ease;
 }
 
 #submit-booking-button p {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  width: auto;
+}
+
+#submit-booking-button button:hover {
+  background-color: #1b8055;
 }
