@@ -29,7 +29,7 @@ const NavBar = () => {
         <div className="navLogo">
           <Link to="/">
             <img
-              src="../docs/logo-and-art/PC-logo-ellipsis.png"
+              src="../../docs/logo-and-art/PC-logo-ellipsis.png"
               alt="Navbar Logo"
             />
           </Link>

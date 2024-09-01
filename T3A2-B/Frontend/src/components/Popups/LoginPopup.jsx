@@ -5,17 +5,17 @@ import "reactjs-popup/dist/index.css";
 import { Link } from "react-router-dom";
 import sessionState from "../../routes/store";
 
-const LoginPopup = ({showLoginPopup, setShowLoginPopup}) => 
+const LoginPopup = ({popupControl, setPopupControl}) => 
     {
       const isAuthenticated = sessionState((state) => state.isAuthenticated);
 
       const makePopupClose = () => {
-         setShowLoginPopup(false)
+         setPopupControl(false)
       }
 
       useLayoutEffect(() => {
         if (isAuthenticated) {
-          setShowLoginPopup(false)
+          setPopupControl(false)
         }
       }, 
       [isAuthenticated])
@@ -27,7 +27,7 @@ const LoginPopup = ({showLoginPopup, setShowLoginPopup}) =>
       modal
       position="right center"
       onClose={makePopupClose}
-      open={showLoginPopup}
+      open={popupControl}
     >
       
       <LoginField />
