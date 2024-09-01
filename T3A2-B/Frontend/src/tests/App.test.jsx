@@ -7,7 +7,6 @@ import Home from '../routes/Home'
 import Team from '../routes/Team'
 import Contact from '../routes/Contact'
 import Login from '../routes/Login'
-import MyAcc from '../routes/MyAcc'
 import Booking from '../routes/Booking'
 
 

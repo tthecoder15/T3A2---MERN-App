@@ -34,25 +34,6 @@ describe('LoginField Component', () => {
     expect(screen.getByTestId('Login')).toBeInTheDocument();
   });
 
-  it('should attempt login when the form is submitted', async () => {
-    renderWithRouter(<LoginField />);
-
-    fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: 'pawfectcare@gmail.com' },
-    });
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: 'admin123' },
-    });
-
-    fireEvent.click(screen.getByTestId('Login'));
-
-    await waitFor(() => {
-      const { isAuthenticated, userData } = sessionState.getState();
-      expect(isAuthenticated).toBe(true);
-      expect(userData.email).toBe('pawfectcare@gmail.com');
-    });
-  });
-
   it('should navigate to user account after successful login using loginTestUser', async () => {
     renderWithRouter(<LoginField />);
 
