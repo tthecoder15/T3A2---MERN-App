@@ -5,6 +5,7 @@ import BookingCalendar from "./BookingCalendar";
 import SelectPetDropdown from "./BookingDropdowns/SelectPetDropdown";
 import SelectServiceDropdown from "./BookingDropdowns/SelectServiceDropdown";
 import SelectVetDropdown from "./BookingDropdowns/SelectVetDropdown";
+import LoginPopup from "../Popups/LoginPopup";
 
 const MakeBookingForm = () => {
   const token = sessionState((state) => state.token);
@@ -25,6 +26,7 @@ const MakeBookingForm = () => {
   const [timeSelect, setTimeSelect] = useState("");
   const [errors, setErrors] = useState({});
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [jwtExpired, setJwtExpired] = useState(false);
 
   // Loads vets for populating the choices of vets and their appointments
   // Load effect calls this upon the page loading
@@ -66,7 +68,7 @@ const MakeBookingForm = () => {
   };
 
   const validatePet = () => {
-    if (!petSelect || petSelect == 'Register New Pet') {
+    if (!petSelect) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         petSelect: "Please select a pet.",
@@ -118,6 +120,12 @@ const MakeBookingForm = () => {
 
     if (isPetValid && isServiceValid && isVetValid && isTimeValid) {
       try {
+        // Set "submitting" error to true so it displays to user
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          submitting: true
+        }));
+
         const response = await fetch(`${apiBase}/appointments`, {
           method: "POST",
           headers: {
@@ -139,6 +147,7 @@ const MakeBookingForm = () => {
           console.log(errorData);
           if (errorData["error/s"] == "invalid_token") {
             setIsAuthenticated(false);
+            setJwtExpired(true);
           }
           throw errorData;
         }
@@ -148,13 +157,9 @@ const MakeBookingForm = () => {
         // Alter submitted Appointment object to made log in population
         submittedAppointment.petId = petSelect;
         submittedAppointment.vetId = vetSelect;
-        setErrors((prevErrors) => ({ ...prevErrors, postError: "" }));
+        setErrors((prevErrors) => ({ ...prevErrors, postError: "", submitting: "" }));
         setSubmitSuccess(true);
         setUserData({ appointments: submittedAppointment });
-        console.log(
-          "post register user data, this console log is in MakeBookingForm.jsx",
-          userData
-        );
       } catch (err) {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -204,16 +209,19 @@ const MakeBookingForm = () => {
       </div>
       <div id="submit-booking-button">
         <button onClick={postNewBooking}>Submit Booking</button>
+        {errors.submitting ? <p style={{ color: "gray" }}>Request submitted, please wait.</p> : null}
         {errors.postError ? (
           <p style={{ color: "red" }}>{errors.postError.toString()}</p>
-        ) : (
-          <></>
-        )}
+        ) : null}
         {submitSuccess ? (
           <p style={{ color: "gray" }}>Successfully registered appointment!</p>
-        ) : (
-          <></>
-        )}
+        ) : null}
+        {jwtExpired ? (
+          <LoginPopup
+            popupControl={jwtExpired}
+            setPopupControl={setJwtExpired}
+          />
+        ) : null}
       </div>
     </>
   );

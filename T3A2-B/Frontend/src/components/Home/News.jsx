@@ -31,7 +31,7 @@ function News() {
             </p>
         </>
       ),
-      imgSrc: "./docs/Home/CarouselOne.jpg"
+      imgSrc: "../../docs/Home/CarouselOne.jpg"
     },
     {
       text: (
@@ -72,7 +72,7 @@ function News() {
             </p>
         </>
       ),
-      imgSrc: "./docs/Home/CarouselTwo.jpg"
+      imgSrc: "../../docs/Home/CarouselTwo.jpg"
     },
     {
       text: (
@@ -102,7 +102,7 @@ function News() {
             </p>
         </>
       ),
-      imgSrc: "./docs/Home/CarouselThree.jpg"
+      imgSrc: "../../docs/Home/CarouselThree.jpg"
     }
   ];
 

@@ -34,7 +34,7 @@ const Footer = () => {
         </div>
         <Link to="/">
           <img
-            src="../docs/logo-and-art/PC-logo-square-text.png"
+            src="../../docs/logo-and-art/PC-logo-square-text.png"
             alt="Square logo"
           />
         </Link>

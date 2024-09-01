@@ -231,7 +231,7 @@ const RegisterPetForm = ({ makePopupClose }) => {
         <button type="submit" onClick={postNewPet}>
             Register Pet
         </button>
-        {showLoginPopup ? <LoginPopup showLoginPopup={showLoginPopup} setShowLoginPopup={setShowLoginPopup}/> : null}        
+        {showLoginPopup ? <LoginPopup popupControl={showLoginPopup} setPopupControl={setShowLoginPopup}/> : null}        
         {errors.submitting ? <p style={{ color: "gray" }}>Request submitted, please wait.</p> : null}
         {errors.postError ? (
           <p style={{ color: "red" }}>{errors.postError.toString()}</p>
