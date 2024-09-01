@@ -10,9 +10,9 @@ describe('Nav Component', () => {
     it('Nav logo sends you to /home on click', async () => {
         renderWithRouter(<NavBar />, { route: '/' })
         // Get a reference to the logo
-        const nav-logo = screen.getByAltText('Navbar Logo') 
+        const navLogo = screen.getByAltText('Navbar Logo') 
         // Simulate user clicking the logo in the nav bar
-        await user.click(nav-logo)
+        await user.click(navLogo)
         // Verify the URL changed to /home
         expect(window.location.pathname).toBe('/')
     })
