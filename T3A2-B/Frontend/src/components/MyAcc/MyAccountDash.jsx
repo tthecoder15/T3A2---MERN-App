@@ -4,8 +4,9 @@ import RegisterPetForm from "../RegisterForms/RegisterPetForm";
 import "./Account.css";
 import DisplaySingleAppt from "./DisplaySingleAppt";
 import DisplayApptsDropdown from "./MyAccDropdowns/DisplayApptsDropdown";
-import UpdateAppointmentForm from "./MyAccDropdowns/UpdateAppointmentsDropdown";
+import UpdateAppointmentsDropdown from "./MyAccDropdowns/UpdateAppointmentsDropdown";
 import UpdateUserDropdownForm from "./MyAccDropdowns/UpdateUserDropdown";
+import DisplaySinglePet from "./DisplaySinglePet";
 
 const MyAccountDash = () => {
   const userData = sessionState((state) => state.userData);
@@ -67,7 +68,7 @@ const MyAccountDash = () => {
       case "Personal Information":
         return <UpdateUserDropdownForm />;
       case "Upcoming Appointments":
-        return <UpdateAppointmentForm upcomingAppts={upcomingAppts} />;
+        return <UpdateAppointmentsDropdown upcomingAppts={upcomingAppts} />;
       case "Pet Information":
         return <RegisterPetForm />;
       case "Appointment History":
@@ -115,15 +116,7 @@ const MyAccountDash = () => {
         </div>
         <div>
           <h5>Pet Information</h5>
-          {userData.pets.map((pet) => {
-            return (
-              <div key={pet.petName}>
-                <h6>{pet.petName}</h6>
-                <p>Born: {pet.birthYear}</p>
-                <p>Breed: {pet.breed}</p>
-              </div>
-            );
-          })}
+          <DisplaySinglePet deleteB={true}/>
           <button onClick={() => dropdownSelect("Pet Information")}>
             {selectedSetting === "Pet Information"
               ? "Close Pet Registration Field"

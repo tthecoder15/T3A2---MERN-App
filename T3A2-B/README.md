@@ -19,11 +19,11 @@ This README contains information relating to T3A2-B and the creation and deploym
 - [Project Plan Adjustments](#project-plan-adjustments)
 - [T3A2-A Documentation](#t3a2-a-documentation)
 
-### _Pawfect Care_ Website Link
+## _Pawfect Care_ Website Link
 
 [Pawfect Care Vetinary Clinic](https://pawfect-care.netlify.app/)
 
-### Project GitHub Repository
+## Project GitHub Repository
 
 [T3A2 MERN App Github Repository](https://github.com/tthecoder15/T3A2-MERN-App/tree/main/T3A2-B)
 
@@ -31,11 +31,11 @@ This README contains information relating to T3A2-B and the creation and deploym
 
 [_Pawfect Care_ Back End Source Code](https://github.com/tthecoder15/T3A2-MERN-App/tree/main/T3A2-B/Backend)
 
-### Project Kanban Board
+## Project Kanban Board
 
 [The Kanban board we have maintained throughout the project](https://trello.com/b/dlt2E3Mm/full-stack-app)
 
-### Login Credentials
+## Login Credentials
 
 If you would like to test the website's functionality, feel free to register a user account or use these default accounts:
 
@@ -57,87 +57,87 @@ These credentials will allow you to access all of the front end functionality in
 
 Please use this information responsibly and only seed appropriate data.
 
-### Project Libraries - Front End
+## Project Libraries - Front End
 
-#### vite
+### vite
 
 A front end tool which generates templates and handles bundling of a web application in a selected language. In this project, Vite provided the infrastructure of our React.js project using the SWC JavaScript compiler.
 
-#### formspree/react
+### formspree/react
 
 Handles data submission to Formspree's API which automates sending emails to a designated email address. Also contains error handling controls. Used to create the "Contact Us" page.
 
-#### jwt-decode
+### jwt-decode
 
 A library that decodes JWTs. Used in this project to decode JWTs returned from the site's back end to access values stored within including the "userId" and "isAdmin" values.
 
-#### react-bootstrap
+### react-bootstrap
 
 A library that provides a collection of generic website elements in a React format. Used within this site to create dropdown menus.
 
-#### zustand
+### zustand
 
 A state-management tool used to define global state values and functions that refresh in real-time like React's built-in "UseState" functionality. Zustand was used to store database objects and values and populate menus and interfaces as a user navigates around the website.
 
-#### zustand-persist
+### zustand-persist
 
 An add-on to Zustand which provides tools to make global state between refreshes and tab closures. Within this website, it saves the user's data to local storage to speed up refreshes and reduce the number of database requests neccessary.
 
-#### eslint
+### eslint
 
 A tool that parses JavaScript and highlights coding and pattern errors.
 
-#### react-router-dom
+### react-router-dom
 
 A package that provides tools to handle single page application infrastructure and set up dynamic routes and hyperlinks for website navigation. Within our website, react-router-dom handles links between pages and which page is served to the user.
 
-#### vitest
+### vitest
 
 Vitest is a tool used for developing unit tests within a Vite framework, including Vite React projects. Vitest was utilised for writing tests which describe expected results and data returns as the user navigates our website.
 
-#### react
+### react
 
 A vital package of a React project that handles the rendering of React elements to the DOM and includes functions including ```useState``` and ```useEffect``` which track dynamic state and update the DOM as states change respectively.
 
-### Project Libraries - Back End
+## Project Libraries - Back End
 
-#### bcrypt
+### bcrypt
 
 A library used to hash and obscure user passwords as they are passed to and stored in the website's database. When a user submits a login POST request, the submitted password value is hashed and compared to the saved password value of a user's account using bcrypt's functionality.
 
-#### express
+### express
 
 express is an NPM package that provides a framework and the neccessary functions to create a web server written in JavaScript. Within our application, Express is used to handle routing requests to our database, validate and sanitise data submitted within users' HTTP requests and broadly, connect the front end of application to the cloud database.
 
-#### cors
+### cors
 
 A package that supplies Express middleware to control a server's CORs (Cross-Origin Resource Sharing) handling protocol. Within our application, the cors middleware allows users to request data from the database, via our website, without being restricted by their browser's default security measures.
 
-#### dotenv
+### dotenv
 
 A package that allows a JavaScript script that is executed in a runtime environment to access a .env file and its included values. dotenv is used to access a secret key used to encode JWT tokens and return them to users when they login. The back end server also accesses the MongoDB connection string which is stored in a .env file.
 
-#### express-jwt
+### express-jwt
 
 A module that contains Express middleware to handle and interpret JWTs submitted with server requests. Within our website's back end, express-jwt is used to mandata JWTs when requesting particular routes and handles their parsing so that they can be manipulated within Express routes.
 
-#### jest
+### jest
 
 jest is a library that provides functions to describe and execute tests on JavaScript objects, functions and values. The jest package was combined with the supertest to write and execute tests to confirm the back end server returned data in a predictable manner.
 
-#### supertest
+### supertest
 
 A library which provides the functionality to simulate user's HTTP requests to a server.
 
-#### jsonwebtoken
+### jsonwebtoken
 
 An extension that provides the functionality to generate JWTs encoded with user data and a signature that is unique to the back end server. Within our back end, jsonwebtoken creates and returns unique JWTs which users can submit as authorisation to access various back end routes.
 
-#### mongoose
+### mongoose
 
 mongoose is an Object-Document Mapper (ODM) library that is used to create and describe database entity models and schemas. mongoose provides validation tools to ensure that users' requests contain appropriate fields and values. The mongoose library also provides functionality to connect a back end server to a MongoDB database. Within our library mongoose is used to connect our back end server to a dedicated MongoDB cloud database, describe and format the entities we record in the database and return descriptive error messages when users submit incorrect database requests.
 
-### Agile Project Management
+## Agile Project Management
 
 ### Stand Ups
 
@@ -147,31 +147,31 @@ To skip to the next part of this document, [click here.](#production-environment
 
 ### Stand Up 1 19/8/2024
 
-#### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 Yesterday we finalised the readme, tweaking parts of it making it more presentable.
 
 We also initialised the file structure for the front end, planned out folders and files for each component and gather extra resources on how to implement them.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 We are currently working on implementing some CSS to make created components function and implementing a carousel to display news
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 We will work through the block of the carousel and implement and style it to fit the wireframe reference.
 
 In addition, we will set up the back end including the database and API routing
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 We have advanced our understanding of React libraries, finding the right one for the functions we have planned, and for the project.
 
 We have also learnt more about source control and working with branches in git.
 
-#### Stand Up 2 20/8/24
+### Stand Up 2 20/8/24
 
-#### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 Yesterday we added extra components and content to the SPA and fixed some source control issues:
 
@@ -181,45 +181,45 @@ Yesterday we added extra components and content to the SPA and fixed some source
 
 In addition, we setup and connected the database to the back end server. The schemas are setup and the seed function is working.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 Yesterday we spent far too long on CSS styling and finding the minimum layout settings required.  It bottlenecked progress until we moved on to other components.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 We plan on working through the Trello board and adding more components to the front end. We plan to have set up and coded at least half of the planned components by the end of the day.
 
 In regards to the back end, we will finish the routing today so that the database information is served at the appropriate endpoints.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 We have learned that it is better to move on if you get stuck and come back to a problem with a fresh mind.
 
 ### Stand Up 3 21/08/24
 
-#### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 Yesterday we began work on the account settings section of the front end.  A user will be able to update their personal details after they have logged in, which now comes with email and password confirmation, using proper validation.
 
 We also advanced the backend and the routers are almost complete.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 We are still struggling with getting the CSS to fall into place.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 Today we will finish the four major components on the MyAccount page and start working on our MVP - Our booking tool.
 
 We will also finish the routing and implement login using BCrypt and JWTs.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 How to handle date objects and convert them to strings which includes local time zone information.
 
-#### Stand Up 4 22/8/24
+### Stand Up 4 22/8/24
 
-### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 Yesterday we completed creating the personal information webpage.  It is now just awaiting connection to the backend and styling to be fully complete.
 
@@ -227,11 +227,11 @@ We also created a forgot password function that asks for email validation from t
 
 On the back end, we implemented data validation that ensures users can only link foreign values that exist in the db. We also advanced the error messaging to be more clear, implemented JWT serving and checking and finished the routing for all of the API endpoints.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 Nothing at the moment.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 We plan on creating our MVP. Have it working with full functionality.
 
@@ -239,13 +239,13 @@ We also plan on deploying the backend and connecting all the components up to it
 
 The back end will also implement bcrypt for password hashing.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 How to use JWT with Express
 
 ### Stand Up 5 23/8/24
 
-#### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 We deployed the back end got it running without complete authorisation functionality but with many features enabled.
 
@@ -253,41 +253,41 @@ Setup basic functionality including some components to the booking tool.
 
 We also started connecting the front to the back end.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 It is a challenge to implement authorisation and error catching in Express as, unlike Flask, the built in error generators are a bit less predictable. In addition, Mongoose has less authorisation presets than marshmallow so these have to be manually crafted often.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 Implement more back end authorisation.
 
 Create a global state for user authentication and fully connect deployed api to the front end.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 How to implement JWT and Bcrypt in express. It is pretty effective and simple thanks to Express' middleware.
 
 ### Stand Up 6 24/8/24
 
-#### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 We connected the back end to the front in for user log in and user update and troubleshooted the various difficulties it came with.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 Presently none but we had to figure out Zustand for updating particular values and implementing our log in function in the global state.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 Add additional back end validation and confirm the returned data makes sense to the back end.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 How to use Zustand more effectively and how to troubleshoot and handle fetch requests.
 
 ### Stand Up 7 26/8/24
 
-### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 We mostly finalised back end validation to ensure users cannot register information not linked to their own account or double up on entries.
 
@@ -295,86 +295,86 @@ We connected more back end information to the front end including appointment da
 
 We started setting up tests, installing Vitest and created our first test page.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 Had to rewatch the react testing lesson to be able to set up Vitest properly.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 Finish the MyAccount dashboard and have it display all appropriate user data neatly.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 How to make Zustand global state persist.
 How to set up Vitest tests.
 
 ### Stand-up 8 27/8/24
 
-#### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 We configured the front end so that users can register pets using a drop down menu on their "My Account" dashboard. This includes a pop-up that appears when the user's JWT is expired and prompts them to log in again.
 
 Setup and started testing all components of the frontend.  Each route has been tested both through their route module and through the app module. Almost all completed components have been tested.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 The back end validation never ends. Attempting to add a pet to the DB highlighted that posts to particular routes weren't updating related DB instances so those need to be updated.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 Mostly finish the book appointment interface functionally.
 
 Finish all tests for components that have been completed.  Work on account registration component.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 When running tests there a lot of unexpected things that will come up and cause errors, or even just small warnings.  We have gone back and fixed some code due to warning from tests.
 
 ### Stand Up 9 28/8/24
 
-#### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 We got the booking tool completed, our mvp.
 We also adjusted some of the other components to be more interactive.
 Finished some more front end tests.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 Sorting out little glitchs in booking tool.
 We had an issue with creating tests for fucntions that required a login.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 Adjustments to the booking tool, including styling.
 Complete register form and make the dropdown menu closeable on button click.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 How to make a mock login state to allow tests of authenticated components.
 
 ### Stand Up 10 29/8/24
 
-#### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 We fixed some errors on the booking tool and prepared for the presentation.
 
 We advanced the site's styling toward the wireframe designs.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 Making a popup open and a dropdown menu close simultaneously. It is impossible to make React change the DOM in two ways simultaneously. We need to devise a way to work around this problem.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 Fix final errors on the booking tool, finish the styling for the site.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 React cannot update two states which affect the visual layout simultaneously.
 
 ### Stand Up 11 30/8/24
 
-#### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 Yesterday we presented our code to the class.
 
@@ -382,33 +382,33 @@ We also fixed some errors occuring on the booking tool including times being rem
 
 We also finished the NavBar so that it, and the footer, are responsive to the screen's dimensions.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 Time is becoming a challenge as we approach the project's due date. We have had to adjust our plans for some features and discuss how most effectively to use our remaining time.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 We plan on adding a delete button to appointments in "MyAccountDash" and completing the back end test writing.
 
 In addition, we plan on finishing the site's base styling so that it alligns with our wireframes. At this stage, we will progress the styling to be as aesthetic as possible then, with any remaining time, polish it.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 How to use timeout functions so that two DOM elements can be changed one after the other.
 
 ### Stand Up 12 31/8/24
 
-#### What did you get done in the last 24 hours?
+**What did you get done in the last 24 hours?**
 
 Yesterday we mostly finished the back end tests. During this process, we identified errors in the PATCH endpoints for appointments where the route could not handle requests that did not provide all of the values required to POST an appointment. We also updated and finalised the /users route.
 
 We also progressed the CSS to a great level where it is functional and aesthetic.
 
-#### What blockers/issues are you having?
+**What blockers/issues are you having?**
 
 The back end tests have highlighted errors in how the /appointments endpoint is configured. For example, if an appointment is updated with a new vetId, the old vet needs to have the appointment removed. This is a challenge because the original vets ID is not included in the request body in this case. We need to devise a workaround.
 
-#### What do you plan to do in the next 24 hours?
+**What blockers/issues are you having?**
 
 We plan on finishing the back end tests and the front end tests completely.
 
@@ -416,42 +416,42 @@ We also plan on deploying the front end to identify any errors in the project's 
 
 Finally, we plan on advancing the README that we must submit to near completion.
 
-#### What is one thing you have learned?
+**What is one thing you have learned?**
 
 Additional functionality of the mongoose ```.find()``` functions. For example, using the ```$in``` and ```$pull``` condition which checks for a value in an object and deletes all matching values respectively.
 
-### Trello Screenshots
+## Trello Screenshots
 
-#### [Pawfect Care Trello Board](https://trello.com/b/dlt2E3Mm/full-stack-app)
+### [Pawfect Care Trello Board](https://trello.com/b/dlt2E3Mm/full-stack-app)
 
 Throughout this project, we have employed a Kanban board created using the web application Trello. Below are the progress screenshots we captured throughout the website's creation.
 
-##### 19/08/2024 First Trello Screenshot
+#### 19/08/2024 First Trello Screenshot
 
 ![19/08/2024](./docs/Trello/19-08-2024.JPG)
 The first screenshot of our Kanban board during T3A2-B.
 
-##### 22/08/2024 Second Trello Screenshot
+#### 22/08/2024 Second Trello Screenshot
 
 ![22/08/2024](./docs/Trello/22-08-2024.JPG)
 The second screenshot of our Kanban board during T3A2-B.
 
-##### 25/08/2024 Third Trello Screenshot
+#### 25/08/2024 Third Trello Screenshot
 
 ![25/08/2024](./docs/Trello/25-08-2024.JPG)
 The third screenshot of our Kanban board during T3A2-B.
 
-##### 29/08/2024 Fourth Trello Screenshot
+#### 29/08/2024 Fourth Trello Screenshot
 
 ![29/08/2024](./docs/Trello/29-08-2024.JPG)
 The fourth screenshot of our Kanban board during T3A2-B.
 
-##### 31/08/2024 Fifth Trello Screenshot
+#### 31/08/2024 Fifth Trello Screenshot
 
 ![31/08/2024](./docs/Trello/31-08-2024.png)
 The fifth screenshot of our Kanban board during T3A2-B.
 
-### Development Environment Testing
+## Development Environment Testing
 
 Before deploying the website, we had completed extensive testing by running the web application on a local port. Below are a list of tests we completed before deploying the website.
 
@@ -461,11 +461,11 @@ The following screenshot shows the email received via the "Contact Us" page form
 
 ![A screen shot of an email received by the designated clinic account from a submitted "Contact Us" form.](./docs/formspree-submission.png)
 
-### Production Environment Testing
+## Production Environment Testing
 
 We first deployed the front end on the 31st. After deploying the website we tested the website on both a desktop and a mobile to identify issues. Below are screenshots of issues we immediately identified.
 
-#### Desktop Testing Screenshots
+### Desktop Testing Screenshots
 
 ![Production environment desktop test screenshot 1](./docs/desktop-prod-t1.png)
 
@@ -479,7 +479,7 @@ This screenshot of the website's homepage reveals that the website's images were
 
 This screenshot of the MyAccount page shows a 404 error that presented when a user refreshed on a page other than the website's home page. We solved this solution by creating a ```_redirect``` file that compensates for React's single-page application structure.
 
-#### Mobile Test Screenshots
+### Mobile Test Screenshots
 
 ![Production environment mobile test screenshot 1](./docs/mob-prod-test1.png)
 
@@ -493,7 +493,7 @@ This screenshot reveals that the website's booking tool is functional but is not
 
 This screenshot depicts the MyAccount dashboard when viewed on mobile. Testing this endpoint reveals that the information displays correctly but also shows that the text displays with different colours. This is an aesthetic issue we have since fixed by adjusting the CSS code.
 
-#### Production Environment Test Grid
+### Production Environment Test Grid
 
 After these initial tests, we completed formalised production environment tests using both desktop and mobile devices which are described and assessed below.
 
@@ -507,7 +507,7 @@ Mobile testing and results:
 
 Both desktop and mobile tests in a deployed environment were successful.
 
-### Automated Testing
+## Automated Testing
 
 We also created extensive automated tests for the back end and front end to ensure functionality persisted as changes were made. Below is a screenshot of the 41 back end tests being successfully completed by Jest and their descriptions.
 
@@ -521,7 +521,7 @@ Below is a screenshot of the 62 front end tests being successfully executed by J
 
 The front end tests can be accessed [here](https://github.com/tthecoder15/T3A2-MERN-App/tree/main/T3A2-B/Frontend/src/tests).
 
-### Project Plan Adjustments
+## Project Plan Adjustments
 
 Due to time contstraints, we were forced to cut some features we intended to implement within our web application. The features we left out of the finished product are:
 

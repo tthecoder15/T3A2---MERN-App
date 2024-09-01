@@ -4,7 +4,11 @@ import sessionState from "../../routes/store";
 import "reactjs-popup/dist/index.css";
 import { useState } from "react";
 
-const DeleteApptPopup = ({ appt, popupIsOpen, makePopupClose }) => {
+const DeletePetPopup = ({
+  pet,
+  popupIsOpen,
+  makePopupClose,
+}) => {
   const token = sessionState((state) => state.token);
   const isAuthenticated = sessionState((state) => state.isAuthenticated);
   const setIsAuthenticated = sessionState((state) => state.setIsAuthenticated);
@@ -14,20 +18,20 @@ const DeleteApptPopup = ({ appt, popupIsOpen, makePopupClose }) => {
   const [errors, setErrors] = useState({});
 
   const popupOpenHandle = () => {
-    setErrors({});
+    setErrors({})
   };
 
-  async function deleteBooking(e) {
+  async function deletePet(e) {
     e.preventDefault();
-    if (isAuthenticated == true) {
+    if (isAuthenticated) {
       try {
         // Set "submitting" error to true so it displays to user
         setErrors((prevErrors) => ({
-          ...prevErrors,
-          submitting: true,
-        }));
+            ...prevErrors,
+            submitting: true
+          }));
 
-        const response = await fetch(`${apiBase}/appointments/${appt._id}`, {
+        const response = await fetch(`${apiBase}/pets/${pet._id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -45,14 +49,15 @@ const DeleteApptPopup = ({ appt, popupIsOpen, makePopupClose }) => {
         }
 
         if (response.ok) {
-          setErrors((prevErrors) => ({
+            setErrors((prevErrors) => ({
             ...prevErrors,
             postError: "",
             submitSuccess: true,
-          }));
-          deleteUserData(appt._id, "appointments");
-          makePopupClose();
-        }
+            }))
+            deleteUserData(pet._id, "pets")
+            makePopupClose()
+        };
+
       } catch (err) {
         if (err["error/s"] == "invalid_token") {
           setErrors((prevErrors) => ({
@@ -60,6 +65,7 @@ const DeleteApptPopup = ({ appt, popupIsOpen, makePopupClose }) => {
             submitSuccess: false,
             postError: "Please log in and try again.",
           }));
+
         } else {
           setErrors((prevErrors) => ({
             ...prevErrors,
@@ -73,7 +79,7 @@ const DeleteApptPopup = ({ appt, popupIsOpen, makePopupClose }) => {
 
   return (
     <Popup
-      closeOnDocumentClick={false}
+    closeOnDocumentClick={false}
       className="popup"
       modal
       position="right center"
@@ -82,26 +88,31 @@ const DeleteApptPopup = ({ appt, popupIsOpen, makePopupClose }) => {
       open={popupIsOpen}
     >
       <h4>Deletion Confirmation</h4>
-      <p>Are you sure you would like to delete this appointment?</p>
-      {errors.submitting ? (
-        <p style={{ color: "gray" }}>Request submitted, please wait.</p>
-      ) : null}
-      {errors.submitSuccess ? null : (
+      <p>Are you sure you would like to delete this pet? Doing so will remove all appointments linked to this pet.</p>
+      {errors.submitting ? <p style={{ color: "gray" }}>Request submitted, please wait.</p> : null}
+      
+      {errors.submitSuccess ? (
+        null
+      ) : (
         <>
-          <button onClick={deleteBooking}>Confirm</button>
+          <button onClick={deletePet}>Confirm</button>
           <button onClick={makePopupClose}>Cancel</button>
         </>
       )}
 
       {errors.postError ? (
         <p style={{ color: "red" }}>{errors.postError.toString()}</p>
-      ) : null}
+      ) : (
+        null
+      )}
       {errors.submitSuccess ? (
         <p style={{ color: "gray" }}>Successfully deleted appointment</p>
-      ) : null}
+      ) : (
+        null
+      )}
       {isAuthenticated ? <></> : <LoginField />}
     </Popup>
   );
 };
 
-export default DeleteApptPopup;
+export default DeletePetPopup;

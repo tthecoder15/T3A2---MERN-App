@@ -66,7 +66,7 @@ const MakeBookingForm = () => {
   };
 
   const validatePet = () => {
-    if (!petSelect) {
+    if (!petSelect || petSelect == 'Register New Pet') {
       setErrors((prevErrors) => ({
         ...prevErrors,
         petSelect: "Please select a pet.",

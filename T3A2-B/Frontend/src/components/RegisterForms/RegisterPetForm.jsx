@@ -8,7 +8,7 @@ import LoginPopup from "../Popups/LoginPopup"
 const RegisterPetForm = ({ makePopupClose }) => {
   const apiBase = sessionState((state) => state.apiBase);
   const token = sessionState((state) => state.token);
-  const isAuthenticated = sessionState((state) => state.isAuthenticated);
+
   const setIsAuthenticated = sessionState((state) => state.setIsAuthenticated);
   const setUserData = sessionState((state) => state.setUserData);
 
@@ -17,6 +17,7 @@ const RegisterPetForm = ({ makePopupClose }) => {
   const [animalType, setAnimalType] = useState("");
   const [petYear, setPetYear] = useState("");
   const [errors, setErrors] = useState({});
+  const [showLoginPopup, setShowLoginPopup] = useState(false)
 
   let userId;
   if (token) {
@@ -101,6 +102,12 @@ const RegisterPetForm = ({ makePopupClose }) => {
 
     if (isYearValid && isAnimalTypeValid && isBreedValid && isNameValid) {
       try {
+        // Set "submitting" error to true so it displays to user
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          submitting: true
+        }));
+
         const response = await fetch(`${apiBase}/pets`, {
           method: "POST",
           headers: {
@@ -122,14 +129,22 @@ const RegisterPetForm = ({ makePopupClose }) => {
           console.log(errorData);
           if (errorData["error/s"] == "invalid_token") {
             setIsAuthenticated(false);
+            setShowLoginPopup(true)
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              submitting: false
+            }))
           }
           throw errorData;
         }
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          postError: "",
-          submitSuccess: true,
-        }));
+
+        if (response.ok) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            postError: "",
+            submitSuccess: true,
+          }))
+        };
 
         let submittedPet = await response.json();
         setUserData({ pets: submittedPet });
@@ -143,7 +158,6 @@ const RegisterPetForm = ({ makePopupClose }) => {
           setErrors((prevErrors) => ({
             ...prevErrors,
             submitSuccess: false,
-            postError: "Please log in and try again.",
           }));
         } else {
           setErrors((prevErrors) => ({
@@ -155,6 +169,8 @@ const RegisterPetForm = ({ makePopupClose }) => {
       }
     }
   }
+
+
 
   return (
     <div className="RegisterPetBox">
@@ -212,19 +228,18 @@ const RegisterPetForm = ({ makePopupClose }) => {
         )}
       </div>
       <div id="submit-input">
-        {isAuthenticated != true ? (
-          <LoginPopup trigger={() => <button>Register Pet</button>} />
-        ) : (
-          <button type="submit" onClick={postNewPet}>
+        <button type="submit" onClick={postNewPet}>
             Register Pet
-          </button>
-        )}
+        </button>
+        {showLoginPopup ? <LoginPopup showLoginPopup={showLoginPopup} setShowLoginPopup={setShowLoginPopup}/> : null}        
+        {errors.submitting ? <p style={{ color: "gray" }}>Request submitted, please wait.</p> : null}
         {errors.postError ? (
           <p style={{ color: "red" }}>{errors.postError.toString()}</p>
         ) : null}
         {errors.submitSuccess ? (
           <p style={{ color: "gray" }}>Successfully registered pet!</p>
         ) : null}
+        {makePopupClose ? <button onClick={makePopupClose}>Cancel</button> : null}
       </div>
     </div>
   );
