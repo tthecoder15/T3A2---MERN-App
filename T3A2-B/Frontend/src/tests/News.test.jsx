@@ -7,15 +7,15 @@ describe('News Component', () => {
     const contentArray = [
         {
             text: 'The Paw-stronaut: First Dog on the Moon',
-            imgSrc: './docs/Home/CarouselOne.jpg',
+            imgSrc: '/docs/Home/NewsOne.jpg',
         },
         {
             text: 'The Feline Physician: Whiskers the Cancer Cure',
-            imgSrc: './docs/Home/CarouselTwo.jpg',
+            imgSrc: '/docs/Home/NewsTwo.jpg',
         },
         {
             text: 'Ben the Janitor: Pawfect Care\'s Unsung Hero',
-            imgSrc: './docs/Home/CarouselThree.jpg',
+            imgSrc: '/docs/Home/NewsThree.jpg',
         },
     ];
 

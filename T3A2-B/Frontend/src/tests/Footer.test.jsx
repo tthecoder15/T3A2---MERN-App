@@ -26,16 +26,16 @@ describe('Footer Component', () => {
     const contactUsLink = screen.getByRole('link', { name: /Contact Us/i });
 
     expect(homeLink).toBeInTheDocument();
-    expect(homeLink).toHaveAttribute('href', '/'); // Verify the href
+    expect(homeLink).toHaveAttribute('href', '/'); 
 
     expect(ourTeamLink).toBeInTheDocument();
-    expect(ourTeamLink).toHaveAttribute('href', '/ourteam'); // Verify the href
+    expect(ourTeamLink).toHaveAttribute('href', '/ourteam'); 
 
     expect(bookNowLink).toBeInTheDocument();
-    expect(bookNowLink).toHaveAttribute('href', '/booking'); // Verify the href
+    expect(bookNowLink).toHaveAttribute('href', '/booking'); 
 
     expect(contactUsLink).toBeInTheDocument();
-    expect(contactUsLink).toHaveAttribute('href', '/contact'); // Verify the href
+    expect(contactUsLink).toHaveAttribute('href', '/contact'); 
   });
 
   it('renders the opening hours', () => {
@@ -50,7 +50,7 @@ describe('Footer Component', () => {
 
     const logoImage = screen.getByAltText('Square logo')
     expect(logoImage).toBeInTheDocument()
-    expect(logoImage.src).toContain('PC-logo-square-text.png')  // Ensure it's the correct image
+    expect(logoImage.src).toContain('PC-logo-square-notext.png')
   })
 
   it('renders the copyright notice', () => {
