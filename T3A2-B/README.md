@@ -9,7 +9,7 @@ This README contains information relating to T3A2-B and the creation and deploym
 - [Website Link](#pawfect-care-website-link)
 - [Project Github Repository](#project-github-repository)
 - [Project Kanban Board](#project-kanban-board)
-- [Login Credntials](#login-credentials)
+- [Login Credentials](#login-credentials)
 - [Project Libraries](#project-kanban-board)
 - [Agile Project Management](#agile-project-management)
 - [Trello Screenshots](#trello-screenshots)
@@ -53,19 +53,21 @@ const adminUser =
 }
 ```
 
-These credentials will allow you to access all of the front end functionality in different user contexts. In addition, these credentials can be used to test the back end which is hosted at [https://pawfect-care-api.onrender.com/](https://pawfect-care-api.onrender.com/). Feel free to submit requests to this database using Bruno or a similar http request generator.
+These credentials will allow you to access all of the front end functionality in different user contexts. In addition, these credentials can be used to test the websites database server which is hosted at [https://pawfect-care-api.onrender.com/](https://pawfect-care-api.onrender.com/). View a diagram of the available back end endpoints [here](#t3a2-a-documentation). Feel free to submit requests to this database using Bruno or a similar HTTP request generator.
 
 Please use this information responsibly and only seed appropriate data.
 
 ## Project Libraries - Front End
 
+Below is a list of the libraries that were used to create the websites front end.
+
 ### vite
 
-A front end tool which generates templates and handles bundling of a web application in a selected language. In this project, Vite provided the infrastructure of our React.js project using the SWC JavaScript compiler.
+A front end tool which generates templates and handles the bundling of a web application in a selected language. In this project, Vite provided the infrastructure for our React project using the SWC JavaScript compiler.
 
 ### formspree/react
 
-Handles data submission to Formspree's API which automates sending emails to a designated email address. Also contains error handling controls. Used to create the "Contact Us" page.
+Handles data submission to Formspree's API which generates and sends input data, as an email, to a designated email address. Also contains error handling controls. Used to create the "Contact Us" page.
 
 ### jwt-decode
 
@@ -81,7 +83,7 @@ A state-management tool used to define global state values and functions that re
 
 ### zustand-persist
 
-An add-on to Zustand which provides tools to make global state between refreshes and tab closures. Within this website, it saves the user's data to local storage to speed up refreshes and reduce the number of database requests neccessary.
+An add-on to Zustand which provides tools to make global state remain between refreshes and tab closures. Within this website, it saves the user's data to local storage to speed up refreshes and reduce the number of database requests neccessary.
 
 ### eslint
 
@@ -93,13 +95,15 @@ A package that provides tools to handle single page application infrastructure a
 
 ### vitest
 
-Vitest is a tool used for developing unit tests within a Vite framework, including Vite React projects. Vitest was utilised for writing tests which describe expected results and data returns as the user navigates our website.
+Vitest is a tool used for developing unit tests within a Vite framework, including Vite React projects. Vitest was utilised for writing front end tests which describe expected results and data returns as the user navigates our website.
 
 ### react
 
 A vital package of a React project that handles the rendering of React elements to the DOM and includes functions including ```useState``` and ```useEffect``` which track dynamic state and update the DOM as states change respectively.
 
 ## Project Libraries - Back End
+
+Below is a list of the libraries that were used to create the website's back end.
 
 ### bcrypt
 
@@ -119,15 +123,15 @@ A package that allows a JavaScript script that is executed in a runtime environm
 
 ### express-jwt
 
-A module that contains Express middleware to handle and interpret JWTs submitted with server requests. Within our website's back end, express-jwt is used to mandata JWTs when requesting particular routes and handles their parsing so that they can be manipulated within Express routes.
+A module that contains Express middleware to handle and interpret JWTs submitted with server requests. Within our website's back end, express-jwt is used to mandate JWTs when a user requests particular routes and handles token parsing so that they can be manipulated within Express route functions.
 
 ### jest
 
-jest is a library that provides functions to describe and execute tests on JavaScript objects, functions and values. The jest package was combined with the supertest to write and execute tests to confirm the back end server returned data in a predictable manner.
+jest is a library that provides functions to describe and execute tests on JavaScript objects, functions and values. The jest package was combined with the supertest package to write and execute tests to confirm the back end server returned data in a predictable manner.
 
 ### supertest
 
-A library which provides the functionality to simulate user's HTTP requests to a server.
+A testing library which provides the functionality to simulate user's HTTP requests to a server.
 
 ### jsonwebtoken
 
@@ -135,7 +139,7 @@ An extension that provides the functionality to generate JWTs encoded with user 
 
 ### mongoose
 
-mongoose is an Object-Document Mapper (ODM) library that is used to create and describe database entity models and schemas. mongoose provides validation tools to ensure that users' requests contain appropriate fields and values. The mongoose library also provides functionality to connect a back end server to a MongoDB database. Within our library mongoose is used to connect our back end server to a dedicated MongoDB cloud database, describe and format the entities we record in the database and return descriptive error messages when users submit incorrect database requests.
+mongoose is an Object-Document Mapper (ODM) library that is used to create and describe database entity models and schemas. mongoose provides validation tools to ensure that users' requests contain appropriate fields and values. The mongoose library also provides functionality to connect a back end server to a MongoDB database. Within our application, mongoose is used to connect our back end server to a dedicated MongoDB cloud database, describe and format the entities we record in the database and return descriptive error messages when users submit incorrect database requests.
 
 ## Agile Project Management
 
@@ -149,19 +153,19 @@ To skip to the next part of this document, [click here.](#production-environment
 
 **What did you get done in the last 24 hours?**
 
-Yesterday we finalised the readme, tweaking parts of it making it more presentable.
+Yesterday we finalised the T3A2-A README, tweaking parts of it and making it more presentable.
 
 We also initialised the file structure for the front end, planned out folders and files for each component and gather extra resources on how to implement them.
 
 **What blockers/issues are you having?**
 
-We are currently working on implementing some CSS to make created components function and implementing a carousel to display news
+We are currently working on implementing some CSS to make created components function and implementing a carousel to display news which is proving challenging.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 We will work through the block of the carousel and implement and style it to fit the wireframe reference.
 
-In addition, we will set up the back end including the database and API routing
+In addition, we will set up the back end including the database and API routing.
 
 **What is one thing you have learned?**
 
@@ -175,8 +179,8 @@ We have also learnt more about source control and working with branches in git.
 
 Yesterday we added extra components and content to the SPA and fixed some source control issues:
 
-- Added Carousel and Services buttons to the homepage
-- Added Content to Our Team page.
+- Added carousel and "Services" buttons to the homepage
+- Added content to Our Team page.
 - Added contact form to Contact us page
 
 In addition, we setup and connected the database to the back end server. The schemas are setup and the seed function is working.
@@ -185,7 +189,7 @@ In addition, we setup and connected the database to the back end server. The sch
 
 Yesterday we spent far too long on CSS styling and finding the minimum layout settings required.  It bottlenecked progress until we moved on to other components.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 We plan on working through the Trello board and adding more components to the front end. We plan to have set up and coded at least half of the planned components by the end of the day.
 
@@ -207,7 +211,7 @@ We also advanced the backend and the routers are almost complete.
 
 We are still struggling with getting the CSS to fall into place.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 Today we will finish the four major components on the MyAccount page and start working on our MVP - Our booking tool.
 
@@ -231,7 +235,7 @@ On the back end, we implemented data validation that ensures users can only link
 
 Nothing at the moment.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 We plan on creating our MVP. Have it working with full functionality.
 
@@ -257,7 +261,7 @@ We also started connecting the front to the back end.
 
 It is a challenge to implement authorisation and error catching in Express as, unlike Flask, the built in error generators are a bit less predictable. In addition, Mongoose has less authorisation presets than marshmallow so these have to be manually crafted often.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 Implement more back end authorisation.
 
@@ -277,7 +281,7 @@ We connected the back end to the front in for user log in and user update and tr
 
 Presently none but we had to figure out Zustand for updating particular values and implementing our log in function in the global state.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 Add additional back end validation and confirm the returned data makes sense to the back end.
 
@@ -293,13 +297,13 @@ We mostly finalised back end validation to ensure users cannot register informat
 
 We connected more back end information to the front end including appointment data so it can be displayed in a MyAccount dash.
 
-We started setting up tests, installing Vitest and created our first test page.
+We started setting up front end tests, installing Vitest and created our first test page.
 
 **What blockers/issues are you having?**
 
 Had to rewatch the react testing lesson to be able to set up Vitest properly.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 Finish the MyAccount dashboard and have it display all appropriate user data neatly.
 
@@ -314,13 +318,13 @@ How to set up Vitest tests.
 
 We configured the front end so that users can register pets using a drop down menu on their "My Account" dashboard. This includes a pop-up that appears when the user's JWT is expired and prompts them to log in again.
 
-Setup and started testing all components of the frontend.  Each route has been tested both through their route module and through the app module. Almost all completed components have been tested.
+Setup and started testing all components of the front end.  Each route has been tested both through their route module and through the app module. Almost all completed components have been tested.
 
 **What blockers/issues are you having?**
 
 The back end validation never ends. Attempting to add a pet to the DB highlighted that posts to particular routes weren't updating related DB instances so those need to be updated.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 Mostly finish the book appointment interface functionally.
 
@@ -343,7 +347,7 @@ Finished some more front end tests.
 Sorting out little glitchs in booking tool.
 We had an issue with creating tests for fucntions that required a login.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 Adjustments to the booking tool, including styling.
 Complete register form and make the dropdown menu closeable on button click.
@@ -364,7 +368,7 @@ We advanced the site's styling toward the wireframe designs.
 
 Making a popup open and a dropdown menu close simultaneously. It is impossible to make React change the DOM in two ways simultaneously. We need to devise a way to work around this problem.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 Fix final errors on the booking tool, finish the styling for the site.
 
@@ -386,7 +390,7 @@ We also finished the NavBar so that it, and the footer, are responsive to the sc
 
 Time is becoming a challenge as we approach the project's due date. We have had to adjust our plans for some features and discuss how most effectively to use our remaining time.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 We plan on adding a delete button to appointments in "MyAccountDash" and completing the back end test writing.
 
@@ -408,7 +412,7 @@ We also progressed the CSS to a great level where it is functional and aesthetic
 
 The back end tests have highlighted errors in how the /appointments endpoint is configured. For example, if an appointment is updated with a new vetId, the old vet needs to have the appointment removed. This is a challenge because the original vets ID is not included in the request body in this case. We need to devise a workaround.
 
-**What blockers/issues are you having?**
+**What do you plan to do in the next 24 hours?**
 
 We plan on finishing the back end tests and the front end tests completely.
 
@@ -424,7 +428,11 @@ Additional functionality of the mongoose ```.find()``` functions. For example, u
 
 ### [Pawfect Care Trello Board](https://trello.com/b/dlt2E3Mm/full-stack-app)
 
-Throughout this project, we have employed a Kanban board created using the web application Trello. Below are the progress screenshots we captured throughout the website's creation.
+Throughout this project, we employed a Kanban board created using the web application Trello. Below are the progress screenshots we captured throughout the website's creation. In addition, we distributed tasks between ourselves based on the collective difficulty of the tasks assigned. The distribution of tasks was in indicated on the Trello board by linking a user to a card.
+
+Tom was tasked with setting up the back end before moving on to help with the front end after approximately one week and Mike was tasked with setting up the front end infrastructure, including creating all relevant inputs and handling their state changes, as well as completing the front end testing. These roles were chosen because Tom designed the back end structure during T3A2-A whilst Mike created the wireframes.
+
+During the final three days of the project, Mike had to attend to a family emergency which severely limited his time to work on the project. This impacted our ability to create all features that we intended to implement and meant task delegation more fluid. Ultimately, however, we were able to fulfil almost all of our project goals.
 
 #### 19/08/2024 First Trello Screenshot
 
@@ -463,7 +471,7 @@ The following screenshot shows the email received via the "Contact Us" page form
 
 ## Production Environment Testing
 
-We first deployed the front end on the 31st. After deploying the website we tested the website on both a desktop and a mobile to identify issues. Below are screenshots of issues we immediately identified.
+We first deployed the front end on the 31st. After deploying the website, we executed manual tests on both a desktop and a mobile device to identify issues. Below are screenshots of issues we immediately identified.
 
 ### Desktop Testing Screenshots
 
@@ -536,7 +544,9 @@ Due to time contstraints, we were forced to cut some features we intended to imp
   - the ability to send an automated reset password email to a user
   - this is a quality of life feature we would employ with additional time
 
-Ultimately, whilst we were disappointed to cut these features, they would be simple to implemented with additional time based on the project's robust infrastructure.
+Ultimately, whilst we were disappointed to cut these features, they would be simple to implement with additional time based on the project's robust infrastructure.
+
+[Back to top of this document](#t3a2-b-documentation)
 
 ## T3A2-A Documentation
 
@@ -588,9 +598,13 @@ A User account has a one to many relationship with Pets and Appointments. Both P
 
 The database is configured with an API which serves instance data according to the following endpoints:
 
+#### Database End Points
+
 ![A diagram descibing the different endpoints of the back end's server](./docs/T3A2-A/pawfect-care-api-diagram.drawio.png)
 
 These endpoints allow for complete CRUD functionality for the database's different entities.
+
+[Back to top of this document](#t3a2-b-documentation)
 
 #### Dataflow
 
@@ -600,7 +614,7 @@ The following dataflow diagrams adhere to Yourdon & Demarco's dataflow diagram n
 
 ![An image explaining Yourdon & Demarco's dataflow diagram conventions](./docs/T3A2-A/df-diagram-key.drawio.png)
 
-###### Context Dataflow Diagram
+#### Context Dataflow Diagram
 
 The application's data-driven processes are described broadly in the following diagram:
 
@@ -608,13 +622,13 @@ The application's data-driven processes are described broadly in the following d
 
 The user is an external entity which inputs data to manipulate the different site processes such as searching or logging in. The user's account, including registered appointments and pets, as well as their JWT are stored in a global session state that is provided to neccessary website functions. Storing this data rather than relying on queries speeds up the site's performance. Finally, the website's back end consists of an API and connected database which records data long term and returns it upon neccessary requests such as populating the available appointment choices.
 
-###### User Account Dataflow Processes
+#### User Account Dataflow Processes
 
 Within the app, a user can register for an account, login for validation, alter appointments and see appointment history and update their contact information as well. The dataflow for these processes can be represented like so:
 
 ![A digram describing the dataflow of the various User account functions](./docs/T3A2-A/pawfect-care-user-df-diagram.drawio.png)
 
-###### Appointment Booking Dataflow
+#### Appointment Booking Dataflow
 
 Otherwise, the key function of the application is a user's ability to book appointments. This diagram describes the dataflow for the booking process:
 
@@ -622,7 +636,7 @@ Otherwise, the key function of the application is a user's ability to book appoi
 
 First, the user makes a request for the available appointment data which is retrieved from the database. The available appointments are presented to the user based on which times are not yet recorded in the database and the user chooses an appointment from these options. Because a user can engage the booking process with or without being logged in, the data transferred between steps can vary, but ultimately, the user must be logged in to finalise the process and link one of their registered pets to the appointment. Once the appointment object is completely filled in with the user's ID, a vet ID, a pet ID, an appointment type and the date and time, it is sent to the database to be recorded. Confirmation from the database is then forwarded to the user if the recording is successful.
 
-###### Appointment Update Dataflow
+#### Appointment Update Dataflow
 
 Updating an appointment is a similar process to creating a new appointment but, because the user must inherently be logged in, their appointment data and ID are carried through update steps:
 
@@ -630,13 +644,13 @@ Updating an appointment is a similar process to creating a new appointment but, 
 
 Essentially, updating an appointment is very similar to scheduling one, however, at the final step, the new appointment is saved and the old appointment is deleted from the database at the same time.
 
-###### Admin Search Dataflow
+#### Admin Search Dataflow
 
 Within the app, admin accounts can access an endpoint to search for different instance data including Users, Pets and Appointments. The dataflow for this process is simply described as such:
 
 ![A dataflow diagram describing the appointment update process](./docs/T3A2-A/pawfect-care-search-df.drawio.png)
 
-###### References
+#### References
 
 Woodman, M. (1988) ‘Yourdon dataflow diagrams: A tool for disciplined requirements analysis’, _Information and Software Technology_, 30(9), pp. 515-533. 10.1016/0950-5849(88)90131-0.
 
@@ -652,7 +666,7 @@ Finally, the data layer for the website will be a MongoDB database hosted on Atl
 
 The following application architecture diagram explains this succinctly:
 
-![A diagram explaining out tech stack containing React for the frontend, Node.js and Express for the back end and MongoDB for the database layer](./docs/T3A2-A/pawfect-care-aa--diagram.drawio.png)
+![A diagram explaining out tech stack containing React for the front end, Node.js and Express for the back end and MongoDB for the database layer](./docs/T3A2-A/pawfect-care-aa--diagram.drawio.png)
 
 ### R4 User Stories /6
 
@@ -716,19 +730,19 @@ The routes listed explain the different functionality of each page and the diffe
 
 (From left to right)
 
-###### Navbar
+#### Navbar
 
 1. Logo - on click, links to the home page
 2. Navbar links - links that direct the user to the website's various endpoints
 3. Login/Register button - redirects the user to the Login/Register page
 
-###### Footer
+#### Footer
 
 1. Clinic information - contact info/operational hours
 2. Webpage links - links that direct the user to the website's various endpoints
 3. Copyright information - additional legal information
 
-###### Tablet Menu Overlay
+#### Tablet Menu Overlay
 
 1. Login/Register button - redirects the user to the Login/Register page
 2. Menu buttons - buttons to direct the user around the website clearly
@@ -737,7 +751,7 @@ The routes listed explain the different functionality of each page and the diffe
 
 ![Desktop, tablet and mobile "Home Page" wireframe diagrams](./docs/T3A2-A/wf-home.JPG)
 
-###### Home Page Features
+#### Home Page Features
 
 1. News panel (slider nav) - cycles through clinic and industry news
 2. Service buttons - controls which service's information is displayed in the service information panel
@@ -747,7 +761,7 @@ The routes listed explain the different functionality of each page and the diffe
 
 ![Desktop, tablet and mobile "Our Team" webpage wireframe diagrams](./docs/T3A2-A/wf-vets.JPG)
 
-###### Our Team Page Features
+#### Our Team Page Features
 
 1. Staff portrait - an image of a clinic staff member
 2. Staff bio - a description of the staff member's work history
@@ -756,7 +770,7 @@ The routes listed explain the different functionality of each page and the diffe
 
 ![Desktop, tablet and mobile "Contact Us" webpage wireframe diagrams](./docs/T3A2-A/wf-contact-us.JPG)
 
-###### Contact Us Page Features
+#### Contact Us Page Features
 
 1. Contact information - displays the clinic's address and contact information
 2. Contact form - a form that allows users to enter contact information and a message that will be emailed to the clinic's email using Formspree
@@ -765,7 +779,7 @@ The routes listed explain the different functionality of each page and the diffe
 
 ![Desktop, tablet and mobile "Forgotten Password" webpage wireframe diagrams](./docs/T3A2-A/wf-forgot-pass.JPG)
 
-###### Forgot Password Page Features
+#### Forgot Password Page Features
 
 1. Email input - Input for user to enter their email
 2. Confirmation code input - Input for user to enter an emailed verification code
@@ -775,7 +789,7 @@ The routes listed explain the different functionality of each page and the diffe
 
 ![Desktop, tablet and mobile "Login/Register" webpage wireframe diagrams](./docs/T3A2-A/wf-login-register.JPG)
 
-###### Login/Register Page Features
+#### Login/Register Page Features
 
 1. Credentials inputs - inputs for users to input their email and password for validation
 2. Register Account form - an input for users to register and create an account. Dropdown arrow expands the form fully which is minimised closed by default
@@ -784,7 +798,7 @@ The routes listed explain the different functionality of each page and the diffe
 
 ![Desktop, tablet and mobile "My Account" webpage wireframe diagrams](./docs/T3A2-A/wf-user-account.JPG)
 
-###### My Account Page Features
+#### My Account Page Features
 
 1. Personal Information widget - a panel that displays a user's account information including address, phone number and email. When the "Update" button is clicked, the form section at the bottom of the page expands with inputs for updating account information
 2. Upcoming Appointments widget - a panel that displays upcoming appointments registered to the user including dates, times and animal names. When the "Update" button is clicked, the user is redirected to the Book Now page and begins the appointment booking process again. When they complete the process, their old appointment is removed from the database. When the "Delete" button is clicked, a pop-up is opened prompting the user to confirm the deletion
@@ -796,7 +810,7 @@ The routes listed explain the different functionality of each page and the diffe
 
 ![Desktop, tablet and mobile "Bookings" webpage wireframe diagrams](./docs/T3A2-A/wf-booking.JPG)
 
-###### Bookings Page Features
+#### Bookings Page Features
 
 1. Account information section / register prompt - displays a link to the Login/Registration page if a user is not currently signed in. If a user is signed in, section displays the user's name
 2. Select pet drop-down menu - displays all pets registered to the user's account and the option to register a new pet
@@ -808,7 +822,7 @@ The routes listed explain the different functionality of each page and the diffe
 
 ![Desktop, tablet and mobile "Admin" webpage wireframe diagrams](./docs/T3A2-A/wf-admin-controls.JPG)
 
-###### Admin Page Features
+#### Admin Page Features
 
 1. Search checkboxes - allows an admin to select which data type they want to search
 2. Search detail inputs - inputs for a user to enter query details for a database search. The inputs change based on which checkbox is selected so that the admin can search with any information contained in an instance
@@ -820,7 +834,7 @@ To complete the project planning and design process, we have engaged an agile pr
 
 #### [Pawfect Care Trello Board](https://trello.com/b/dlt2E3Mm/full-stack-app)
 
-To begin the project, we first established the broad checkpoints we needed to reach to fulfill the brief. We then extrapolated on the different stages and broke them down into steps. Each morning after beginning the project, we held stand-up meetings where we discussed goals for each day, co-ordinated design decisions which impacted the front end and back end and reprioritised tasks as neccessary. The Kanban board was updated daily and continues to be so as we progress the website's implementation.
+To begin the project, we first established the broad checkpoints we needed to reach to fulfil the brief. We then extrapolated on the different stages and broke them down into steps. Each morning after beginning the project, we held stand-up meetings where we discussed goals for each day, co-ordinated design decisions which impacted the front end and back end and reprioritised tasks as neccessary. The Kanban board was updated daily and continues to be so as we progress the website's implementation.
 
 #### 11/08/2024 First Trello Screenshot
 
