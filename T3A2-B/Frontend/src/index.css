@@ -57,9 +57,18 @@ button:hover {
   background-color: #1b8055;
 }
 
+.update-account div {
+  margin-bottom: 30px;
+
+}
+
+.update-account-box {
+  margin: 1rem;
+}
+  
 @media (max-width: 768px) {
   h1 {
-    font-size: 10vw;
+    font-size: 4rem;
   }
 
   .content-frame {

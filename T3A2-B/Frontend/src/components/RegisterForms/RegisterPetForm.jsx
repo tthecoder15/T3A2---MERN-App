@@ -142,6 +142,7 @@ const RegisterPetForm = ({ makePopupClose }) => {
           setErrors((prevErrors) => ({
             ...prevErrors,
             postError: "",
+            submitting: false,
             submitSuccess: true,
           }))
         };

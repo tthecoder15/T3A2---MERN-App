@@ -7,8 +7,9 @@ const Footer = () => {
     <>
       <footer>
         <div id="contact-footer">
-          <h3>Contact info</h3>
           <p>
+            Contact info:
+            <br />
             Address: 1 First St Melbourne
             <br />
             Email: Pawfect@care.com
@@ -21,8 +22,9 @@ const Footer = () => {
           </p>
         </div>
         <div id="links-footer">
-          <h3>Website Links</h3>
           <p>
+            Website Links:
+            <br />
             <Link to="/">Home</Link>
             <br />
             <Link to="/ourteam">Our Team</Link>
@@ -33,8 +35,9 @@ const Footer = () => {
           </p>
         </div>
         <div id="times-footer">
-          <h3>Opening Hours:</h3>
           <p>
+            Opening Hours:
+            <br />
             Weekdays: 9am - 5pm
             <br />
             Weekends: Closed
