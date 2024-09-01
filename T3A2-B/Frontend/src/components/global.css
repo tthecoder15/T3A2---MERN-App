@@ -5,11 +5,11 @@ nav {
   align-items: center;
   padding: 20px;
   background-color: #9CDBFF; 
-  font-size: 1.3vw;
+  font-size: 1vw;
   position: relative;
 }
   
-.navLogo {
+.nav-logo {
   display: flex;
   width: 10vw;
   order: 1;
@@ -27,10 +27,13 @@ nav {
 }
 
 .login {
-  display: flex;
   align-items:center;
   order: 3;
   gap: 10px;
+}
+
+.login #logged-in {
+  font-size: 1vw;
 }
 
 .hamburger {
@@ -54,10 +57,13 @@ nav {
   cursor: pointer;
   border: none;
   text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: inherit;
+  line-height: 1.2;
+  height: 100%;
+  width: 100%;
 }
 
 .login a:hover, .login button:hover {
@@ -93,10 +99,12 @@ footer {
   padding: 1rem;
   background-color: #676767;
   color: #ffffff;
+  font-size: 1.2rem
 }
 
 footer p {
   color: white !important;
+  font-size: 1rem;
 }
 
 footer div {
@@ -134,14 +142,14 @@ footer h3 {
 }
 
 /* Mobile view */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   nav {
     flex-direction: column;
     padding: 10px;
     font-size: 4vw;
   }
 
-  .navLogo {
+  .nav-logo {
     display: none;
   }
 

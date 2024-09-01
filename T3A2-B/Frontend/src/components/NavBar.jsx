@@ -26,7 +26,7 @@ const NavBar = () => {
           <div></div>
           <div></div>
         </div>
-        <div className="navLogo">
+        <div className="nav-logo">
           <Link to="/">
             <img
               src="/docs/logo-and-art/PC-logo-ellipsis.png"

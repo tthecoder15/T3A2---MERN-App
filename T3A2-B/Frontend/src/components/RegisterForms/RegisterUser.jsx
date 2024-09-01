@@ -138,7 +138,7 @@ const RegisterUser = ({ onSuccess, registerUser }) => {
     };
 
     return (
-        <div className="UpdateAccountBox">
+        <div className="update-account-box">
             <h5>Register Account</h5>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="firstName">Enter First Name</label>

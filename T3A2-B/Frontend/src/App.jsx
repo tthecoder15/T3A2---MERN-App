@@ -22,7 +22,7 @@ const App = () => {
           <Route path="myaccount" element={<MyAcc />} />
         </Route>
         <Route path="/booking" element={<Booking />} />
-        <Route path='*' element={<h3 className="contentFrame">Page not found..</h3>} />
+        <Route path='*' element={<h3 className="content-frame">404 - Page not found..</h3>} />
       </Routes>
       <Footer />
     </>

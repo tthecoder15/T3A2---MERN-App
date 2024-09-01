@@ -1,15 +1,26 @@
-.bookingFrame {
-  background-color: #c2edf6;
-  margin: 3%;
-  border-radius: 1rem;
-  border: 1px solid black;
-  width: 90%;
-  padding: 2%;
-  box-shadow: 0.3rem 0.3rem 0.3rem black;
-  color: black !important;
+.booking-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 90%;
+  max-width: 95%;
+  margin: auto;
 }
 
-.bookingFrame div {
+.booking-frame {
+  background-color: #c2edf6;
+  margin: 3% auto;
+  border-radius: 1rem;
+  border: 1px solid black;
+  box-shadow: 0.3rem 0.3rem 0.3rem black;
+  color: black !important;
+  width: 95%;
+  max-width: 600px;
+  overflow: hidden; 
+}
+
+.booking-frame div {
   margin-top: 1rem;
 }
 
