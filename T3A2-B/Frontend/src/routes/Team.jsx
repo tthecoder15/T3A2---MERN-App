@@ -7,7 +7,7 @@ const Team = () => {
       <div className="team">
         <h1>Our Team</h1>
         <div>
-          <img src="../../docs/Vets/Dr-Riley-Kim.webp" alt="Dr Riley Kim" />
+          <img src="/docs/Vets/Dr-Riley-Kim.webp" alt="Dr Riley Kim" />
           <div className="team-member">
             <h3>Dr. Riley Kim</h3>
             <p>
@@ -21,10 +21,7 @@ const Team = () => {
           </div>
         </div>
         <div>
-          <img
-            src="../../docs/Vets/Dr-Ethan-Walker.png"
-            alt="Dr Ethan Walker"
-          />
+          <img src="/docs/Vets/Dr-Ethan-Walker.png" alt="Dr Ethan Walker" />
           <div className="team-member">
             <h3>Dr. Ethan Walker</h3>
             <p>
@@ -38,7 +35,7 @@ const Team = () => {
           </div>
         </div>
         <div>
-          <img src="../../docs/Vets/Dr-Jess-Taylor.jpg" alt="Dr Jess Taylor" />
+          <img src="/docs/Vets/Dr-Jess-Taylor.jpg" alt="Dr Jess Taylor" />
           <div className="team-member">
             <h3>Dr. Jess Taylor</h3>
             <p>
@@ -53,7 +50,7 @@ const Team = () => {
           </div>
         </div>
         <div>
-          <img src="../../docs/Vets/Ben.webp" alt="Ben the janitor" />
+          <img src="/docs/Vets/Ben.webp" alt="Ben the janitor" />
           <div className="team-member">
             <h3>Ben the Janitor</h3>
             <p>
