@@ -10,10 +10,10 @@ const Booking = () => {
 
   return (
     <>
-      <div className="contentFrame">
-        <div>
+      <div className="content-frame">
+        <div className="booking-content">
           <h1>Book Your Appointment</h1>
-          <div className="bookingFrame">
+          <div className="booking-frame">
             <div>
               {userData.firstName ? (
                 <p>

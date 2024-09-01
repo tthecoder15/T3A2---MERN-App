@@ -1,4 +1,4 @@
-.contentFrame {
+.content-frame {
     display: flex;
     justify-content: center;
     padding: 20px;
@@ -30,13 +30,11 @@
   .team > div h3 {
     margin: 0 0 10px;
     font-size: 1.75rem;
-    color: #333;
   }
   
   .team > div p {
     font-size: 1rem;
     line-height: 1.5;
-    color: #666;
     margin: 0;
   }
   

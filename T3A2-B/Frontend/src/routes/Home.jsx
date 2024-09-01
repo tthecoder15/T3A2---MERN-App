@@ -5,7 +5,7 @@ import ServicesButtons from '../components/Home/Services'
 const Home = () => {
     return (
         <>
-        <div className="contentFrame">
+        <div className="content-frame">
           <div className="home">
             <div className="news-frame">
               <h1>Pawfect Care</h1>

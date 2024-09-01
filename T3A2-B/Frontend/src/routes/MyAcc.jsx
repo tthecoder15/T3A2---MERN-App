@@ -18,14 +18,14 @@ const MyAcc = () => {
 
   if (!userData.firstName) {
     return (
-      <div className="contentFrame">
+      <div className="content-frame">
         <h3>Loading request...</h3>
       </div>
     );
   }
 
   return (
-    <div className="contentFrame">
+    <div className="content-frame">
       <div>
         <h4>
           Welcome {userData.firstName} {userData.lastName}

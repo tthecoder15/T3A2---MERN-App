@@ -9,7 +9,7 @@ nav {
   position: relative;
 }
   
-.navLogo {
+.nav-logo {
   display: flex;
   width: 10vw;
   order: 1;
@@ -27,10 +27,13 @@ nav {
 }
 
 .login {
-  display: flex;
   align-items:center;
   order: 3;
   gap: 10px;
+}
+
+.login #logged-in {
+  font-size: 1vw;
 }
 
 .hamburger {
@@ -54,10 +57,13 @@ nav {
   cursor: pointer;
   border: none;
   text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: inherit;
+  line-height: 1.2;
+  height: 100%;
+  width: 100%;
 }
 
 .login a:hover, .login button:hover {
@@ -143,7 +149,7 @@ footer h3 {
     font-size: 4vw;
   }
 
-  .navLogo {
+  .nav-logo {
     display: none;
   }
 

@@ -1,11 +1,12 @@
-.UpdateAccount div {
-    border: 1px solid black;
-    box-shadow: 2px 2px;
-  }
-  
-  .UpdateAccountBox {
-    margin: 1rem;
-    border: 1px solid black;
-    box-shadow: 2px 2px;
-  }
+.update-account div {
+
+  margin-bottom: 30px;
+
+}
+
+.update-account-box {
+  margin: 1rem;
+  border: 1px solid black;
+  box-shadow: 2px 2px;
+}
   

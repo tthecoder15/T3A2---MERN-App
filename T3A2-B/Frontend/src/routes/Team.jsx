@@ -3,7 +3,7 @@ import "../components/Team/team.css";
 
 const Team = () => {
   return (
-    <div className="contentFrame">
+    <div className="content-frame">
       <div className="team">
         <h1>Our Team</h1>
         <div>

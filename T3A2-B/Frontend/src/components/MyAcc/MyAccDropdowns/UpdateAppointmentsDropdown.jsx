@@ -3,7 +3,7 @@ import DisplaySingleAppt from "../DisplaySingleAppt";
 
 const UpdateAppointmentsDropdown = ({ upcomingAppts }) => {
   return (
-    <div className="UpdateAccountBox">
+    <div className="update-account-box">
       <h5>Upcoming Appointments</h5>
 
       {upcomingAppts ? (

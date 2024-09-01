@@ -111,7 +111,7 @@ const UpdateUserDropdown = () => {
   };
 
   return (
-    <div className="UpdateAccountBox">
+    <div className="update-account-box">
       <h5>Personal Information</h5>
       <p>Enter new contact Number</p>
       <input

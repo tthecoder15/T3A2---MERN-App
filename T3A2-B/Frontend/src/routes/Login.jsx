@@ -4,7 +4,7 @@ import RegisterDropDown from '../components/Login/RegisterDropDown'
 
 const Login = () => {
   return (
-        <div className="contentFrame">
+        <div className="content-frame">
           <div>
           <h1>Login or Register</h1>
           <p>Use the below tools to login to your account, or if you are new to Pawfect Care, use the register button to register your details with us.</p>

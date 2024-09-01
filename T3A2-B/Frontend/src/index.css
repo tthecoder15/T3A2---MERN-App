@@ -18,7 +18,7 @@ h1 {
   font-family: "Patua One", serif;
 }
 
-.contentFrame {
+.content-frame {
   display:flex;
   align-content: center;
   background-color: #caffae;
@@ -27,9 +27,10 @@ h1 {
   margin-right: 10%;
   margin-top:0;
   padding: 5%;
+  padding-top: 2.5%;
 }
 
-.contentFrame div  {
+.content-frame div  {
   max-width: 1000px;
 }
 
@@ -45,6 +46,7 @@ button {
   color: white;
   border: none;
   margin-top: 8px;
+  margin-bottom: 4px;
   border-radius: 4px;
   font-size: 18px;
   cursor: pointer;
@@ -55,12 +57,12 @@ button:hover {
   background-color: #1b8055;
 }
 
-@media only screen and (max-width: 768px) {
+@media (max-width: 768px) {
   h1 {
     font-size: 10vw;
   }
 
-  .contentFrame {
+  .content-frame {
     margin: 0;
     padding: 3% 9%;
   }

@@ -8,7 +8,7 @@ const DisplayApptsDropdown = ({ upcomingAppts, pastAppts }) => {
   };
 
   return (
-    <div className="UpdateAccountBox">
+    <div className="update-account-box">
       <h4>Appointment History</h4>
       <h5>Upcoming Appointments:</h5>
       <>{genApptsHtml(upcomingAppts)}</>

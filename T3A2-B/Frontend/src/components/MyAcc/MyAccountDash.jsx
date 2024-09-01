@@ -85,7 +85,7 @@ const MyAccountDash = () => {
 
   return (
     <div>
-      <div className="UpdateAccount">
+      <div className="update-account">
         <div>
           <h5>Personal Information</h5>
           <ul>
@@ -97,7 +97,7 @@ const MyAccountDash = () => {
             password.
           </p>
           <button
-            className="UpdateAccount"
+            className="update-account"
             onClick={() => dropdownSelect("Personal Information")}
           >
             {selectedSetting === "Personal Information"
