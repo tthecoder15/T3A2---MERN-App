@@ -48,7 +48,7 @@ describe('Footer Component', () => {
   it('renders the logo image with correct alt text', () => {
     renderWithRouter(<Footer />)
 
-    const logoImage = screen.getByAltText('First slide')
+    const logoImage = screen.getByAltText('Square logo')
     expect(logoImage).toBeInTheDocument()
     expect(logoImage.src).toContain('PC-logo-square-text.png')  // Ensure it's the correct image
   })

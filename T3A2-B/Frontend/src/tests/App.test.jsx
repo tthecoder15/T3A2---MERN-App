@@ -7,7 +7,6 @@ import Home from '../routes/Home'
 import Team from '../routes/Team'
 import Contact from '../routes/Contact'
 import Login from '../routes/Login'
-import MyAcc from '../routes/MyAcc'
 import Booking from '../routes/Booking'
 
 
@@ -29,7 +28,7 @@ describe('App Component', () => {
   
     it('renders Login component on /login route', () => {
       renderWithRouter(<App />, { route: '/user/login' })
-      expect(screen.getByText('New User? Register Now')).toBeInTheDocument()
+      expect(screen.getByText('Login or Register')).toBeInTheDocument()
     })
   
     it('renders Booking component on /booking route', () => {
@@ -56,7 +55,7 @@ describe('Individual Components', () => {
     
     it('renders Login component independently', () => {
       renderWithRouter(<Login />)
-      expect(screen.getByText('New User? Register Now')).toBeInTheDocument()
+      expect(screen.getByText('Login or Register')).toBeInTheDocument()
     })
 
 
