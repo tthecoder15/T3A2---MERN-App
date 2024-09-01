@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
 body {
@@ -12,8 +13,9 @@ body {
 h1 {
   text-align: center;
   margin-bottom: 50px;
-  font-size: 3rem;
+  font-size: 4rem;
   margin-top: 0;
+  font-family: "Patua One", serif;
 }
 
 .contentFrame {
@@ -27,12 +29,20 @@ h1 {
   padding: 5%;
 }
 
+.contentFrame div  {
+  max-width: 1000px;
+}
+
 #dropdown-basic {
   background-color: white;
   color: black;
 }
 
 @media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 10vw;
+  }
+
   .contentFrame {
     margin: 0;
     padding: 3% 9%;

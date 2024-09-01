@@ -79,7 +79,7 @@
     border-radius: 4px;
     font-size: 18px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
   }
   
   button[type="submit"]:hover {

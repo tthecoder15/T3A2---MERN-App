@@ -12,7 +12,7 @@ const Booking = () => {
     <>
       <div className="contentFrame">
         <div>
-          <h2>Book Your Appointment</h2>
+          <h1>Book Your Appointment</h1>
           <div className="bookingFrame">
             <div>
               {userData.firstName ? (
