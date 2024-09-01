@@ -43,7 +43,7 @@ describe('LoginField Component', () => {
 
     await waitFor(() => {
       const { isAuthenticated } = sessionState.getState();
-      expect(isAuthenticated).toBe(true); // Ensure isAuthenticated is true
+      expect(isAuthenticated).toBe(true); 
 
       expect(screen.getByText('Login Successful!')).toBeInTheDocument();
     });
