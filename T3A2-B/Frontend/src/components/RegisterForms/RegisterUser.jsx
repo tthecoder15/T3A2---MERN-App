@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import sessionState from '../../routes/store';
 
-const RegisterUser = ({ onSuccess }) => {
+const RegisterUser = ({ onSuccess, registerUser }) => {
     const { apiBase, setUserData, token } = sessionState((state) => ({
         apiBase: state.apiBase,
         setUserData: state.setUserData,
@@ -68,23 +68,26 @@ const RegisterUser = ({ onSuccess }) => {
 
         if (validateForm()) {
             try {
-                const response = await fetch(`${apiBase}/users`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`, // Include token if required
-                    },
-                    body: JSON.stringify({
-                        email: formData.email,
-                        password: formData.password,
-                        phNumber: formData.phNumber,
-                        firstName: formData.firstName,
-                        lastName: formData.lastName,
-                        isAdmin: false,
-                        pets: [], 
-                        appointments: []
-                    }),
-                });
+                const response = await (registerUser || fetch)(
+                    `${apiBase}/users`, // Mocked fetch if `registerUser` is passed
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({
+                            email: formData.email,
+                            password: formData.password,
+                            phNumber: formData.phNumber,
+                            firstName: formData.firstName,
+                            lastName: formData.lastName,
+                            isAdmin: false,
+                            pets: [],
+                            appointments: [],
+                        }),
+                    }
+                );
 
                 const data = await response.json();
 
@@ -93,7 +96,7 @@ const RegisterUser = ({ onSuccess }) => {
                 const updatedUser = {
                     ...newUser,
                     pets: Array.isArray(newUser.pets) ? newUser.pets : [],
-                    appointments: Array.isArray(newUser.appointments) ? newUser.appointments : []
+                    appointments: Array.isArray(newUser.appointments) ? newUser.appointments : [],
                 };
 
                 setUserData(updatedUser);
@@ -134,56 +137,63 @@ const RegisterUser = ({ onSuccess }) => {
         <div className="UpdateAccountBox">
             <h5>Register Account</h5>
             <form onSubmit={handleSubmit}>
-                <p>Enter First Name</p>
+                <label htmlFor="firstName">Enter First Name</label>
                 <input
+                    id="firstName"
                     type="text"
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
                 />
                 {renderError('firstName')}
-                <p>Enter Last Name</p>
+                <label htmlFor="lastName">Enter Last Name</label>
                 <input
+                    id="lastName"
                     type="text"
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
                 />
                 {renderError('lastName')}
-                <p>Enter new contact Number</p>
+                <label htmlFor="phNumber">Enter new contact Number</label>
                 <input
+                    id="phNumber"
                     type="text"
                     name="phNumber"
                     value={formData.phNumber}
                     onChange={handleChange}
                 />
                 {renderError('phNumber')}
-                <p>Enter new email</p>
+                <label htmlFor="email">Enter new email</label>
                 <input
+                    id="email"
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                 />
                 {renderError('email')}
-                <p>Confirm Email</p>
+                <label htmlFor="confirmEmail">Confirm Email</label>
                 <input
+                    id="confirmEmail"
                     type="email"
                     name="confirmEmail"
                     value={formData.confirmEmail}
                     onChange={handleChange}
                 />
                 {renderError('confirmEmail')}
-                <p>Enter new password</p>
+                <label htmlFor="password">Enter new password</label>
                 <input
+                    id="password"
                     type="password"
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
                 />
                 {renderError('password')}
-                <p>Confirm Password</p>
+                <label htmlFor="confirmPassword">Confirm Password</label>
                 <input
+                    id="confirmPassword"
                     type="password"
                     name="confirmPassword"
                     value={formData.confirmPassword}
