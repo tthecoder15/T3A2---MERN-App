@@ -2,12 +2,14 @@ import React, { useLayoutEffect } from "react";
 import Popup from "reactjs-popup";
 import LoginField from "../Login/LoginField"
 import "reactjs-popup/dist/index.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import sessionState from "../../routes/store";
+import { Navigate } from "react-router-dom";
 
 const LoginPopup = ({popupControl, setPopupControl}) => 
     {
       const isAuthenticated = sessionState((state) => state.isAuthenticated);
+      const navigate = useNavigate()
 
       const makePopupClose = () => {
          setPopupControl(false)
@@ -19,6 +21,10 @@ const LoginPopup = ({popupControl, setPopupControl}) =>
         }
       }, 
       [isAuthenticated])
+
+      const registerClick = () => {
+        navigate('/user/login')
+      }
 
   return (
     <Popup
@@ -35,7 +41,7 @@ const LoginPopup = ({popupControl, setPopupControl}) =>
       <div id="submit-input">
         <button type='submit' onClick={makePopupClose}>Cancel</button>
       </div>
-      <Link to={'/user/login'}>Register Account</Link>
+        <button onClick={registerClick}>Register Account</button>
     </Popup>
   );
 };
