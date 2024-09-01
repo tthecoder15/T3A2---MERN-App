@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import sessionState from "../routes/store";
-import './global.css';
+import "./global.css";
 
 const NavBar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -29,28 +29,48 @@ const NavBar = () => {
         <div className="navLogo">
           <Link to="/">
             <img
-              src="../../docs/logo-and-art/PC-logo-ellipsis.png"
+              src="/docs/logo-and-art/PC-logo-ellipsis.png"
               alt="Navbar Logo"
             />
           </Link>
         </div>
-        <div className={`site-nav ${isMenuOpen ? 'active' : ''}`}>
-          <Link to="/" onClick={toggleMenu}>Home</Link>
+        <div className={`site-nav ${isMenuOpen ? "active" : ""}`}>
+          <Link to="/" onClick={toggleMenu}>
+            Home
+          </Link>
           <p>|</p>
-          <Link to="/ourteam" onClick={toggleMenu}>Our Team</Link>
+          <Link to="/ourteam" onClick={toggleMenu}>
+            Our Team
+          </Link>
           <p>|</p>
-          <Link to="/booking" onClick={toggleMenu}>Book Now</Link>
+          <Link to="/booking" onClick={toggleMenu}>
+            Book Now
+          </Link>
           <p>|</p>
-          <Link to="/contact" onClick={toggleMenu}>Contact Us</Link>
+          <Link to="/contact" onClick={toggleMenu}>
+            Contact Us
+          </Link>
         </div>
-        <div className={`login ${isMenuOpen ? 'active' : ''}`}>
+        <div className={`login ${isMenuOpen ? "active" : ""}`}>
           {isAuthenticated ? (
             <>
-              <Link id="logged-in" to="/user/login" onClick={toggleMenu}>My Account</Link>
-              <button id="logged-in" onClick={() => { logoutClick(); toggleMenu(); }}>Logout</button>
+              <Link id="logged-in" to="/user/login" onClick={toggleMenu}>
+                My Account
+              </Link>
+              <button
+                id="logged-in"
+                onClick={() => {
+                  logoutClick();
+                  toggleMenu();
+                }}
+              >
+                Logout
+              </button>
             </>
           ) : (
-            <Link id="logged-in" to="/user/login" onClick={toggleMenu}>Login/Register</Link>
+            <Link id="logged-in" to="/user/login" onClick={toggleMenu}>
+              Login/Register
+            </Link>
           )}
         </div>
       </nav>
