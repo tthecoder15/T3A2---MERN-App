@@ -156,17 +156,18 @@ router.post(`${usersPrefix}/admin`, async (req, res, next) => {
 router.patch(`${usersPrefix}/:id`, async (req, res, next) => {
     try {
         let { userId, isAdmin } = req.auth
-        
+
         if (req.params.id.length < 24) {
             throw customErrors.shortId
         }
-
         if (!isAdmin && !(req.params.id == userId)) {
             throw customErrors.authError
         }
 
         // Hash new password
-        req.body.password = await bcrypt.hash(req.body.password, saltRounds)
+        if (req.body.password) {
+            req.body.password = await bcrypt.hash(req.body.password, saltRounds)
+        }
 
         const user = await User.findByIdAndUpdate(
             req.params.id, req.body, {returnDocument: 'after'}
