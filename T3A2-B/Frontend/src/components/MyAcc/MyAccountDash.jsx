@@ -28,8 +28,12 @@ const MyAccountDash = () => {
     try {
       let upcDates = [];
       let oldDates = [];
+      // Check if pet is still in user data to display a given appointment
+      // This is because deleting a pet doesn't reset the appointments values
+      const petIds = userData.pets.map(pet => pet._id);
+      let sortAppts = userData.appointments.filter(appt => petIds.includes(appt.petId._id));
       if ("appointments" in userData) {
-        for (let appt of userData.appointments) {
+        for (let appt of sortAppts) {
           let dateNow = Date.now();
           let apptDate = new Date(appt.date);
           if (apptDate > dateNow) {
@@ -85,7 +89,7 @@ const MyAccountDash = () => {
 
   return (
     <div>
-      <div className="update-account">
+      <div className="UpdateAccount">
         <div>
           <h5>Personal Information</h5>
           <ul>
@@ -97,7 +101,7 @@ const MyAccountDash = () => {
             password.
           </p>
           <button
-            className="update-account"
+            className="UpdateAccount"
             onClick={() => dropdownSelect("Personal Information")}
           >
             {selectedSetting === "Personal Information"
