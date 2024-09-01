@@ -21,13 +21,10 @@ h1 {
   align-content: center;
   background-color: #caffae;
   color: #209D69;
-  margin-left: 20%;
+  margin-left: 10%;
   margin-right: 10%;
   margin-top:0;
-  padding-bottom:5%;
-  padding-top:5%;
-  padding-left:10%;
-  padding-right:5%;
+  padding: 5%;
 }
 
 #dropdown-basic {
