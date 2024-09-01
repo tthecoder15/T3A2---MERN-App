@@ -123,7 +123,7 @@ const MakeBookingForm = () => {
         // Set "submitting" error to true so it displays to user
         setErrors((prevErrors) => ({
           ...prevErrors,
-          submitting: true
+          submitting: true,
         }));
 
         const response = await fetch(`${apiBase}/appointments`, {
@@ -148,6 +148,11 @@ const MakeBookingForm = () => {
           if (errorData["error/s"] == "invalid_token") {
             setIsAuthenticated(false);
             setJwtExpired(true);
+            // Set "submitting" error to true so it displays to user
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              submitting: false,
+            }));
           }
           throw errorData;
         }
@@ -157,7 +162,11 @@ const MakeBookingForm = () => {
         // Alter submitted Appointment object to made log in population
         submittedAppointment.petId = petSelect;
         submittedAppointment.vetId = vetSelect;
-        setErrors((prevErrors) => ({ ...prevErrors, postError: "", submitting: "" }));
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          postError: "",
+          submitting: "",
+        }));
         setSubmitSuccess(true);
         setUserData({ appointments: submittedAppointment });
       } catch (err) {
@@ -168,6 +177,15 @@ const MakeBookingForm = () => {
       }
     }
   }
+
+  useEffect(() => {
+    if (jwtExpired == false) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        postError: "",
+      }));
+    }
+  }, [jwtExpired]);
 
   return (
     <>
@@ -209,7 +227,9 @@ const MakeBookingForm = () => {
       </div>
       <div id="submit-booking-button">
         <button onClick={postNewBooking}>Submit Booking</button>
-        {errors.submitting ? <p style={{ color: "gray" }}>Request submitted, please wait.</p> : null}
+        {errors.submitting ? (
+          <p style={{ color: "gray" }}>Request submitted, please wait.</p>
+        ) : null}
         {errors.postError ? (
           <p style={{ color: "red" }}>{errors.postError.toString()}</p>
         ) : null}
