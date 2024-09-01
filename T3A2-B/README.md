@@ -9,11 +9,13 @@ This README contains information relating to T3A2-B and the creation and deploym
 - [Website Link](#pawfect-care-website-link)
 - [Project Github Repository](#project-github-repository)
 - [Project Kanban Board](#project-kanban-board)
+- [Login Credntials](#login-credentials)
 - [Project Libraries](#project-kanban-board)
 - [Agile Project Management](#agile-project-management)
 - [Trello Screenshots](#trello-screenshots)
 - [Production Environment Testing](#production-environment-testing)
 - [Development Environment Testing](#development-environment-testing)
+- [Automated Testing](#automated-testing)
 - [Project Plan Adjustments](#project-plan-adjustments)
 - [T3A2-A Documentation](#t3a2-a-documentation)
 
@@ -32,6 +34,28 @@ This README contains information relating to T3A2-B and the creation and deploym
 ### Project Kanban Board
 
 [The Kanban board we have maintained throughout the project](https://trello.com/b/dlt2E3Mm/full-stack-app)
+
+### Login Credentials
+
+If you would like to test the website's functionality, feel free to register a user account or use these default accounts:
+
+```js
+const genericUser =
+{
+    email: "johnseesstars@gmail.com",
+    password: "starrynight"
+}
+
+const adminUser = 
+{
+    email: "pawfectcare@gmail.com",
+    password: "admin123"
+}
+```
+
+These credentials will allow you to access all of the front end functionality in different user contexts. In addition, these credentials can be used to test the back end which is hosted at [https://pawfect-care-api.onrender.com/](https://pawfect-care-api.onrender.com/). Feel free to submit requests to this database using Bruno or a similar http request generator.
+
+Please use this information responsibly and only seed appropriate data.
 
 ### Project Libraries - Front End
 
@@ -400,48 +424,102 @@ Additional functionality of the mongoose ```.find()``` functions. For example, u
 
 #### [Pawfect Care Trello Board](https://trello.com/b/dlt2E3Mm/full-stack-app)
 
-Throughout this project, we have employed a Kanban board created using the web application Trello. Below are the progress screenshots we captured throughout the websites creation.
+Throughout this project, we have employed a Kanban board created using the web application Trello. Below are the progress screenshots we captured throughout the website's creation.
 
-##### 11/08/2024 First Trello Screenshot
+##### 19/08/2024 First Trello Screenshot
 
-### UPDATE THIS WITH THE SSSS
+![19/08/2024](./docs/Trello/19-08-2024.JPG)
+The first screenshot of our Kanban board during T3A2-B.
 
-![11/08/2024](./docs/T3A2-A/Trello-11-08-2024.JPG)
-The first screenshot of our Kanban board. Each card features an assigned individual and a due date.
+##### 22/08/2024 Second Trello Screenshot
 
-### Production Environment Testing
+![22/08/2024](./docs/Trello/22-08-2024.JPG)
+The second screenshot of our Kanban board during T3A2-B.
+
+##### 25/08/2024 Third Trello Screenshot
+
+![25/08/2024](./docs/Trello/25-08-2024.JPG)
+The third screenshot of our Kanban board during T3A2-B.
+
+##### 29/08/2024 Fourth Trello Screenshot
+
+![29/08/2024](./docs/Trello/29-08-2024.JPG)
+The fourth screenshot of our Kanban board during T3A2-B.
+
+##### 31/08/2024 Fifth Trello Screenshot
+
+![31/08/2024](./docs/Trello/31-08-2024.png)
+The fifth screenshot of our Kanban board during T3A2-B.
 
 ### Development Environment Testing
+
+Before deploying the website, we had completed extensive testing by running the web application on a local port. Below are a list of tests we completed before deploying the website.
+
+![A table describing the different front end tests, criteria and results evaluated before deployment.](./docs/dev-env-testing.png)
+
+The following screenshot shows the email received via the "Contact Us" page form created using Formspree:
+
+![A screen shot of an email received by the designated clinic account from a submitted "Contact Us" form.](./docs/formspree-submission.png)
+
+### Production Environment Testing
 
 We first deployed the front end on the 31st. After deploying the website we tested the website on both a desktop and a mobile to identify issues. Below are screenshots of issues we immediately identified.
 
 #### Desktop Testing Screenshots
 
-![Production Environment Desktop Test 1](./docs/desktop-prod-t1.png)
+![Production environment desktop test screenshot 1](./docs/desktop-prod-t1.png)
 
 When attempting to log in to a seed user's account, it became apparent that the website's back end server was not connecting correctly. In addition, it highlighted the need for an indicator that shows a back end request is processing in case it is delayed.
 
-![Production Environment Desktop Test 2](./docs/desktop-prod-t2.png)
+![Production environment desktop test shot 2](./docs/desktop-prod-t2.png)
 
 This screenshot of the website's homepage reveals that the website's images were incorrectly linked. We have since corrected these link paths.
 
-![Production Environment Desktop Test 3](./docs/desktop-prod-t3.png)
+![Production environment desktop test screenshot 3](./docs/desktop-prod-t3.png)
 
 This screenshot of the MyAccount page shows a 404 error that presented when a user refreshed on a page other than the website's home page. We solved this solution by creating a ```_redirect``` file that compensates for React's single-page application structure.
 
 #### Mobile Test Screenshots
 
-![Production Environment Mobile Test 1](./docs/mob-prod-test1.png)
+![Production environment mobile test screenshot 1](./docs/mob-prod-test1.png)
 
 This screenshot reveals what happens when a user who is not logged in attempts to access the "/MyAccount" endpoint. The page is static and uninformative and needed to be reconfigured to automatically reroute a user who accesses this page without being logged in.
 
-![Production Environment Mobile Test 2](./docs/mob-prod-test2.png)
+![Production environment mobile test screenshot 2](./docs/mob-prod-test2.png)
 
 This screenshot reveals that the website's booking tool is functional but is not styled as expected when loaded on mobile. We have sinced solved this by adjusting the page's CSS.
 
-![Production Environment Mobile Test 3](./docs/mob-prod-test3.png)
+![Production environment mobile test screenshot 3](./docs/mob-prod-test3.png)
 
 This screenshot depicts the MyAccount dashboard when viewed on mobile. Testing this endpoint reveals that the information displays correctly but also shows that the text displays with different colours. This is an aesthetic issue we have since fixed by adjusting the CSS code.
+
+#### Production Environment Test Grid
+
+After these initial tests, we completed formalised production environment tests using both desktop and mobile devices which are described and assessed below.
+
+Desktop testing and results:
+
+![Production environment test grid for desktop devices](./docs/prod-env-testing-desktop.png)
+
+Mobile testing and results:
+
+![Production environment test grid for mobile devices](./docs/prod-env-testing-mobile.png)
+
+Both desktop and mobile tests in a deployed environment were successful.
+
+### Automated Testing
+
+We also created extensive automated tests for the back end and front end to ensure functionality persisted as changes were made. Below is a screenshot of the 41 back end tests being successfully completed by Jest and their descriptions.
+
+![A screen shot of Jest being run in the terminal having successfully completed all 41 back end tests](./docs/Auto-Tests-BE.png)
+
+The back end tests can be accessed [here](https://github.com/tthecoder15/T3A2-MERN-App/blob/main/T3A2-B/Backend/tests/app.test.js).
+
+Below is a screenshot of the 62 front end tests being successfully executed by Jest and their descriptions.
+
+![A screen shot of Jest being run in the terminal having successfully completed all 62 front end tests](./docs/Auto-Tests-FE.png)
+
+The front end tests can be accessed [here](https://github.com/tthecoder15/T3A2-MERN-App/tree/main/T3A2-B/Frontend/src/tests).
 
 ### Project Plan Adjustments
 
